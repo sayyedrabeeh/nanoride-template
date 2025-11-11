@@ -3,284 +3,430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Product</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fonts/linearicons-v1.0.0/icon-font.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/slick/slick.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/MagnificPopup/magnific-popup.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Woodora - Sign Up</title>
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Styles for the login container */
-        .container .login-container {
+        :root {
+            --wood-brown: #8B4513;
+            --dark-wood: #5D4037;
+            --cream: #F5F5DC;
+            --warm-beige: #FAF8F3;
+            --soft-gold: #D4AF37;
+            --text-dark: #3E2723;
+            --text-muted: #6D4C41;
+            --border: #D7CCC8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--warm-beige);
+            color: var(--text-dark);
+            min-height: 100vh;
             display: flex;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            width: 1270px;
-            max-width: 100%;
-            height: 750px;
-            margin: 0 auto; /* Centering the container */
+            flex-direction: column;
         }
-        .container .login-container .login-form {
-            padding: 40px 40px;
-            width: 500px;
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            border-bottom: 2px solid var(--border);
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 8px rgba(62, 39, 35, 0.06);
         }
-        .container .login-container .login-image {
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar .logo h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--wood-brown);
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar .logo span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: block;
+            line-height: 1;
+        }
+
+        .navbar .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 0.4rem 0.9rem !important;
+            transition: color 0.2s;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active {
+            color: var(--wood-brown) !important;
+        }
+
+        /* Signup Container */
+        .signup-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .signup-container {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(93, 64, 55, 0.12);
+            max-width: 900px;
             width: 100%;
-            height: auto;
-            object-fit: cover;
+            display: flex;
+            border: 1px solid var(--border);
+            min-height: 550px;
         }
-        .social-btn img {
-            width: 30px;
-            height: 30px;
-            margin: 0 5px;
+
+        .signup-image {
+            flex: 1;
+            background:url('{% static "images/si.webp" %}') center/contain;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+            padding: 2.5rem;
+            text-align: center;
         }
-        .login-image-label {
-            width: 600px;
-            height: 470px;
-            margin: 20px 20px;
+
+     
+        .signup-image h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: black;
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
         }
+
+        .signup-image p {
+            color: black;
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        .signup-form {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 380px;
+        }
+
+        .signup-form h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.85rem;
+            color: var(--wood-brown);
+            margin-bottom: 0.25rem;
+        }
+
+        .signup-form p.lead {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-control {
+            background: var(--warm-beige);
+            border: 1.5px solid var(--border);
+            color: var(--text-dark);
+            border-radius: 8px;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            margin-bottom: 0.9rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--wood-brown);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+            background: white;
+        }
+
+        .btn-signup {
+            background: var(--wood-brown);
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: white;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.5rem;
+        }
+
+        .btn-signup:hover {
+            background: var(--dark-wood);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.25);
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn-social {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.5rem;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-social:hover {
+            border-color: var(--wood-brown);
+            background: var(--warm-beige);
+            color: var(--wood-brown);
+        }
+
+        .btn-social img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--text-muted);
+            margin: 1rem 0;
+            font-size: 0.8rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .divider span {
+            padding: 0 0.75rem;
+        }
+
+        .text-link {
+            color: var(--wood-brown);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .text-link:hover {
+            color: var(--dark-wood);
+            text-decoration: underline;
+        }
+
+        footer {
+            background: var(--wood-brown);
+            color: var(--cream);
+            text-align: center;
+            padding: 1.25rem 0;
+            font-size: 0.8rem;
+            margin-top: auto;
+        }
+
+        /* Decorative wood grain effect */
+        .wood-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--soft-gold), var(--wood-brown), var(--dark-wood));
+        }
+
+        /* Alert Styles */
+        .alert {
+            font-size: 0.8rem;
+            padding: 0.7rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container .login-container {
+            .signup-container {
                 flex-direction: column;
-                height: auto;
-                padding: 20px;
+                min-height: auto;
             }
-            .container .login-container .login-form {
-                width: 100%;
-                padding: 20px;
+            .signup-image {
+                min-height: 180px;
+                padding: 1.75rem;
             }
-            .container .login-container .login-image-label {
-                display: none;
+            .signup-image h3 {
+                font-size: 1.35rem;
+            }
+            .signup-form {
+                padding: 1.75rem;
+                min-width: auto;
             }
         }
+
         @media (max-width: 576px) {
-            .container .login-container .login-form {
-                padding: 15px;
+            .signup-form {
+                padding: 1.5rem;
             }
-            .container .login-container {
-                padding: 15px;
+            .social-buttons {
+                flex-direction: column;
+            }
+            .navbar .logo h2 {
+                font-size: 1.25rem;
             }
         }
-
-        /* Success message */
-.alert-success {
-    color: white;  /* Text color */
-    background-color: green;  /* Background color */
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-/* Error message */
-.alert-danger {
-    color: white;  /* Text color */
-    background-color: red;  /* Background color */
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
     </style>
 </head>
-<body class="animsition">
-
-    <!-- Header -->
-    <header class="header-v4">
-        <div class="container-menu-desktop">
-            <div class="wrap-menu-desktop how-shadow1">
-                <nav class="limiter-menu-desktop container">
-                    <a href="#" class="logo">
-                        <h2>NANORIDE</h2>
-                    </a>
-                    <div class="menu-desktop">
-                        <ul class="main-menu">
-                            <li><a href="{% url 'home' %}">Home</a></li>
-                            <li class="active-menu"><a href="product.html">Shop</a></li>
-                            <li class="label1" data-label1="hot"><a href="shoping-cart.html">Features</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                        </ul>
-                    </div>
-                    <div class="wrap-icon-header flex-w flex-r-m">
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                            <i class="zmdi zmdi-search"></i>
-                        </div>
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
-                            <i class="zmdi zmdi-shopping-cart"></i>
-                        </div>
-                        <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
-                            <i class="zmdi zmdi-favorite-outline"></i>
-                        </a>
-                    </div>
-                </nav>
-            </div>
-        </div>
-
-        <!-- Header Mobile -->
-        <div class="wrap-header-mobile">
-            <div class="logo-mobile">
-                <a href="index.html"><h5>NANORIDE</h5></a>
-            </div>
-            <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-                    <i class="zmdi zmdi-search"></i>
+<body>
+    <div class="wood-accent"></div>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand logo" href="#">
+                <div>
+                    <h2>Woodora</h2>
+                    <span>Furniture & Interior</span>
                 </div>
-                <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="2">
-                    <i class="zmdi zmdi-shopping-cart"></i>
-                </div>
-                <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
-                    <i class="zmdi zmdi-favorite-outline"></i>
-                </a>
-            </div>
-            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-                <span class="hamburger-box">
-                    <span class="hamburger-inner"></span>
-                </span>
-            </div>
-        </div>
-
-        <!-- Menu Mobile -->
-        <div class="menu-mobile">
-            <ul class="main-menu-m">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="product.html">Shop</a></li>
-                <li><a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-
-        <!-- Modal Search -->
-        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
-            <div class="container-search-header">
-                <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
-                    <img src="{% static 'images/icons/icon-close2.png' %}" alt="CLOSE">
-                </button>
-                <form class="wrap-search-header flex-w p-l-15" action="#" method="GET">
-                    <button class="flex-c-m trans-04">
-                        <i class="zmdi zmdi-search"></i>
-                    </button>
-                    <input class="stext-103 cl2 size-104" type="text" name="search" placeholder="Search...">
-                </form>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="product.html">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shoping-cart.html">Collections</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Inspiration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
             </div>
         </div>
-    </header>
-
-    <!-- Product Section -->
- 
-    <div class="container">
-        <div class="login-container d-flex">
-            <div class="login-image-label d-md-block">
-                <img src="{% static 'images/p11.png' %}" alt="Login Image" class="login-image">
+    </nav>
+    <div class="signup-wrapper">
+        <div class="signup-container">
+            <div class="signup-image d-none d-md-flex">
+                <h3>Join the Woodora<br>Family Today</h3>
+                <p>Create your account and discover premium furniture</p>
             </div>
-            <div class="login-form mt-4">
-                <h1><b>Sign Up</b></h1>
+            <div class="signup-form">
+                <h1>Create Account</h1>
+                <p class="lead">Fill in your details to get started</p>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{% if 'error' in message.tags %}danger{% elif 'success' in message.tags %}success{% endif %} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 <form method="POST" action="{% url 'usersignup' %}">
                     {% csrf_token %}
-                    <div class="form-group">
-                        <label for="username">Username</label>
+                    <div class="mb-2">
+                        <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" name="username" 
-                               placeholder="Enter Username" required 
+                               placeholder="Choose a username" required 
                                value="{{ request.POST.username|default:'' }}">
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
+                    <div class="mb-2">
+                        <label for="email" class="form-label">Email Address</label>
                         <input type="email" class="form-control" id="email" name="email" 
-                               placeholder="Enter Email" required 
+                               placeholder="your@email.com" required 
                                value="{{ request.POST.email|default:'' }}">
                     </div>
-                    <div class="form-group">
-                        <label for="password1">Password</label>
+                    <div class="mb-2">
+                        <label for="password1" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password1" name="password1" 
-                               placeholder="Enter Password" required>
+                               placeholder="Create a strong password" required>
                     </div>
-                    <div class="form-group">
-                        <label for="password2">Confirm Password</label>
+                    <div class="mb-2">
+                        <label for="password2" class="form-label">Confirm Password</label>
                         <input type="password" class="form-control" id="password2" name="password2" 
-                               placeholder="Confirm Password" required>
+                               placeholder="Re-enter your password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <button type="submit" class="btn btn-signup w-100">Create Account</button>
                 </form>
-                
-                {% if messages %}
-                    <div class="mt-4">
-                        {% for message in messages %}
-                            <div class="alert 
-                                {% if 'error' in message.tags %}alert-danger{% elif 'success' in message.tags %}alert-success{% endif %}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-    
-                <div class="text-center mt-4">
-                    <p>Already have an account? <a href="{% url 'custom_login' %}">Login</a></p>
+                <div class="divider"><span>or sign up with</span></div>
+                <div class="social-buttons">
+                    <a href="" class="btn btn-social">
+                        <img src="{% static 'images/google.webp' %}" alt="Google"> Google
+                    </a>
+                    <a href="" class="btn btn-social">
+                        <img src="{% static 'images/face.webp' %}" alt="Facebook"> Facebook
+                    </a>
+                    <a href="" class="btn btn-social">
+                        <img src="{% static 'images/git.png' %}" alt="GitHub"> GitHub
+                    </a>
                 </div>
-                {% comment %} <div class="text-center mt-4">
-                    <p>Or Sign Up with</p>
-                    <div class="text-center mt-4 ml-5 w-75">
-                        <button type="button" class="btn btn-light social-btn">
-                            <a href="{% provider_login_url 'google' %}" class="btn btn-light">
-                                <img src="{% static 'images/google.webp' %}" alt="Google"> 
-                            </a>
-                        </button>
-                        
-                        <button type="button" class="btn btn-light social-btn">
-                             
-                                <a href="{% provider_login_url 'facebook' %}" class="btn btn-light">
-                                    <img src="{% static 'images/face.webp' %}" alt="facebook"> 
-                                </a>
-                        </button>
-                        
-                        <button type="button" class="btn btn-light social-btn">
-                             
-                                <a href="{% provider_login_url 'github' %}" class="btn btn-light">
-                                    <img src="{% static 'images/git.png' %}" alt="facebook"> 
-                                </a>
-                        </button>
-                        
-                    </div>
-                </div> {% endcomment %}
+                <p class="text-center mt-3 mb-0" style="font-size: 0.875rem; color: var(--text-muted);">
+                    Already have an account? <a href="{% url 'custom_login' %}" class="text-link">Sign In</a>
+                </p>
             </div>
         </div>
     </div>
-        
-
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center">
-        <div class="container p-4">
-            <p>© 2024 NANORIDE. All rights reserved.</p>
+    <footer>
+        <div class="container">
+            <p class="mb-0">© 2025 Woodora Furniture & Interior. Crafted with care.</p>
         </div>
     </footer>
-
-    <!-- Scripts -->
-    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'vendor/select2/select2.min.js' %}"></script>
-    <script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
-    <script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
-    <script src="{% static 'vendor/slick/slick.min.js' %}"></script>
-    <script src="{% static 'vendor/MagnificPopup/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
