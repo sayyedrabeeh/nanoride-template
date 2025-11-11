@@ -1,0 +1,422 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Woodora - Login</title>
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --wood-brown: #8B4513;
+            --dark-wood: #5D4037;
+            --cream: #F5F5DC;
+            --warm-beige: #FAF8F3;
+            --soft-gold: #D4AF37;
+            --text-dark: #3E2723;
+            --text-muted: #6D4C41;
+            --border: #D7CCC8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--warm-beige);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            border-bottom: 2px solid var(--border);
+            padding: 0.5rem 0;
+            box-shadow: 0 2px 8px rgba(62, 39, 35, 0.06);
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar .logo h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--wood-brown);
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar .logo span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: block;
+            line-height: 1;
+        }
+
+        .navbar .nav-link {
+            color: var(--text-dark) !important;
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 0.4rem 0.9rem !important;
+            transition: color 0.2s;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .nav-link.active {
+            color: var(--wood-brown) !important;
+        }
+
+        /* Login Container */
+        .login-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(93, 64, 55, 0.12);
+            max-width: 850px;
+            width: 100%;
+            display: flex;
+            border: 1px solid var(--border);
+            min-height: 500px;
+        }
+
+        .login-image {
+            flex: 1;
+            background:  
+                        url('{% static "images/furnitue-login.jpg" %}') center/cover;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: end;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        
+        .login-image h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: black;
+            text-shadow: 0 0 2px rgba(0,0,0,0.3);
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-image p {
+            color: black;
+            font-size: 0.9rem;
+            opacity: 0.95;
+
+        }
+
+        .login-form {
+            flex: 1;
+            padding: 2.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 340px;
+        }
+
+        .login-form h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.85rem;
+            color: var(--wood-brown);
+            margin-bottom: 0.25rem;
+        }
+
+        .login-form p.lead {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            background: var(--warm-beige);
+            border: 1.5px solid var(--border);
+            color: var(--text-dark);
+            border-radius: 8px;
+            padding: 0.7rem 0.9rem;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--wood-brown);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+            background: white;
+        }
+
+        .form-floating > label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            padding: 0.7rem 0.9rem;
+        }
+
+        .btn-login {
+            background: var(--wood-brown);
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: white;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-login:hover {
+            background: var(--dark-wood);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.25);
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn-social {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.55rem;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-social:hover {
+            border-color: var(--wood-brown);
+            background: var(--warm-beige);
+            color: var(--wood-brown);
+        }
+
+        .btn-social img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--text-muted);
+            margin: 1.25rem 0;
+            font-size: 0.8rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .divider span {
+            padding: 0 0.75rem;
+        }
+
+        .text-link {
+            color: var(--wood-brown);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .text-link:hover {
+            color: var(--dark-wood);
+            text-decoration: underline;
+        }
+
+        .form-check-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .form-check-input:checked {
+            background-color: var(--wood-brown);
+            border-color: var(--wood-brown);
+        }
+
+        footer {
+            background: var(--wood-brown);
+            color: var(--cream);
+            text-align: center;
+            padding: 1.25rem 0;
+            font-size: 0.8rem;
+            margin-top: auto;
+        }
+
+        /* Decorative wood grain effect */
+        .wood-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--soft-gold), var(--wood-brown), var(--dark-wood));
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+                min-height: auto;
+            }
+            .login-image {
+                min-height: 180px;
+                padding: 1.75rem;
+            }
+            .login-image h3 {
+                font-size: 1.35rem;
+            }
+            .login-form {
+                padding: 1.75rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .login-form {
+                padding: 1.5rem;
+            }
+            .social-buttons {
+                flex-direction: column;
+            }
+            .navbar .logo h2 {
+                font-size: 1.25rem;
+            }
+        }
+
+        .alert {
+            font-size: 0.875rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wood-accent"></div>
+
+     
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand logo" href="#">
+                <div>
+                    <h2>Woodora</h2>
+                    <span>Furniture & Interior</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="product.html">Shop</a></li>
+                    <li class="nav-item"><a class="nav-link" href="shoping-cart.html">Collections</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Inspiration</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="login-wrapper">
+        <div class="login-container">
+            <div class="login-image d-none d-md-flex">
+                <h3>Crafting Comfort,<br>Designing Dreams</h3>
+                <p>Premium furniture for elegant living spaces</p>
+            </div>
+            <div class="login-form">
+                <h1>Welcome Back</h1>
+                <p class="lead">Sign in to access your account</p>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <form method="POST" action="{% url 'account_login' %}">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username" required />
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required />
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember">
+                            <label class="form-check-label" for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="text-link">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-login w-100">Sign In</button>
+                </form>
+                <div class="divider"><span>or continue with</span></div>
+                <div class="social-buttons">
+                    <a href="" class="btn btn-social">
+                        <img src="{% static 'images/google.webp' %}" alt="Google"> Google
+                    </a>
+                    <a href="" class="btn btn-social">
+                        <img src="{% static 'images/face.webp' %}" alt="Facebook"> Facebook
+                    </a>
+                    <a href="" class="btn btn-social">
+                        <img src="{% static 'images/git.png' %}" alt="GitHub"> GitHub
+                    </a>
+                </div>
+                <p class="text-center mt-3 mb-0" style="font-size: 0.875rem; color: var(--text-muted);">
+                    New to Woodora? <a href="{% url 'custom_signup' %}" class="text-link">Create Account</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p class="mb-0">© 2025 Woodora Furniture & Interior. Crafted with care.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
