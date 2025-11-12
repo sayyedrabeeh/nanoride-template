@@ -111,13 +111,15 @@
             font-weight: 500;
         }
         .sidebar a i {
-            font-size: 18px;
+            font-size: 15px;
             width: 30px;
             text-align: center;
         }
         .sidebar a .link-text {
             margin-left: 15px;
             transition: opacity 0.3s;
+            font-size: 12px;
+            font-weight: 500;
         }
         .sidebar.collapsed a .link-text {
             opacity: 0;
@@ -455,8 +457,8 @@
 <body>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <span class="sidebar-title">WOODORA</span>
             <button id="toggleButton">&#9776;</button>
+            <span class="sidebar-title">WOODORA</span>
         </div>  
         <div class="sidebar-content">
             <a href=" " id="dashboard"><i class="fas fa-tachometer-alt"></i><span class="link-text">Dashboard</span></a>
@@ -465,8 +467,7 @@
             <a href=" " id="orders"><i class="fas fa-shopping-cart"></i><span class="link-text">Orders</span></a>
             <a href=" " id="offer"><i class="fas fa-tag"></i><span class="link-text">Offers</span></a>
             <a href="{% url 'brand' %}" id="brand"><i class="fas fa-th"></i><span class="link-text">Brands</span></a>
-            <a href="{% url 'add_category_view' %}" id="category"><i class="fas fa-folder"></i><span class="link-text">Categories</span></a>
-            <a href=" " id="report"><i class="fas fa-chart-line"></i><span class="link-text">Reports</span></a>
+             <a href=" " id="report"><i class="fas fa-chart-line"></i><span class="link-text">Reports</span></a>
             <a href="{% url 'Edition' %}" class="active" id="edition"><i class="fas fa-book"></i><span class="link-text">Editions</span></a>
             <a href="{% url 'type1' %}"><i class="fas fa-cogs"></i><span class="link-text">Types</span></a>
         </div>

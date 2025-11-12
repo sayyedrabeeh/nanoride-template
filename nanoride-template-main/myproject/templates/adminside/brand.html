@@ -93,12 +93,13 @@
         }
         .sidebar a i {
             min-width: 30px;
-            font-size: 20px;
+            font-size: 15px;
         }
         .sidebar a .link-text {
             display: none;
             margin-left: 15px;
-            font-size: 15px;
+            font-size: 12px;
+            font-weight: 500;
             white-space: nowrap;
         }
         .sidebar.expanded a .link-text {
@@ -417,6 +418,7 @@
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <button id="toggleButton">&#9776;</button>
+            
             <span class="sidebar-title">WOODORA</span>
         </div>  
         <div class="sidebar-content">
@@ -427,8 +429,7 @@
             <a href="#" id="orders"><i class="fas fa-shopping-cart"></i><span class="link-text">Orders</span></a>
             <a href="#" id="offer"><i class="fas fa-tag"></i><span class="link-text">Offers</span></a>
             <a href="{% url 'brand' %}" id="brand" class="active"><i class="fas fa-th"></i><span class="link-text">Brands</span></a>
-            <a href="{% url 'add_category_view' %}" id="category"><i class="fas fa-folder"></i><span class="link-text">Categories</span></a>
-            <a href="#" id="report"><i class="fas fa-chart-line"></i><span class="link-text">Reports</span></a>
+             <a href="#" id="report"><i class="fas fa-chart-line"></i><span class="link-text">Reports</span></a>
             <a href="{% url 'Edition' %}" id="edition"><i class="fas fa-book"></i><span class="link-text">Edition</span></a>
             <a href="{% url 'type1' %}"><i class="fas fa-cogs"></i><span class="link-text">Type</span></a>
         </div>

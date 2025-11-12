@@ -15,7 +15,7 @@ from django.views.decorators.cache import never_cache
 @login_required(login_url='admin_login')
 def users(request):
     all_users = User.objects.order_by('-is_active', 'last_login')
-    print(all_users,'lkkjjjjn') 
+    
     return render(request, 'adminside/users.html', {'all_users': all_users})
 @never_cache
 @login_required(login_url='admin_login')
@@ -47,44 +47,7 @@ def user_details(request, user_id):
         return JsonResponse(data)
     except User.DoesNotExist:
         return JsonResponse({"error": "User not found"}, status=404)
-    
-# def catogery(request):
-#     # categories = Categories.objects.all().order_by('-status')
-#     brands = Brand.objects.all().order_by('status')
-#     print('hiiiiiii',brands)
-#     types = Type1.objects.all().order_by('status')
-#     editions = Edition.objects.all().order_by('status')
-    
-
-#     return render(request, 'adminside/catogery.html', {
-       
-#         'brands': brands,
-#         'types': types,
-#         'editions': editions,
-#     })
-# def add_catogery(request):
-#     categories = Categories.objects.all().order_by('-status')
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         brand_id = request.POST.get('brand')  # Get the brand ID as a string
-#         edition_id = request.POST.get('edition')  # Get the edition ID as a string
-#         type_id = request.POST.get('type1') # Get the edition ID as a string
-
-#         # Retrieve the actual Brand and Edition instances
-#         brand = get_object_or_404(Brand, id=brand_id)  # Get Brand instance or 404
-#         edition = get_object_or_404(Edition, id=edition_id)  # Get Edition instance or 404
-#         type_instance = get_object_or_404(Type1, id=type_id)  # Get Edition instance or 404
-
-#         print(f"Received: name={name}, brand={brand}, edition={edition}")  # Debugging
-
-#         # Create and save the category with the actual Brand and Edition instances
-#         category = Categories(name=name, brand=brand, edition=edition,type1=type_instance)
-#         category.save()
-#         print('saved', category)
-        
-#         return redirect('catogery')  # Redirect back to the category view after saving
-
-#     return render(request,'adminside/catogery.html',{'categories': categories})
+  
 @never_cache
 def admin_login(request):
     if request.method == 'POST':
@@ -105,68 +68,7 @@ def admin_login(request):
             messages.error(request, 'Invalid credentials. Please try again.')
     
     return render(request, 'adminside/login.html')
-@never_cache
-@login_required(login_url='admin_login')
-def edit_catogery(request, pk):
-    if request.user.is_authenticated:
-        return redirect('home')
-    category = get_object_or_404(Categories, pk=pk)
-
-    if request.method == 'POST':
-        try:
-            # Update the category with the new data from the request
-            category.name = request.POST.get('name')
-            category.brand = get_object_or_404(Brand, pk=request.POST.get('brand'))
-            category.edition = get_object_or_404(Edition, pk=request.POST.get('edition'))
-            category.type1 = get_object_or_404(Type1, pk=request.POST.get('type1'))
-
-            # Save the updated category
-            category.save()
-
-            # Redirect to the category management page after saving
-            return redirect('add_category_view')  # Change this to your actual view name for categories
-
-        except Exception as e:
-            # Handle the error (optional)
-            print(f"Error updating category: {e}")
-
-    # If the request method is not POST, render the edit form with existing data
-    return render(request, 'adminside/edit_category.html', {
-        'category': category,
-        'brands': Brand.objects.all(),
-        'editions': Edition.objects.all(),
-        'types': Type1.objects.all(),
-    })
-@never_cache
-@login_required(login_url='admin_login') 
-@csrf_exempt  # Use this if you're handling CSRF tokens manually
-def delete_catogery(request, pk):
-    if request.method == 'POST':
-        category = get_object_or_404(Categories, pk=pk)
-        category.delete()
-        return JsonResponse({'status': 'deleted'})
-    return JsonResponse({'error': 'Invalid request'}, status=400)
-@never_cache
-@login_required(login_url='admin_login')
-def list_catogery(request, pk):
-    category = get_object_or_404(Categories, pk=pk)
-    category.status = 'listed'  # Set to 'listed'
-    category.save()
-    return JsonResponse({'status': 'listed'})
-@never_cache
-@login_required(login_url='admin_login')
-def delist_catogery(request, pk):
-    category = get_object_or_404(Categories, pk=pk)
-    category.status = 'delisted'  # Set to 'delisted'
-    category.save()
-    return JsonResponse({'status': 'delisted'})
-@never_cache
-@login_required(login_url='admin_login')
-def toggle_category_status(request, pk):
-    category = get_object_or_404(Categories, pk=pk)
-    category.status = 'delisted' if Categories.status == 'listed' else 'listed'
-    category.save()
-    return JsonResponse({'status': Categories.status})
+ 
 @never_cache
 @login_required(login_url='admin_login')
 def get_suggestions(request):
