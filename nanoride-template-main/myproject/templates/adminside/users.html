@@ -1,329 +1,692 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Customer Management - Woodora Admin</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary: #2C1810;
+            --secondary: #A67C52;
+            --accent: #E8C39E;
+            --dark: #1a0f0a;
+            --light: #FAF7F2;
+            --gray: #8B8680;
+            --white: #FFFFFF;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #17a2b8;
+        }
         body {
-            font-family: "Roboto", sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background: var(--light);
+            color: var(--primary);
+            overflow-x: hidden;
         }
-
-        /* Sidebar styling */
-        .sidebar {
-            height: 100%;
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #343a40;
-            padding-top: 20px;
-            z-index: 1000;
-        }
-
-        .sidebar a {
-            padding: 15px 20px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #ddd;
-            display: block;
-            transition: background-color 0.2s;
-        }
-
-        .sidebar a::focus {
-            background-color: #495057;
-        }
-
-        .sidebar a:focus{
-            background-color: #007bff;
-            color: white;
-        }
-
-        /* Main content area */
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            transition: margin-left 0.3s ease;
-        }
-
-        /* Responsive adjustments */
-        @media screen and (max-width: 768px) {
-            .sidebar {
-                width: 100px;
-            }
-
-            .main-content {
-                margin-left: 100px;
-            }
-
-            .sidebar a {
-                text-align: center;
-                font-size: 14px;
-            }
-        }
-
-        .filter-sort-bar {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-        }
-
-        .filter-sort-bar select,
-        .filter-sort-bar input[type="search"] {
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-right: 10px;
-            flex: 1; /* Allow them to take available space */
-            max-width: 150px; /* Maximum width for select/input */
-        }
-
-        /* Table styling */
-        .table-wrapper {
-            background: #fff;
-            padding: 20px 25px;
-            margin: 30px 0;
-            border-radius: 3px;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-        }
-
-        .table-title {
-            padding-bottom: 15px;
-            background: #435d7d;
-            color: #fff;
-            padding: 16px 30px;
-            margin: -20px -25px 10px;
-            border-radius: 3px 3px 0 0;
-        }
-
-        .status.active {
-            color: green;
-            font-weight: bold;
-        }
-
-        .status.blocked {
-            color: red;
-            font-weight: bold;
-        }
-
-        .btn {
-            border-radius: 2px;
-            font-size: 12px;
-            margin-right: 5px; /* Space between buttons */
-        }
-
-        .btn.block {
-            background-color: #dc3545; /* Red for block */
-            color: white;
-        }
-
-        .btn.delete {
-            background-color: #007bff; /* Blue for delete */
-            color: white;
-        }
-
-        .btn.block:hover,
-        .btn.delete:hover {
-            opacity: 0.8;
-        }
-
-        /* Responsive styles for the table */
-        @media screen and (max-width: 768px) {
-            .table {
-                font-size: 12px; /* Smaller font size on mobile */
-            }
-
-            .table th,
-            .table td {
-                padding: 8px; /* Smaller padding */
-            }
-           .sidebar-header{
-            color:#fff
-           }
-        }
-        .status.active {
-            color: green; /* Active status color */
-            font-weight: bold;
-        }
-        
-        .status.blocked {
-            color: red; /* Blocked status color */
-            font-weight: bold;
-        }
-        
-        .btn {
-            margin-right: 5px; /* Add some spacing between buttons */
+        h1, h2, h3, h4, h5 {
+            font-family: 'Cormorant Garamond', serif;
         }
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 60px; /* Small width for collapsed state */
+            width: 80px;
             height: 100vh;
-            background-color: #333;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--primary) 100%);
             transition: width 0.3s ease;
-            overflow: hidden; /* Hide overflow for small sidebar */
+            overflow: hidden;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.1);
         }
-        
         .sidebar.expanded {
-            width: 250px; /* Width when expanded */
+            width: 280px;
         }
-        
         .sidebar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        
-        .sidebar-title {
-            display: none; /* Hide by default */
-        }
-        
-        .sidebar.expanded .sidebar-title {
-            display: block; /* Show when expanded */
-        }
-        
-        .sidebar-content {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .sidebar a {
+        .toggle-btn {
+            background: none;
+            border: none;
             color: white;
-            text-decoration: none;
-            padding: 15px 10px;
+            cursor: pointer;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+        .toggle-btn:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+        .sidebar-title {
+            display: none;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--accent);
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .sidebar.expanded .sidebar-title {
+            display: block;
+        }
+        .sidebar-content {
+            padding: 20px 0;
+        }
+        .sidebar a {
             display: flex;
             align-items: center;
+            padding: 18px 25px;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
         }
-        
-        .sidebar a .link-text {
-            display: none; /* Hide text in collapsed state */
-            margin-left: 10px; /* Space between icon and text */
+        .sidebar a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: var(--accent);
+            transition: height 0.3s ease;
         }
-        
-        .sidebar.expanded a .link-text {
-            display: inline; /* Show text when expanded */
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(166, 124, 82, 0.1);
+            color: white;
         }
-        
+        .sidebar a:hover::before,
+        .sidebar a.active::before {
+            height: 100%;
+        }
         .sidebar a i {
-            margin-right: 10px; /* Space between icon and text */
+            font-size: 20px;
+            min-width: 30px;
         }
-        
+        .sidebar a .link-text {
+            display: none;
+            margin-left: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .sidebar.expanded a .link-text {
+            display: inline;
+        }
         .main-content {
-            margin-left: 60px; /* Initial margin to accommodate small sidebar */
+            margin-left: 80px;
+            padding: 30px;
             transition: margin-left 0.3s ease;
+            min-height: 100vh;
         }
-        
         .main-content.expanded {
-            margin-left: 250px; /* Margin when sidebar is expanded */
+            margin-left: 280px;
         }
-        a.active {
-            font-weight: bold;
-            background-color: #00a7eb  
+        .page-header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        
+        .page-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .page-subtitle {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .stat-card:nth-child(1) .stat-icon {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+        .stat-card:nth-child(2) .stat-icon {
+            background: rgba(166, 124, 82, 0.1);
+            color: var(--secondary);
+        }
+        .stat-card:nth-child(3) .stat-icon {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+        .stat-card:nth-child(4) .stat-icon {
+            background: rgba(23, 162, 184, 0.1);
+            color: var(--info);
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .filter-bar {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .filter-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .filter-select {
+            padding: 10px 20px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            background: white;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 10px 40px 10px 20px;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .table-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 25px 30px;
+        }
+        .table-header h2 {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .user-table thead {
+            background: var(--light);
+        }
+        .user-table th {
+            padding: 18px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .user-table td {
+            padding: 20px;
+            border-bottom: 1px solid var(--light);
+            vertical-align: middle;
+        }
+        .user-table tbody tr {
+            transition: all 0.3s ease;
+        }
+        .user-table tbody tr:hover {
+            background: rgba(166, 124, 82, 0.05);
+        }
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .user-name {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 3px;
+        }
+        .user-email {
+            font-size: 12px;
+            color: var(--gray);
+        }
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .status-badge.active {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+        .status-badge.blocked {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-action {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        .btn-block {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+        }
+        .btn-block:hover {
+            background: var(--danger);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .btn-unblock {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+        }
+        .btn-unblock:hover {
+            background: var(--success);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .btn-view {
+            background: rgba(166, 124, 82, 0.1);
+            color: var(--secondary);
+        }
+        .btn-view:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .pagination-wrapper {
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--light);
+        }
+        .page-info {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        .pagination-btns {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-page {
+            padding: 10px 20px;
+            background: var(--light);
+            border: 2px solid var(--light);
+            color: var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-page:hover:not(:disabled) {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: white;
+        }
+        .btn-page:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 25px 30px;
+            border: none;
+        }
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .modal-header .close {
+            color: white;
+            opacity: 1;
+            text-shadow: none;
+            font-size: 32px;
+        }
+        .modal-body {
+            padding: 30px;
+        }
+        .user-detail-row {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light);
+        }
+        .user-detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: var(--primary);
+            min-width: 120px;
+        }
+        .detail-value {
+            color: var(--gray);
+        }
+        .modal-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 1200px) {
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar.expanded {
+                width: 100%;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .page-title {
+                font-size: 28px;
+            }
+
+            .user-table {
+                font-size: 12px;
+            }
+
+            .user-table th,
+            .user-table td {
+                padding: 12px 10px;
+            }
+
+            .action-btns {
+                flex-direction: column;
+            }
+        }
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
     </style>
 </head>
-
 <body>
-     <!-- Sidebar -->
-     <div class="sidebar" id="sidebar" style='overflow-y:auto;height: 100vh;scrollbar-width:none;'>
-        <div class="sidebar-header" >
-            <button id="toggleButton" style="background: none; border: none; color: white; cursor: pointer; font-size: 24px;">&#9776;</button>
-            <span class="sidebar-title" style='color: wheat;font-size: 35px;font-weight: 900;'>NANORIDE</span>
-        </div>
-        
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <button id="toggleButton" class="toggle-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <span class="sidebar-title">WOODORA</span>
+        </div>  
         <div class="sidebar-content">
-            <a href="{% url 'custom_logout1' %}"><span class="link-text"><h5>Log Out</h5></span></a> 
-
-            <a href=" " id="dashboard"><i class="fas fa-tachometer-alt"></i><span class="link-text">Dashboard</span></a>
-            <a href="{% url 'users' %} " id="customers"class="active"><i class="fas fa-users active"></i><span class="link-text">Customers</span></a>
-            <a href="{% url 'products' %}" ><i class="fas fa-box"></i><span class="link-text">Product</span></a>
-            <a href=" " id="orders"><i class="fas fa-shopping-cart"></i><span class="link-text">Orders</span></a>
-            <a href=" " id="offer"><i class="fas fa-tag"></i><span class="link-text">Offer</span></a>
-            <a href="{% url 'brand' %}" id="brand" ><i class="fas fa-th"></i><span class="link-text">Brand</span></a>
-            <a href="{% url 'add_category_view' %}" id="category"><i class="fas fa-folder"></i><span class="link-text">Category</span></a>
-            <a href=" " id="report"><i class="fas fa-chart-line"></i><span class="link-text">Report</span></a>
-            <a href="{% url 'Edition' %}" id="edition"><i class="fas fa-book"></i><span class="link-text">Edition</span></a>
-            <a href="{% url 'type1' %}"><i class="fas fa-cogs"></i><span class="link-text">Type</span></a>
+            <a href="#">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="link-text">Dashboard</span>
+            </a>
+            <a href="{% url 'users' %}" class="active">
+                <i class="fas fa-users"></i>
+                <span class="link-text">Customers</span>
+            </a>
+            <a href="{% url 'products' %}">
+                <i class="fas fa-couch"></i>
+                <span class="link-text">Products</span>
+            </a>
+            <a href="#">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="link-text">Orders</span>
+            </a>
+            <a href="#">
+                <i class="fas fa-tags"></i>
+                <span class="link-text">Offers</span>
+            </a>
+            <a href="{% url 'brand' %}">
+                <i class="fas fa-certificate"></i>
+                <span class="link-text">Brands</span>
+            </a>
+            <a href="{% url 'add_category_view' %}">
+                <i class="fas fa-folder-open"></i>
+                <span class="link-text">Categories</span>
+            </a>
+            <a href="#">
+                <i class="fas fa-chart-bar"></i>
+                <span class="link-text">Reports</span>
+            </a>
+            <a href="{% url 'Edition' %}">
+                <i class="fas fa-bookmark"></i>
+                <span class="link-text">Collections</span>
+            </a>
+            <a href="{% url 'type1' %}">
+                <i class="fas fa-th-large"></i>
+                <span class="link-text">Types</span>
+            </a>
+            <a href="{% url 'custom_logout1' %}">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="link-text">Logout</span>
+            </a>
         </div>
     </div>
-    
-    
-
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <!-- Filter, Sort, Search Bar -->
-        <div class="filter-sort-bar">
-            <div>
-                <select id="filter">
-                    <option value="all">All</option>
+    <div class="main-content" id="mainContent">
+        <div class="page-header">
+            <h1 class="page-title">Customer Management</h1>
+            <p class="page-subtitle">Manage and monitor your customer accounts</p>
+        </div>
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-value">{{ all_users|length }}</div>
+                <div class="stat-label">Total Customers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-value">
+                    {{ all_users|length }}
+                </div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-slash"></i>
+                </div>
+                <div class="stat-value">0</div>
+                <div class="stat-label">Blocked Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <div class="stat-value">8</div>
+                <div class="stat-label">New This Month</div>
+            </div>
+        </div>
+        <div class="filter-bar">
+            <div class="filter-group">
+                <select id="filter" class="filter-select">
+                    <option value="all">All Users</option>
                     <option value="active">Active</option>
                     <option value="blocked">Blocked</option>
                 </select>
-
-                <select id="sort">
+                <select id="sort" class="filter-select">
                     <option value="name">Sort by Name</option>
                     <option value="date">Sort by Date</option>
                 </select>
             </div>
 
-            <div>
-                <input type="search" id="search" placeholder="Search...">
+            <div class="search-box">
+                <input type="search" id="search" placeholder="Search customers...">
+                <i class="fas fa-search"></i>
             </div>
         </div>
-        <div class="container">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h2>Manage <b>Users</b></h2>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Profile</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="userTable">
-                        {% for user in all_users %}
-                        <tr data-status="{% if user.is_active %}active{% else %}blocked{% endif %}">
-                            <td>
-                                {% if user.profile_image %}
-                                    <img src="{{ user.profile_image.url }}" onerror="this.src='{% static 'images/profile.png' %}'" style="width:40px;height:40px;">
-                                {% else %}
-                                    <img src="{% static 'images/profile.png' %}" style="width:40px;height:40px;">
-                                {% endif %}
-                            </td>
-                            <td>{{ user.username }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>
-                                <span class="status {% if user.is_active %}active{% else %}blocked{% endif %}">
-                                    {{ user.is_active|yesno:"Active,Blocked" }}
-                                </span>
-                            </td>
-                            <td>
-                                <button class="btn block" data-id="{{ user.id }}" data-status="{% if user.is_active %}active{% else %}blocked{% endif %}">
-                                    <i class="fas {% if user.is_active %}fa-user-slash{% else %}fa-user-check{% endif %}" title="{% if user.is_active %}Block{% else %}Unblock{% endif %}"></i>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h2>All Customers</h2>
+            </div>
+
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">Profile</th>
+                        <th style="width: 25%;">Customer</th>
+                        <th style="width: 25%;">Email</th>
+                        <th style="width: 15%;">Status</th>
+                        <th style="width: 15%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTable">
+                    {% for user in all_users %}
+                    <tr data-status="{% if user.is_active %}active{% else %}blocked{% endif %}">
+                        <td>
+                            {% if user.profile_image %}
+                                <img src="{{ user.profile_image.url }}" onerror="this.src='{% static 'images/profile.png' %}'" class="user-avatar">
+                            {% else %}
+                                <img src="{% static 'images/profile.png' %}" class="user-avatar">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="user-name">{{ user.username }}</div>
+                            <div class="user-email">Joined: {{ user.date_joined|date:"M d, Y" }}</div>
+                        </td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            <span class="status-badge {% if user.is_active %}active{% else %}blocked{% endif %}">
+                                {{ user.is_active|yesno:"Active,Blocked" }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn-action {% if user.is_active %}btn-block{% else %}btn-unblock{% endif %} block-btn" 
+                                        data-id="{{ user.id }}" 
+                                        data-status="{% if user.is_active %}active{% else %}blocked{% endif %}"
+                                        title="{% if user.is_active %}Block User{% else %}Unblock User{% endif %}">
+                                    <i class="fas {% if user.is_active %}fa-user-slash{% else %}fa-user-check{% endif %}"></i>
                                 </button>
-                                <button style='margin-left:50px' class="btn see-more"
+                                <button class="btn-action btn-view see-more"
                                         data-id="{{ user.id }}"
                                         data-profile-image="{% if user.profile_image %}{{ user.profile_image.url }}{% else %}{% static 'images/profile.png' %}{% endif %}"
                                         data-name="{{ user.username }}"
@@ -333,74 +696,96 @@
                                         data-address="{{ user.profile.address|default:'N/A' }}"
                                         data-wallet="{{ user.profile.wallet|default:'N/A' }}"
                                         data-toggle="modal"
-                                        data-target="#userDetailsModal">
-                                    <i class="fas fa-arrow-right" title="See More"></i>
+                                        data-target="#userDetailsModal"
+                                        title="View Details">
+                                    <i class="fas fa-eye"></i>
                                 </button>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="5">No users found.</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                    
-                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: var(--gray);">
+                            <i class="fas fa-users" style="font-size: 48px; margin-bottom: 15px; opacity: 0.3;"></i>
+                            <p>No customers found.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-                <div id="pagination" class="mt-3 text-center">
-                    <button id="prev" class="btn btn-secondary" disabled>
+            <div class="pagination-wrapper">
+                <div class="page-info" id="page-info"></div>
+                <div class="pagination-btns">
+                    <button id="prev" class="btn-page" disabled>
                         <i class="fas fa-chevron-left"></i> Previous
                     </button>
-                    <span id="page-info" class="mx-3"></span>
-                    <button id="next" class="btn btn-secondary">
+                    <button id="next" class="btn-page">
                         Next <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
-
             </div>
         </div>
-    
-      
+
+    </div>
 
 
     <div id="userDetailsModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">User Details</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Customer Details</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <img id="userProfileImage" src="" alt="Profile Image" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;">
-                    <p><strong>Name:</strong> <span id="userName"></span></p>
-                    <p><strong>Email:</strong> <span id="userEmail"></span></p>
-                    <p><strong>Status:</strong> <span id="userStatus"></span></p>
-                    <p><strong>Phone Number:</strong> <span id="userPhone"></span></p>
-                    <p><strong>Address:</strong> <span id="userAddress"></span></p>
-                    <p><strong>Wallet:</strong> <span id="userWallet"></span></p>
+                    <img id="userProfileImage" src="" alt="Profile" class="modal-avatar">
+                    
+                    <div class="user-detail-row">
+                        <span class="detail-label">Name:</span>
+                        <span class="detail-value" id="userName"></span>
+                    </div>
+                    <div class="user-detail-row">
+                        <span class="detail-label">Email:</span>
+                        <span class="detail-value" id="userEmail"></span>
+                    </div>
+                    <div class="user-detail-row">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value" id="userStatus"></span>
+                    </div>
+                    <div class="user-detail-row">
+                        <span class="detail-label">Phone:</span>
+                        <span class="detail-value" id="userPhone"></span>
+                    </div>
+                    <div class="user-detail-row">
+                        <span class="detail-label">Address:</span>
+                        <span class="detail-value" id="userAddress"></span>
+                    </div>
+                    <div class="user-detail-row">
+                        <span class="detail-label">Wallet Balance:</span>
+                        <span class="detail-value" id="userWallet"></span>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="modal-footer" style="border: none; padding: 20px 30px;">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: 12px 30px; border-radius: 8px; font-weight: 600;">Close</button>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script>
 
+    <script>
+    
         document.addEventListener('DOMContentLoaded', function() {
             const toggleButton = document.getElementById('toggleButton');
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('mainContent');
-        
+
             toggleButton.addEventListener('click', function() {
-                sidebar.classList.toggle('expanded'); // Toggle the 'expanded' class on the sidebar
-                mainContent.classList.toggle('expanded'); // Toggle the 'expanded' class on the main content
+                sidebar.classList.toggle('expanded');
+                mainContent.classList.toggle('expanded');
             });
         });
 
-
-        // Handle search functionality
+    
         $("#search").on("keyup", function () {
             var value = $(this).val().toLowerCase();
             $("#userTable tr").filter(function () {
@@ -408,7 +793,7 @@
             });
         });
 
-        // Handle filter functionality
+
         $("#filter").on("change", function () {
             var filterValue = $(this).val();
             $("#userTable tr").filter(function () {
@@ -421,17 +806,17 @@
             });
         });
 
-        // Handle sort functionality
+        
         $("#sort").on("change", function () {
             var sortValue = $(this).val();
             var rows = $("#userTable tr").detach().get();
             rows.sort(function (a, b) {
                 var aText, bText;
                 if (sortValue === "name") {
-                    aText = $(a).find("td:nth-child(2)").text();
-                    bText = $(b).find("td:nth-child(2)").text();
+                    aText = $(a).find(".user-name").text();
+                    bText = $(b).find(".user-name").text();
                 } else if (sortValue === "date") {
-                    aText = $(a).find("td:nth-child(3)").text(); // Assuming date is in the 3rd column
+                    aText = $(a).find("td:nth-child(3)").text();
                     bText = $(b).find("td:nth-child(3)").text();
                 }
                 return aText.localeCompare(bText);
@@ -440,7 +825,7 @@
         });
 
         
-{% comment %} block {% endcomment %}
+
          
 $(document).on('click', '.block', function (e) {
     e.preventDefault();
@@ -451,19 +836,14 @@ $(document).on('click', '.block', function (e) {
         url: '{% url "block_user" 0 %}'.replace('0', userId),
         type: 'POST',
         headers: {
-            'X-CSRFToken': '{{ csrf_token }}' // Ensure CSRF token is included
+            'X-CSRFToken': '{{ csrf_token }}' 
         },
         success: function (data) {
-            // Update the button status based on the response
             var newStatus = data.is_active ? 'active' : 'blocked';
             button.data('status', newStatus);
             button.find('i').toggleClass('fa-user-slash fa-user-check');
-
-            // Update the status text and color
             var statusText = data.is_active ? 'Active' : 'Blocked';
             var statusClass = data.is_active ? 'active' : 'blocked';
-
-            // Find the corresponding status span and update its content and class
             var statusSpan = button.closest('tr').find('.status');
             statusSpan.text(statusText);
             statusSpan.removeClass('active blocked').addClass(statusClass);
@@ -474,11 +854,7 @@ $(document).on('click', '.block', function (e) {
     });
 });
  
-
-        
-
         $(document).on('click', '.see-more', function() {
-            // Get user details from the button's data attributes
             var userProfileImage = $(this).data('profile-image');
             var userName = $(this).data('name');
             var userEmail = $(this).data('email');
@@ -486,8 +862,6 @@ $(document).on('click', '.block', function (e) {
             var userPhone = $(this).data('phone');
             var userAddress = $(this).data('address');
             var userWallet = $(this).data('wallet');
-        
-            // Populate the modal with user data
             $('#userName').text(userName);
             $('#userEmail').text(userEmail);
             $('#userStatus').text(userStatus);
@@ -495,36 +869,30 @@ $(document).on('click', '.block', function (e) {
             $('#userAddress').text(userAddress);
             $('#userWallet').text(userWallet);
             $('#userProfileImage').attr('src', userProfileImage).on('error', function() {
-                $(this).attr('src', '{% static "images/profile.png" %}'); // Fallback image
+                $(this).attr('src', '{% static "images/profile.png" %}'); 
             });
-            // Show the modal
             $('#userDetailsModal').modal('show');
         });
 
 
-        // Pagination Variables
-const itemsPerPage = 5; // Number of items per page
-let currentPage = 1; // Track the current page
-const totalRows = $("#userTable tr").length; // Total number of rows
-const totalPages = Math.ceil(totalRows / itemsPerPage); // Total pages
-
-// Function to display the current page of users
+        
+const itemsPerPage = 5;
+let currentPage = 1; 
+const totalRows = $("#userTable tr").length; 
+const totalPages = Math.ceil(totalRows / itemsPerPage); 
 function displayPage(page) {
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
 
     $("#userTable tr").hide().slice(start, end).show();
     $("#page-info").text(`Page ${page} of ${totalPages}`);
-
-    // Enable/disable pagination buttons
     $("#prev").prop("disabled", page === 1);
     $("#next").prop("disabled", page === totalPages);
 }
 
-// Initial display
 displayPage(currentPage);
 
-// Previous Button Click Event
+
 $("#prev").click(function () {
     if (currentPage > 1) {
         currentPage--;
@@ -532,7 +900,7 @@ $("#prev").click(function () {
     }
 });
 
-// Next Button Click Event
+
 $("#next").click(function () {
     if (currentPage < totalPages) {
         currentPage++;
@@ -540,15 +908,15 @@ $("#next").click(function () {
     }
 });
 
-// Search and Filter: Reset pagination when search/filter changes
+
 $("#search, #filter").on("change keyup", function () {
-    currentPage = 1; // Reset to first page
+    currentPage = 1; 
     const filteredRows = $("#userTable tr:visible").length;
     const pages = Math.ceil(filteredRows / itemsPerPage);
     
-    $("#pagination").toggle(filteredRows > itemsPerPage); // Show/hide pagination
+    $("#pagination").toggle(filteredRows > itemsPerPage); 
     if (pages > 0) {
-        displayPage(currentPage); // Update page display
+        displayPage(currentPage); 
     }
 });
 
