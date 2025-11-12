@@ -10,8 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
-
     <style>
         :root {
             --wood-brown: #8B4513;
@@ -38,21 +36,17 @@
             display: flex;
             flex-direction: column;
         }
-
-        /* Navbar */
         .navbar {
             background: white;
             border-bottom: 2px solid var(--border);
             padding: 0.5rem 0;
             box-shadow: 0 2px 8px rgba(62, 39, 35, 0.06);
         }
-
         .navbar .logo {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-
         .navbar .logo h2 {
             font-family: 'Playfair Display', serif;
             color: var(--wood-brown);
@@ -61,7 +55,6 @@
             margin: 0;
             letter-spacing: 0.5px;
         }
-
         .navbar .logo span {
             font-size: 0.75rem;
             color: var(--text-muted);
@@ -69,7 +62,6 @@
             display: block;
             line-height: 1;
         }
-
         .navbar .nav-link {
             color: var(--text-dark) !important;
             font-weight: 500;
@@ -77,13 +69,10 @@
             padding: 0.4rem 0.9rem !important;
             transition: color 0.2s;
         }
-
         .navbar .nav-link:hover,
         .navbar .nav-link.active {
             color: var(--wood-brown) !important;
         }
-
-        /* Login Container */
         .login-wrapper {
             flex: 1;
             display: flex;
@@ -91,7 +80,6 @@
             justify-content: center;
             padding: 2rem 1rem;
         }
-
         .login-container {
             background: white;
             border-radius: 16px;
@@ -103,38 +91,178 @@
             border: 1px solid var(--border);
             min-height: 500px;
         }
-
         .login-image {
             flex: 1;
-            background:  
-                        url('{% static "images/furnitue-login.jpg" %}') center/cover;
+            background: linear-gradient(135deg, #8B4513 0%, #5D4037 100%);
             position: relative;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: end;
-            padding: 2.5rem;
-            text-align: center;
+            padding: 3rem;
+            overflow: hidden;
         }
-
-        
-        .login-image h3 {
+        .login-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(30deg, rgba(255,255,255,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.03) 87.5%, rgba(255,255,255,0.03)),
+                linear-gradient(150deg, rgba(255,255,255,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.03) 87.5%, rgba(255,255,255,0.03)),
+                linear-gradient(30deg, rgba(255,255,255,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.03) 87.5%, rgba(255,255,255,0.03)),
+                linear-gradient(150deg, rgba(255,255,255,0.03) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,0.03) 87.5%, rgba(255,255,255,0.03));
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+            z-index: 0;
+        }
+        .login-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .login-header {
+            margin-bottom: 2rem;
+        }
+        .company-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.25rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+        .company-badge-icon {
+            width: 32px;
+            height: 32px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .company-badge-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: #8B4513;
+        }
+        .company-badge span {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        .login-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: black;
-            text-shadow: 0 0 2px rgba(0,0,0,0.3);
-            line-height: 1.4;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+        .login-subtitle {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 400px;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 1.25rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .benefit-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(5px);
+        }
+        .benefit-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin-bottom: 0.5rem;
         }
-
-        .login-image p {
-            color: black;
-            font-size: 0.9rem;
-            opacity: 0.95;
-
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
-
+        .benefit-icon i {
+            font-size: 1.15rem;
+            color: white;
+        }
+        .benefit-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+            margin: 0;
+        }
+        .benefit-description {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+            padding-left: 3.5rem;
+        }
+        .trust-indicators {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .trust-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .trust-icon i {
+            color: white;
+            font-size: 1rem;
+        }
+        .trust-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .trust-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .trust-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
         .login-form {
             flex: 1;
             padding: 2.25rem;
@@ -143,7 +271,6 @@
             justify-content: center;
             min-width: 340px;
         }
-
         .login-form h1 {
             font-family: 'Playfair Display', serif;
             font-weight: 700;
@@ -151,13 +278,11 @@
             color: var(--wood-brown);
             margin-bottom: 0.25rem;
         }
-
         .login-form p.lead {
             color: var(--text-muted);
             font-size: 0.875rem;
             margin-bottom: 1.5rem;
         }
-
         .form-control {
             background: var(--warm-beige);
             border: 1.5px solid var(--border);
@@ -167,19 +292,16 @@
             font-size: 0.875rem;
             transition: all 0.2s;
         }
-
         .form-control:focus {
             border-color: var(--wood-brown);
             box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
             background: white;
         }
-
         .form-floating > label {
             color: var(--text-muted);
             font-size: 0.875rem;
             padding: 0.7rem 0.9rem;
         }
-
         .btn-login {
             background: var(--wood-brown);
             border: none;
@@ -192,19 +314,16 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
         .btn-login:hover {
             background: var(--dark-wood);
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(139, 69, 19, 0.25);
         }
-
         .social-buttons {
             display: flex;
             gap: 0.75rem;
             margin-top: 1rem;
         }
-
         .btn-social {
             flex: 1;
             display: flex;
@@ -221,18 +340,15 @@
             transition: all 0.2s;
             text-decoration: none;
         }
-
         .btn-social:hover {
             border-color: var(--wood-brown);
             background: var(--warm-beige);
             color: var(--wood-brown);
         }
-
         .btn-social img {
             width: 16px;
             height: 16px;
         }
-
         .divider {
             display: flex;
             align-items: center;
@@ -241,40 +357,33 @@
             margin: 1.25rem 0;
             font-size: 0.8rem;
         }
-
         .divider::before,
         .divider::after {
             content: '';
             flex: 1;
             border-bottom: 1px solid var(--border);
         }
-
         .divider span {
             padding: 0 0.75rem;
         }
-
         .text-link {
             color: var(--wood-brown);
             font-weight: 600;
             text-decoration: none;
             font-size: 0.875rem;
         }
-
         .text-link:hover {
             color: var(--dark-wood);
             text-decoration: underline;
         }
-
         .form-check-label {
             font-size: 0.875rem;
             color: var(--text-muted);
         }
-
         .form-check-input:checked {
             background-color: var(--wood-brown);
             border-color: var(--wood-brown);
         }
-
         footer {
             background: var(--wood-brown);
             color: var(--cream);
@@ -283,8 +392,6 @@
             font-size: 0.8rem;
             margin-top: auto;
         }
-
-        /* Decorative wood grain effect */
         .wood-accent {
             position: absolute;
             top: 0;
@@ -293,8 +400,11 @@
             height: 4px;
             background: linear-gradient(90deg, var(--soft-gold), var(--wood-brown), var(--dark-wood));
         }
-
-        /* Responsive */
+        .alert {
+            font-size: 0.875rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+        }
         @media (max-width: 768px) {
             .login-container {
                 flex-direction: column;
@@ -304,14 +414,13 @@
                 min-height: 180px;
                 padding: 1.75rem;
             }
-            .login-image h3 {
-                font-size: 1.35rem;
+            .login-title {
+                font-size: 1.5rem;
             }
             .login-form {
                 padding: 1.75rem;
             }
         }
-
         @media (max-width: 576px) {
             .login-form {
                 padding: 1.5rem;
@@ -322,19 +431,15 @@
             .navbar .logo h2 {
                 font-size: 1.25rem;
             }
-        }
-
-        .alert {
-            font-size: 0.875rem;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
+            .trust-indicators {
+                flex-direction: column;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="wood-accent"></div>
-
-     
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand logo" href="#">
@@ -361,8 +466,31 @@
     <div class="login-wrapper">
         <div class="login-container">
             <div class="login-image d-none d-md-flex">
-                <h3>Crafting Comfort,<br>Designing Dreams</h3>
-                <p>Premium furniture for elegant living spaces</p>
+                <div class="login-content">
+                    <div class="login-header">
+                        <div class="company-badge">
+                            <div class="company-badge-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 3L2 9v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V9l-10-6z"/>
+                                </svg>
+                            </div>
+                            <span>WOODORA PREMIUM</span>
+                        </div>              
+                        <h2 class="login-title">Welcome Back to Your Furniture Sanctuary</h2>
+                        <p class="login-subtitle">Access your personalized dashboard and continue crafting your dream living space with our curated collection.</p>
+                    </div>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-header">
+                                <div class="benefit-icon">
+                                    <i class="bi bi-bookmark-star"></i>
+                                </div>
+                                <h4 class="benefit-title">Personalized Experience</h4>
+                            </div>
+                            <p class="benefit-description">Your saved items, preferences, and order history all in one place</p>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="login-form">
                 <h1>Welcome Back</h1>
