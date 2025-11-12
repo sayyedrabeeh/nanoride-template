@@ -282,8 +282,8 @@ def list_products(request):
 @never_cache
 @login_required(login_url='admin_login')
 def brand(request):
-    if request.user.is_authenticated:
-      return redirect('users')
+    # if request.user.is_authenticated:
+    #   return redirect('users')
     brand=Brand.objects.all().order_by('status')
     return render(request,'adminside/brand.html',{'brand':brand})
 @never_cache
