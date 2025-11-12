@@ -59,7 +59,7 @@ def admin_login(request):
     # Render the login page if GET request or invalid login
     return render(request, 'adminside/login1.html')
 
-# Create your views here.
+
 def generate_otp():
     return str(random.randint(100000, 999999))
 
@@ -71,8 +71,6 @@ def usersignup(request):
         email = request.POST.get('email')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-
-        # Check for existing username or email
         if User.objects.filter(username=username).exists():
             messages.error(request, 'Username already exists.')
         elif User.objects.filter(email=email).exists():
@@ -82,31 +80,24 @@ def usersignup(request):
         elif len(password1)<6:
             messages.error(request, 'Passwords must be six charecter.')
         else:
-            # Create a new user but don't save yet
             user = User(username=username, email=email)
             user.set_password(password1)
-
-            # Generate and send OTP
             otp = generate_otp()
-            print("generated otp",otp)
             subject = 'Your OTP Code'
             message = f'Your OTP code is {otp}'
             from_email = settings.EMAIL_HOST_USER
-            
             try:
                 send_mail(subject, message, from_email, [email])
-                # Store OTP and user data in session for verification
                 request.session['otp'] = otp 
-                request.session['otp_generated_time'] = time.time()  # Store the current time
+                request.session['otp_generated_time'] = time.time() 
                 request.session['otp_expiration_time'] = 300
                 request.session['resend_otp_time'] = 30   
                 request.session['user_data'] = {'username': username, 'email': email, 'password': password1}
-                return redirect('verify_otp')  # Redirect to OTP verification page
+                return redirect('verify_otp')
             except Exception as e:
                 messages.error(request, f'Error sending email: {str(e)}')
-                return render(request, 'userside/otp.html',{'error': str(e)})  # Render the signup form again
-
-    return render(request, 'userside/usersignup.html')  
+                return render(request, 'userside/otp.html',{'error': str(e)}) 
+    return render(request, 'account/signup.html')  
 
 
 
