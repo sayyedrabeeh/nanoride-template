@@ -187,14 +187,14 @@ def userlogin(request):
             messages.error(request, 'Username or Password is wrong.')
             return render(request, 'account/login.html', {'username': username})
     return render(request, 'account/login.html')
-    
+
 
 class CustomBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         User = get_user_model()
         try:
             user = User.objects.get(username=username)
-            if not user.is_active:  # Check if user is blocked
+            if not user.is_active:   
                 return None
             if user.check_password(password):
                 return user
@@ -203,8 +203,7 @@ class CustomBackend(ModelBackend):
 
    
 def custom_logout(request):
-    logout(request)  # Log out the user
-    # Optionally, add any additional logic here (e.g., logging, notifications)
+    logout(request)   
     return redirect(reverse( 'custom_login' )) 
 
 def home(request):
@@ -217,13 +216,10 @@ def home(request):
 
 @login_required
 def userproducts(request):
-    
     products=Product.objects.all()
-    
     context={
         'products':products
     }
-    
     return render(request,'userside/products.html',context)
 
 @login_required
