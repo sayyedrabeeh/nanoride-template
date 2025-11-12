@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
-from .models import Categories,Brand,Type1,Edition,Product,Variants
+from .models import  Brand,Type1,Edition,Product,Variants
 from django.shortcuts import render, redirect, get_object_or_404
 import logging
 from django.http import HttpResponse
@@ -84,48 +84,51 @@ def get_suggestions(request):
 @login_required(login_url='admin_login')
 def products1(request):
     products = Product.objects.all()
-    categories = Categories.objects.all() # Fetch all products
-    brands = Brand.objects.all()  # Fetch all brands
-    return render(request, 'adminside/product.html', {'products': products, 'brands': brands,'categories': categories})
+    type1 = Type1.objects.all() 
+    edition = Edition.objects.all() 
+    brands = Brand.objects.all() 
+    return render(request, 'adminside/product.html', {'products': products, 'brands': brands,'edition': edition,'type1': type1})
+ 
 @never_cache
 @login_required(login_url='admin_login')
 def add_products(request):
-    categories = Categories.objects.filter(status='listed')
     brands = Brand.objects.filter(status='listed')
-    variants = Variants.objects.all()  # Fetch variants if needed
-
+    types = Type1.objects.filter(status='listed')
+    editions = Edition.objects.filter(status='listed')
+    variants = Variants.objects.all()
     if request.method == 'POST':
-        print('hii')
         name = request.POST.get('name')
         description = request.POST.get('description')
-        category_id = request.POST.get('category')
         brand_id = request.POST.get('brand')
-        price = request.POST.get('price')  # Get price from the form
-        stock = request.POST.get('stock')  # Get stock from the form
-        image = request.FILES.get('main_image')  # Get image from the form
-
-        
-        category = get_object_or_404(Categories, id=category_id)
+        price = request.POST.get('price')
+        stock = request.POST.get('stock')
+        image = request.FILES.get('main_image')
+        selected_types = request.POST.getlist('types')  
+        selected_editions = request.POST.getlist('editions')
         brand = get_object_or_404(Brand, id=brand_id)
-
-            # Create a new product instance
-        new_item = Product(
-                name=name,
-                description=description,
-                category=category,
-                brand=brand,
-                price=price,
-                stock=stock,
-                image=image  # Save the image
-            )
-        new_item.save()
+        new_product = Product.objects.create(
+            name=name,
+            description=description,
+            brand=brand,
+            price=price,
+            stock=stock,
+            image=image
+        )
+        if selected_types:
+            new_product.type1.set(selected_types)
+        if selected_editions:
+            new_product.edition.set(selected_editions)
         return redirect('products')
-
     return render(request, 'adminside/product.html', {
-        'categories': categories,
         'brands': brands,
-        'variants': variants  # Pass variants to the template if needed
+        'types': types,
+        'editions': editions,
+        'variants': variants,
     })
+
+
+
+
 @never_cache
 @login_required(login_url='admin_login')
 def edit_products(request, product_id):

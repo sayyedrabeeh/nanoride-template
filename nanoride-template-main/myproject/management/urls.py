@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 # from .views import block_user
-from .views import  edit_catogery, delete_catogery ,toggle_category_status,get_suggestions,products1,Brand,edtion,add_brand,toggle_status,edit_brand,list_brand,type1,add_type,edit_type,list_type,Edition1,add_Edition,list_Edition,add_category_view,list_catogery,add_products,list_products,edit_products,product_variants_view,add_variant_view
+from .views import   get_suggestions,products1,Brand,edtion,add_brand,toggle_status,edit_brand,list_brand,type1,add_type,edit_type,list_type,Edition1,add_Edition,list_Edition,add_products,list_products,edit_products,product_variants_view,add_variant_view
 
 from .views import index
 urlpatterns = [

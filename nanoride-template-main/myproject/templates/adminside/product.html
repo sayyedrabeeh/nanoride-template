@@ -899,17 +899,34 @@
                                 <input type="text" class="form-control" name="name" placeholder="e.g., Oak Dining Table" required>
                                 <span class="helper-text">Enter a descriptive name for the product</span>
                             </div>
+                             <div class="col-md-6">
+                                <label>Brand</label>
+                                <select name="brand" required>
+                                    <option value="">Select brand</option>
+                                    {% for brand in brands %}
+                                        <option value="{{ brand.id }}">{{ brand.brand_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Category <span class="required">*</span></label>
-                                <select class="form-control" name="category" required>
-                                    <option value="">Select a category</option>
-                                    {% for category in categories %}
-                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                            <label>Edition(s)</label>
+                            <select name="editions" multiple class="form-control">
+                                {% for e in editions %}
+                                    <option value="{{ e.id }}">{{ e.edition_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                                <label>Type(s)</label>
+                                <select name="types" multiple class="form-control">
+                                    {% for t in types %}
+                                        <option value="{{ t.id }}">{{ t.name }}</option>
                                     {% endfor %}
                                 </select>
-                                <span class="helper-text">Choose the appropriate category</span>
+                                <small>Hold Ctrl (Windows) or Cmd (Mac) to select multiple types</small>
                             </div>
                         </div>
                     </div>
