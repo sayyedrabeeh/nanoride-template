@@ -268,3 +268,6 @@ def about(request):
 
 def service(request):
     return render(request,'userside/service.html')
+
+def contact(request):
+    return render(request,'userside/contact.html')
