@@ -265,3 +265,6 @@ def custom_logoutadmin(request):
     logout(request)  # Log the user out
     messages.success(request, "You have been logged out successfully.")  # Optional: Add a success message
     return redirect('admin_login') 
+
+def about(request):
+    return render(request,'userside/about.html')

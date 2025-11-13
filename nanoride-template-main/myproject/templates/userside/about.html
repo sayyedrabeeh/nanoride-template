@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>About Us - Woodora Interior Design</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		:root {
+			--primary: #2C1810;
+			--secondary: #A67C52;
+			--accent: #E8C39E;
+			--dark: #1a0f0a;
+			--light: #FAF7F2;
+			--gray: #8B8680;
+			--white: #FFFFFF;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			color: var(--primary);
+			background: var(--white);
+			overflow-x: hidden;
+			line-height: 1.6;
+		}
+
+		h1, h2, h3, h4 {
+			font-family: 'Playfair Display', serif;
+		}
+
+		/* Navigation */
+		.navbar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 1000;
+			background: rgba(255, 255, 255, 0.98);
+			backdrop-filter: blur(20px);
+			border-bottom: 1px solid rgba(0,0,0,0.05);
+			transition: all 0.3s ease;
+		}
+
+		.navbar.scrolled {
+			box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+		}
+
+		.nav-container {
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 0 40px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: 80px;
+		}
+
+		.logo {
+			font-size: 28px;
+			font-weight: 800;
+			color: var(--primary);
+			text-decoration: none;
+			letter-spacing: 2px;
+			font-family: 'Playfair Display', serif;
+		}
+
+		.logo span {
+			color: var(--secondary);
+		}
+
+		.nav-menu {
+			display: flex;
+			gap: 40px;
+			list-style: none;
+			align-items: center;
+		}
+
+		.nav-menu a {
+			color: var(--primary);
+			text-decoration: none;
+			font-size: 15px;
+			font-weight: 500;
+			transition: color 0.3s ease;
+			position: relative;
+		}
+
+		.nav-menu a.active {
+			color: var(--secondary);
+		}
+
+		.nav-menu a::after {
+			content: '';
+			position: absolute;
+			bottom: -5px;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background: var(--secondary);
+			transition: width 0.3s ease;
+		}
+
+		.nav-menu a.active::after,
+		.nav-menu a:hover::after {
+			width: 100%;
+		}
+
+		.nav-menu a:hover {
+			color: var(--secondary);
+		}
+
+		.nav-cta {
+			background: var(--secondary);
+			color: white !important;
+			padding: 12px 28px;
+			border-radius: 50px;
+			font-weight: 600;
+		}
+
+		.nav-cta:hover {
+			background: var(--primary);
+			transform: translateY(-2px);
+		}
+
+		.nav-cta::after {
+			display: none;
+		}
+
+		.mobile-toggle {
+			display: none;
+			flex-direction: column;
+			gap: 5px;
+			cursor: pointer;
+		}
+
+		.mobile-toggle span {
+			width: 25px;
+			height: 2px;
+			background: var(--primary);
+			transition: all 0.3s ease;
+		}
+
+		/* Page Header */
+		.page-header {
+			margin-top: 80px;
+			height: 400px;
+			background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			color: white;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.page-header::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23A67C52" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grain)"/></svg>');
+			opacity: 0.3;
+		}
+
+		.page-header-content {
+			position: relative;
+			z-index: 2;
+		}
+
+		.page-header h1 {
+			font-size: 64px;
+			margin-bottom: 20px;
+			font-weight: 800;
+		}
+
+		.breadcrumb {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			justify-content: center;
+			font-size: 15px;
+			color: var(--accent);
+		}
+
+		.breadcrumb a {
+			color: var(--accent);
+			text-decoration: none;
+			transition: color 0.3s ease;
+		}
+
+		.breadcrumb a:hover {
+			color: white;
+		}
+
+		/* Story Section */
+		.story-section {
+			padding: 120px 40px;
+			background: white;
+		}
+
+		.container {
+			max-width: 1400px;
+			margin: 0 auto;
+		}
+
+		.story-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 80px;
+			align-items: center;
+		}
+
+		.story-images {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 20px;
+			position: relative;
+		}
+
+		.story-img {
+			width: 100%;
+			height: 300px;
+			object-fit: cover;
+			border-radius: 15px;
+		}
+
+		.story-img:first-child {
+			grid-column: 1 / 3;
+			height: 400px;
+		}
+
+		.experience-badge {
+			position: absolute;
+			bottom: 30px;
+			right: 30px;
+			background: var(--secondary);
+			color: white;
+			padding: 30px;
+			border-radius: 15px;
+			text-align: center;
+			box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+		}
+
+		.experience-badge h3 {
+			font-size: 48px;
+			margin-bottom: 5px;
+		}
+
+		.experience-badge p {
+			font-size: 14px;
+			opacity: 0.9;
+		}
+
+		.story-content h2 {
+			font-size: 48px;
+			color: var(--primary);
+			margin-bottom: 25px;
+			font-weight: 800;
+		}
+
+		.story-content p {
+			font-size: 17px;
+			line-height: 1.9;
+			color: var(--gray);
+			margin-bottom: 20px;
+		}
+
+		.story-content .highlight {
+			color: var(--secondary);
+			font-weight: 600;
+		}
+
+		/* Values Section */
+		.values-section {
+			padding: 120px 40px;
+			background: var(--light);
+		}
+
+		.section-header {
+			text-align: center;
+			margin-bottom: 80px;
+		}
+
+		.section-tag {
+			display: inline-block;
+			background: var(--accent);
+			color: var(--primary);
+			padding: 8px 20px;
+			border-radius: 50px;
+			font-size: 13px;
+			font-weight: 600;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			margin-bottom: 20px;
+		}
+
+		.section-title {
+			font-size: 56px;
+			color: var(--primary);
+			margin-bottom: 20px;
+			font-weight: 800;
+		}
+
+		.section-desc {
+			font-size: 18px;
+			color: var(--gray);
+			max-width: 700px;
+			margin: 0 auto;
+		}
+
+		.values-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 40px;
+		}
+
+		.value-card {
+			background: white;
+			padding: 50px 35px;
+			border-radius: 20px;
+			text-align: center;
+			transition: all 0.4s ease;
+			position: relative;
+		}
+
+		.value-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 4px;
+			background: linear-gradient(to right, var(--secondary), var(--accent));
+			border-radius: 20px 20px 0 0;
+			transform: scaleX(0);
+			transition: transform 0.4s ease;
+		}
+
+		.value-card:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+		}
+
+		.value-card:hover::before {
+			transform: scaleX(1);
+		}
+
+		.value-icon {
+			width: 80px;
+			height: 80px;
+			background: linear-gradient(135deg, var(--secondary), var(--accent));
+			border-radius: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 25px;
+			font-size: 36px;
+			color: white;
+		}
+
+		.value-card h3 {
+			font-size: 22px;
+			color: var(--primary);
+			margin-bottom: 15px;
+		}
+
+		.value-card p {
+			font-size: 15px;
+			color: var(--gray);
+			line-height: 1.7;
+		}
+
+		/* Team Section */
+		.team-section {
+			padding: 120px 40px;
+			background: white;
+		}
+
+		.team-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 40px;
+		}
+
+		.team-member {
+			text-align: center;
+			transition: transform 0.4s ease;
+		}
+
+		.team-member:hover {
+			transform: translateY(-10px);
+		}
+
+		.member-img {
+			width: 100%;
+			height: 350px;
+			object-fit: cover;
+			border-radius: 15px;
+			margin-bottom: 25px;
+			background: var(--light);
+		}
+
+		.member-name {
+			font-size: 24px;
+			color: var(--primary);
+			margin-bottom: 8px;
+			font-weight: 700;
+		}
+
+		.member-role {
+			font-size: 15px;
+			color: var(--secondary);
+			margin-bottom: 15px;
+		}
+
+		.member-socials {
+			display: flex;
+			gap: 12px;
+			justify-content: center;
+		}
+
+		.social-icon {
+			width: 35px;
+			height: 35px;
+			background: var(--light);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--primary);
+			transition: all 0.3s ease;
+			font-size: 14px;
+		}
+
+		.social-icon:hover {
+			background: var(--secondary);
+			color: white;
+			transform: translateY(-3px);
+		}
+
+		/* Stats Section */
+		.stats-section {
+			padding: 100px 40px;
+			background: var(--primary);
+			color: white;
+		}
+
+		.stats-grid {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+			gap: 60px;
+			max-width: 1400px;
+			margin: 0 auto;
+		}
+
+		.stat-item {
+			text-align: center;
+		}
+
+		.stat-number {
+			font-size: 64px;
+			font-weight: 800;
+			font-family: 'Playfair Display', serif;
+			color: var(--secondary);
+			margin-bottom: 15px;
+		}
+
+		.stat-label {
+			font-size: 16px;
+			color: var(--accent);
+			line-height: 1.5;
+		}
+
+		/* Awards Section */
+		.awards-section {
+			padding: 120px 40px;
+			background: var(--light);
+		}
+
+		.awards-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 50px;
+			max-width: 1200px;
+			margin: 0 auto;
+		}
+
+		.award-card {
+			background: white;
+			padding: 50px 40px;
+			border-radius: 20px;
+			text-align: center;
+			transition: all 0.4s ease;
+		}
+
+		.award-card:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+		}
+
+		.award-icon {
+			width: 90px;
+			height: 90px;
+			background: linear-gradient(135deg, #FFD700, #FFA500);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 25px;
+			font-size: 40px;
+			color: white;
+		}
+
+		.award-year {
+			font-size: 14px;
+			color: var(--secondary);
+			font-weight: 600;
+			margin-bottom: 10px;
+		}
+
+		.award-title {
+			font-size: 22px;
+			color: var(--primary);
+			margin-bottom: 10px;
+			font-weight: 700;
+		}
+
+		.award-org {
+			font-size: 15px;
+			color: var(--gray);
+		}
+
+		/* CTA Section */
+		.cta-section {
+			padding: 120px 40px;
+			background: linear-gradient(135deg, var(--secondary), var(--accent));
+			text-align: center;
+			color: white;
+		}
+
+		.cta-section h2 {
+			font-size: 56px;
+			margin-bottom: 20px;
+		}
+
+		.cta-section p {
+			font-size: 20px;
+			margin-bottom: 40px;
+			opacity: 0.95;
+			max-width: 700px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.btn {
+			padding: 18px 40px;
+			border-radius: 50px;
+			font-size: 15px;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: inline-block;
+		}
+
+		.btn-primary {
+			background: white;
+			color: var(--primary);
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+		}
+
+		/* Footer */
+		.footer {
+			background: var(--dark);
+			color: var(--accent);
+			padding: 80px 40px 40px;
+		}
+
+		.footer-content {
+			max-width: 1400px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 2fr 1fr 1fr 1fr;
+			gap: 60px;
+			margin-bottom: 60px;
+		}
+
+		.footer-brand h3 {
+			color: white;
+			font-size: 32px;
+			margin-bottom: 20px;
+			font-family: 'Playfair Display', serif;
+			letter-spacing: 2px;
+		}
+
+		.footer-brand p {
+			line-height: 1.8;
+			margin-bottom: 30px;
+		}
+
+		.social-links {
+			display: flex;
+			gap: 15px;
+		}
+
+		.social-link {
+			width: 45px;
+			height: 45px;
+			background: rgba(255,255,255,0.05);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			transition: all 0.3s ease;
+		}
+
+		.social-link:hover {
+			background: var(--secondary);
+			transform: translateY(-3px);
+		}
+
+		.footer-links h4 {
+			color: white;
+			font-size: 18px;
+			margin-bottom: 25px;
+		}
+
+		.footer-links ul {
+			list-style: none;
+		}
+
+		.footer-links a {
+			color: var(--accent);
+			text-decoration: none;
+			font-size: 15px;
+			display: block;
+			margin-bottom: 12px;
+			transition: all 0.3s ease;
+		}
+
+		.footer-links a:hover {
+			color: white;
+			padding-left: 5px;
+		}
+
+		.footer-bottom {
+			max-width: 1400px;
+			margin: 0 auto;
+			padding-top: 40px;
+			border-top: 1px solid rgba(255,255,255,0.1);
+			text-align: center;
+		}
+
+		/* Responsive */
+		@media (max-width: 1024px) {
+			.story-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.values-grid,
+			.team-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.stats-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.page-header h1 {
+				font-size: 48px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.nav-menu {
+				display: none;
+			}
+
+			.mobile-toggle {
+				display: flex;
+			}
+
+			.page-header h1 {
+				font-size: 38px;
+			}
+
+			.section-title {
+				font-size: 38px;
+			}
+
+			.values-grid,
+			.team-grid,
+			.stats-grid,
+			.awards-grid,
+			.footer-content {
+				grid-template-columns: 1fr;
+			}
+
+			.story-content h2 {
+				font-size: 36px;
+			}
+		}
+	</style>
+</head>
+<body>
+ 
+	<nav class="navbar">
+		<div class="nav-container">
+			<a href="#" class="logo">WOOD<span>ORA</span></a>
+			<ul class="nav-menu">
+				<li><a href="#services">Services</a></li>
+				<li><a href="#portfolio">Portfolio</a></li>
+				<li><a href="#process">Process</a></li>
+				<li><a href="#testimonials">Testimonials</a></li>
+				<li><a href="{% url 'about' %}">About</a></li>
+				<li><a href="#contact" class="nav-cta">Start Project</a></li>
+			</ul>
+			<div class="mobile-toggle">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</nav>
+
+	 
+	<section class="page-header">
+		<div class="page-header-content">
+			<h1>About Woodora</h1>
+			<div class="breadcrumb">
+				<a href="#">Home</a>
+				<span>/</span>
+				<span>About Us</span>
+			</div>
+		</div>
+	</section>
+
+ 
+	<section class="story-section">
+		<div class="container">
+			<div class="story-grid">
+				<div class="story-images">
+					<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" alt="Our Studio" class="story-img">
+					<img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=400&h=400&fit=crop" alt="Design Process" class="story-img">
+					<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&h=400&fit=crop" alt="Team Work" class="story-img">
+					<div class="experience-badge">
+						<h3>15+</h3>
+						<p>Years of Excellence</p>
+					</div>
+				</div>
+				<div class="story-content">
+					<h2>Crafting Timeless Interiors Since 2009</h2>
+					<p>Woodora was born from a simple belief: <span class="highlight">every space has a story waiting to be told</span>. Founded by acclaimed designer Elena Richardson, our studio has grown into a premier interior design firm known for creating sophisticated spaces that seamlessly blend aesthetics with functionality.</p>
+					<p>Our journey began in a small studio with a passion for transforming ordinary rooms into extraordinary experiences. Today, we've completed over 250 projects across residential, commercial, and hospitality sectors, each one a testament to our commitment to excellence.</p>
+					<p>We believe that great design is not just about beautiful aesthetics—it's about understanding how people live, work, and interact with their surroundings. Every project we undertake is a collaboration, a journey to discover and create spaces that truly reflect our clients' personalities and aspirations.</p>
+					<p>Our approach combines <span class="highlight">sustainable practices, innovative design thinking, and meticulous attention to detail</span> to deliver interiors that stand the test of time.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+ 
+	<section class="values-section">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-tag">Our Philosophy</span>
+				<h2 class="section-title">Core Values</h2>
+				<p class="section-desc">The principles that guide every decision we make and every space we create</p>
+			</div>
+			<div class="values-grid">
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-lightbulb"></i>
+					</div>
+					<h3>Innovation</h3>
+					<p>We push boundaries and embrace new ideas to create unique, forward-thinking designs.</p>
+				</div>
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-leaf"></i>
+					</div>
+					<h3>Sustainability</h3>
+					<p>Committed to eco-friendly practices and materials that respect our planet.</p>
+				</div>
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-gem"></i>
+					</div>
+					<h3>Excellence</h3>
+					<p>We pursue perfection in every detail, ensuring the highest quality in all our work.</p>
+				</div>
+				<div class="value-card">
+					<div class="value-icon">
+						<i class="fas fa-handshake"></i>
+					</div>
+					<h3>Collaboration</h3>
+					<p>Your vision is our mission. We work closely with clients to bring their dreams to life.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+ 
+	<section class="team-section">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-tag">Meet The Team</span>
+				<h2 class="section-title">Our Creative Minds</h2>
+				<p class="section-desc">Talented designers and architects passionate about creating exceptional spaces</p>
+			</div>
+			<div class="team-grid">
+				<div class="team-member">
+					<div class="member-img"></div>
+					<h3 class="member-name">Elena Richardson</h3>
+					<p class="member-role">Founder & Creative Director</p>
+					<div class="member-socials">
+						<a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+						<a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+						<a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+					</div>
+				</div>
+				<div class="team-member">
+					<div class="member-img"></div>
+					<h3 class="member-name">Marcus Chen</h3>
+					<p class="member-role">Senior Interior Designer</p>
+					<div class="member-socials">
+						<a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+						<a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+						<a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+					</div>
+				</div>
+				<div class="team-member">
+					<div class="member-img"></div>
+					<h3 class="member-name">Sophia Martinez</h3>
+					<p class="member-role">Lead Architect</p>
+					<div class="member-socials">
+						<a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+						<a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+						<a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+					</div>
+				</div>
+				<div class="team-member">
+					<div class="member-img"></div>
+					<h3 class="member-name">James Anderson</h3>
+					<p class="member-role">Project Manager</p>
+					<div class="member-socials">
+						<a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+						<a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+						<a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	 
+	<section class="stats-section">
+		<div class="stats-grid">
+			<div class="stat-item">
+				<div class="stat-number">250+</div>
+				<p class="stat-label">Completed Projects</p>
+			</div>
+			<div class="stat-item">
+				<div class="stat-number">98%</div>
+				<p class="stat-label">Client Satisfaction Rate</p>
+			</div>
+			<div class="stat-item">
+				<div class="stat-number">20+</div>
+				<p class="stat-label">Industry Awards Won</p>
+			</div>
+			<div class="stat-item">
+				<div class="stat-number">15</div>
+				<p class="stat-label">Years of Experience</p>
+			</div>
+		</div>
+	</section>
+
+	 
+	<section class="awards-section">
+		<div class="container">
+			<div class="section-header">
+				<span class="section-tag">Recognition</span>
+				<h2 class="section-title">Awards & Achievements</h2>
+				<p class="section-desc">Honored to be recognized by leading design institutions worldwide</p>
+			</div>
+			<div class="awards-grid">
+				<div class="award-card">
+					<div class="award-icon">
+						<i class="fas fa-trophy"></i>
+					</div>
+					<p class="award-year">2023</p>
+					<h3 class="award-title">Best Residential Design</h3>
+					<p class="award-org">International Design Awards</p>
+				</div>
+				<div class="award-card">
+					<div class="award-icon">
+						<i class="fas fa-award"></i>
+					</div>
+					<p class="award-year">2022</p>
+					<h3 class="award-title">Sustainable Design Excellence</h3>
+					<p class="award-org">Green Building Council</p>
+				</div>
+				<div class="award-card">
+					<div class="award-icon">
+						<i class="fas fa-medal"></i>
+					</div>
+					<p class="award-year">2021</p>
+					<h3 class="award-title">Interior Designer of the Year</h3>
+					<p class="award-org">National Design Association</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+ 
+	<section class="cta-section">
+		<div class="container">
+			<h2>Let's Create Something Beautiful Together</h2>
+			<p>Ready to transform your space? Our team is here to turn your vision into reality with expertise, creativity, and passion.</p>
+			<a href="#" class="btn btn-primary">Schedule a Consultation</a>
+		</div>
+	</section>
+
+ 
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-brand">
+				<h3>WOODORA</h3>
+				<p>We are a passionate interior design studio committed to creating exceptional spaces that inspire, function beautifully, and stand the test of time.</p>
+				<div class="social-links">
+					<a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+					<a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+					<a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+					<a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+				</div>
+			</div>
+			<div class="footer-links">
+				<h4>Services</h4>
+				<ul>
+					<li><a href="#">Residential Design</a></li>
+					<li><a href="#">Commercial Spaces</a></li>
+					<li><a href="#">Hospitality Design</a></li>
+					<li><a href="#">Space Planning</a></li>
+					<li><a href="#">Furniture Selection</a></li>
+					<li><a href="#">Color Consultation</a></li>
+				</ul>
+			</div>
+			<div class="footer-links">
+				<h4>Company</h4>
+				<ul>
+					<li><a href="#">About Us</a></li>
+					<li><a href="#">Our Portfolio</a></li>
+					<li><a href="#">Design Process</a></li>
+					<li><a href="#">Our Team</a></li>
+					<li><a href="#">Careers</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</div>
+			<div class="footer-links">
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="#">Design Blog</a></li>
+					<li><a href="#">Project Gallery</a></li>
+					<li><a href="#">Client Testimonials</a></li>
+					<li><a href="#">FAQ</a></li>
+					<li><a href="#">Request Quote</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2024 Woodora Interior Design. All rights reserved. | Crafting beautiful spaces since 2009</p>
+		</div>
+	</footer>
+
+	<script>
+ 
+		window.addEventListener('scroll', function() {
+			const navbar = document.querySelector('.navbar');
+			if (window.scrollY > 50) {
+				navbar.classList.add('scrolled');
+			} else {
+				navbar.classList.remove('scrolled');
+			}
+		});
+
+		 
+		const mobileToggle = document.querySelector('.mobile-toggle');
+		const navMenu = document.querySelector('.nav-menu');
+		
+		if (mobileToggle && navMenu) {
+			mobileToggle.addEventListener('click', function() {
+				if (navMenu.style.display === 'flex') {
+					navMenu.style.display = 'none';
+				} else {
+					navMenu.style.display = 'flex';
+					navMenu.style.flexDirection = 'column';
+					navMenu.style.position = 'absolute';
+					navMenu.style.top = '80px';
+					navMenu.style.left = '0';
+					navMenu.style.right = '0';
+					navMenu.style.background = 'white';
+					navMenu.style.padding = '20px';
+					navMenu.style.boxShadow = '0 4px 30px rgba(0,0,0,0.1)';
+				}
+			});
+		}
+
+		 
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function(e) {
+				e.preventDefault();
+				const target = document.querySelector(this.getAttribute('href'));
+				if (target) {
+					target.scrollIntoView({
+						behavior: 'smooth',
+						block: 'start'
+					});
+				}
+			});
+		});
+
+		 
+		function animateCounter(element, target, duration = 2000) {
+			let start = 0;
+			const increment = target / (duration / 16);
+			const timer = setInterval(() => {
+				start += increment;
+				if (start >= target) {
+					element.textContent = target + (element.textContent.includes('%') ? '%' : '+');
+					clearInterval(timer);
+				} else {
+					element.textContent = Math.floor(start) + (element.textContent.includes('%') ? '%' : '+');
+				}
+			}, 16);
+		}
+ 
+		const observerOptions = {
+			threshold: 0.5
+		};
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const statNumbers = entry.target.querySelectorAll('.stat-number');
+					statNumbers.forEach(stat => {
+						const text = stat.textContent;
+						const number = parseInt(text.replace(/\D/g, ''));
+						stat.textContent = '0';
+						animateCounter(stat, number);
+					});
+					observer.unobserve(entry.target);
+				}
+			});
+		}, observerOptions);
+
+		const statsSection = document.querySelector('.stats-section');
+		if (statsSection) {
+			observer.observe(statsSection);
+		}
+	</script>
+</body>
+</html>
