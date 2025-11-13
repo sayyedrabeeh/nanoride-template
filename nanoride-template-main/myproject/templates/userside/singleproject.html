@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Modern Minimalist Home - Woodora Interior Design</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		:root {
+			--primary: #2C1810;
+			--secondary: #A67C52;
+			--accent: #E8C39E;
+			--dark: #1a0f0a;
+			--light: #FAF7F2;
+			--gray: #8B8680;
+			--white: #FFFFFF;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			color: var(--primary);
+			background: var(--white);
+			overflow-x: hidden;
+			line-height: 1.6;
+		}
+
+		h1, h2, h3, h4 {
+			font-family: 'Playfair Display', serif;
+		}
+
+		/* Navigation */
+		.navbar {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 1000;
+			background: rgba(255, 255, 255, 0.98);
+			backdrop-filter: blur(20px);
+			border-bottom: 1px solid rgba(0,0,0,0.05);
+			transition: all 0.3s ease;
+		}
+
+		.navbar.scrolled {
+			box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+		}
+
+		.nav-container {
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 0 40px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: 80px;
+		}
+
+		.logo {
+			font-size: 28px;
+			font-weight: 800;
+			color: var(--primary);
+			text-decoration: none;
+			letter-spacing: 2px;
+			font-family: 'Playfair Display', serif;
+		}
+
+		.logo span {
+			color: var(--secondary);
+		}
+
+		.nav-menu {
+			display: flex;
+			gap: 40px;
+			list-style: none;
+			align-items: center;
+		}
+
+		.nav-menu a {
+			color: var(--primary);
+			text-decoration: none;
+			font-size: 15px;
+			font-weight: 500;
+			transition: color 0.3s ease;
+			position: relative;
+		}
+
+		.nav-menu a::after {
+			content: '';
+			position: absolute;
+			bottom: -5px;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background: var(--secondary);
+			transition: width 0.3s ease;
+		}
+
+		.nav-menu a:hover {
+			color: var(--secondary);
+		}
+
+		.nav-menu a:hover::after {
+			width: 100%;
+		}
+
+		.nav-cta {
+			background: var(--secondary);
+			color: white !important;
+			padding: 12px 28px;
+			border-radius: 50px;
+			font-weight: 600;
+		}
+
+		.nav-cta:hover {
+			background: var(--primary);
+			transform: translateY(-2px);
+		}
+
+		.nav-cta::after {
+			display: none;
+		}
+
+		.mobile-toggle {
+			display: none;
+			flex-direction: column;
+			gap: 5px;
+			cursor: pointer;
+		}
+
+		.mobile-toggle span {
+			width: 25px;
+			height: 2px;
+			background: var(--primary);
+			transition: all 0.3s ease;
+		}
+
+		/* Hero Section */
+		.project-hero {
+			margin-top: 80px;
+			height: 80vh;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.project-hero-image {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.project-hero-overlay {
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+			display: flex;
+			align-items: flex-end;
+		}
+
+		.project-hero-content {
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 80px 40px;
+			color: white;
+		}
+
+		.project-category {
+			display: inline-block;
+			background: var(--secondary);
+			color: white;
+			padding: 8px 20px;
+			border-radius: 50px;
+			font-size: 12px;
+			font-weight: 600;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			margin-bottom: 20px;
+		}
+
+		.project-hero h1 {
+			font-size: 64px;
+			margin-bottom: 15px;
+			font-weight: 800;
+		}
+
+		.project-location {
+			font-size: 18px;
+			color: var(--accent);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		/* Project Info Bar */
+		.project-info-bar {
+			background: var(--light);
+			padding: 40px 0;
+			border-bottom: 1px solid rgba(0,0,0,0.05);
+		}
+
+		.info-bar-content {
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 0 40px;
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 40px;
+		}
+
+		.info-item {
+			text-align: center;
+		}
+
+		.info-label {
+			font-size: 12px;
+			color: var(--gray);
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin-bottom: 10px;
+		}
+
+		.info-value {
+			font-size: 20px;
+			font-weight: 700;
+			color: var(--primary);
+			font-family: 'Playfair Display', serif;
+		}
+
+		/* Project Overview */
+		.project-overview {
+			padding: 120px 40px;
+			background: white;
+		}
+
+		.overview-container {
+			max-width: 1400px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 2fr 1fr;
+			gap: 80px;
+		}
+
+		.overview-content h2 {
+			font-size: 48px;
+			color: var(--primary);
+			margin-bottom: 30px;
+			font-weight: 800;
+		}
+
+		.overview-content p {
+			font-size: 17px;
+			color: var(--gray);
+			line-height: 1.9;
+			margin-bottom: 25px;
+		}
+
+		.overview-sidebar {
+			background: var(--light);
+			padding: 50px 40px;
+			border-radius: 20px;
+			height: fit-content;
+		}
+
+		.sidebar-section {
+			margin-bottom: 40px;
+		}
+
+		.sidebar-section:last-child {
+			margin-bottom: 0;
+		}
+
+		.sidebar-section h3 {
+			font-size: 20px;
+			color: var(--primary);
+			margin-bottom: 20px;
+		}
+
+		.detail-list {
+			list-style: none;
+		}
+
+		.detail-list li {
+			padding: 12px 0;
+			display: flex;
+			justify-content: space-between;
+			border-bottom: 1px solid rgba(0,0,0,0.05);
+			font-size: 15px;
+		}
+
+		.detail-list li:last-child {
+			border-bottom: none;
+		}
+
+		.detail-label {
+			color: var(--gray);
+		}
+
+		.detail-value {
+			font-weight: 600;
+			color: var(--primary);
+		}
+
+		.project-tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+
+		.tag {
+			padding: 8px 16px;
+			background: white;
+			color: var(--gray);
+			border-radius: 50px;
+			font-size: 13px;
+		}
+
+		.share-buttons {
+			display: flex;
+			gap: 12px;
+		}
+
+		.share-btn {
+			width: 45px;
+			height: 45px;
+			background: white;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: var(--primary);
+			cursor: pointer;
+			transition: all 0.3s ease;
+			border: none;
+			font-size: 16px;
+		}
+
+		.share-btn:hover {
+			background: var(--secondary);
+			color: white;
+			transform: translateY(-3px);
+		}
+
+		/* Challenge & Solution */
+		.challenge-solution {
+			padding: 100px 40px;
+			background: var(--light);
+		}
+
+		.cs-container {
+			max-width: 1400px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 60px;
+		}
+
+		.cs-box {
+			background: white;
+			padding: 50px;
+			border-radius: 20px;
+		}
+
+		.cs-box h3 {
+			font-size: 32px;
+			color: var(--primary);
+			margin-bottom: 25px;
+			display: flex;
+			align-items: center;
+			gap: 15px;
+		}
+
+		.cs-icon {
+			width: 60px;
+			height: 60px;
+			background: var(--secondary);
+			border-radius: 15px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 24px;
+		}
+
+		.cs-box p {
+			font-size: 16px;
+			color: var(--gray);
+			line-height: 1.8;
+		}
+
+		/* Project Gallery */
+		.project-gallery {
+			padding: 120px 40px;
+			background: white;
+		}
+
+		.gallery-container {
+			max-width: 1400px;
+			margin: 0 auto;
+		}
+
+		.section-header {
+			text-align: center;
+			margin-bottom: 80px;
+		}
+
+		.section-tag {
+			display: inline-block;
+			background: var(--accent);
+			color: var(--primary);
+			padding: 8px 20px;
+			border-radius: 50px;
+			font-size: 13px;
+			font-weight: 600;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			margin-bottom: 20px;
+		}
+
+		.section-title {
+			font-size: 48px;
+			color: var(--primary);
+			margin-bottom: 20px;
+			font-weight: 800;
+		}
+
+		.gallery-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 30px;
+			margin-bottom: 40px;
+		}
+
+		.gallery-item {
+			position: relative;
+			overflow: hidden;
+			border-radius: 15px;
+			cursor: pointer;
+			height: 500px;
+		}
+
+		.gallery-item:first-child {
+			grid-column: 1 / 3;
+			height: 600px;
+		}
+
+		.gallery-item img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.6s ease;
+		}
+
+		.gallery-item:hover img {
+			transform: scale(1.1);
+		}
+
+		.gallery-overlay {
+			position: absolute;
+			inset: 0;
+			background: rgba(0,0,0,0.5);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+
+		.gallery-item:hover .gallery-overlay {
+			opacity: 1;
+		}
+
+		.gallery-overlay i {
+			font-size: 48px;
+			color: white;
+		}
+
+		/* Features Section */
+		.features-section {
+			padding: 100px 40px;
+			background: var(--light);
+		}
+
+		.features-container {
+			max-width: 1400px;
+			margin: 0 auto;
+		}
+
+		.features-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 40px;
+		}
+
+		.feature-card {
+			background: white;
+			padding: 40px;
+			border-radius: 20px;
+			text-align: center;
+			transition: all 0.4s ease;
+		}
+
+		.feature-card:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+		}
+
+		.feature-icon {
+			width: 70px;
+			height: 70px;
+			background: linear-gradient(135deg, var(--secondary), var(--accent));
+			border-radius: 18px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 25px;
+			font-size: 32px;
+			color: white;
+		}
+
+		.feature-card h4 {
+			font-size: 20px;
+			color: var(--primary);
+			margin-bottom: 15px;
+		}
+
+		.feature-card p {
+			font-size: 15px;
+			color: var(--gray);
+			line-height: 1.7;
+		}
+
+		/* Testimonial */
+		.project-testimonial {
+			padding: 120px 40px;
+			background: var(--primary);
+			color: white;
+			text-align: center;
+		}
+
+		.testimonial-container {
+			max-width: 900px;
+			margin: 0 auto;
+		}
+
+		.quote-icon {
+			font-size: 72px;
+			color: var(--secondary);
+			margin-bottom: 30px;
+			font-family: Georgia, serif;
+		}
+
+		.testimonial-text {
+			font-size: 24px;
+			line-height: 1.8;
+			color: var(--accent);
+			margin-bottom: 40px;
+			font-style: italic;
+		}
+
+		.client-info {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 20px;
+		}
+
+		.client-avatar {
+			width: 70px;
+			height: 70px;
+			border-radius: 50%;
+			background: var(--secondary);
+		}
+
+		.client-details h4 {
+			font-size: 22px;
+			margin-bottom: 5px;
+		}
+
+		.client-details p {
+			font-size: 15px;
+			color: var(--accent);
+		}
+
+		/* Related Projects */
+		.related-projects {
+			padding: 120px 40px;
+			background: white;
+		}
+
+		.related-container {
+			max-width: 1400px;
+			margin: 0 auto;
+		}
+
+		.related-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 40px;
+		}
+
+		.related-card {
+			position: relative;
+			overflow: hidden;
+			border-radius: 15px;
+			cursor: pointer;
+			transition: all 0.4s ease;
+		}
+
+		.related-card:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+		}
+
+		.related-image {
+			width: 100%;
+			height: 350px;
+			overflow: hidden;
+			border-radius: 15px;
+		}
+
+		.related-image img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.6s ease;
+		}
+
+		.related-card:hover .related-image img {
+			transform: scale(1.1);
+		}
+
+		.related-info {
+			padding: 25px 0;
+		}
+
+		.related-category {
+			font-size: 12px;
+			color: var(--secondary);
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			margin-bottom: 10px;
+		}
+
+		.related-title {
+			font-size: 24px;
+			color: var(--primary);
+			margin-bottom: 8px;
+			font-weight: 700;
+		}
+
+		.related-location {
+			font-size: 14px;
+			color: var(--gray);
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		/* CTA Section */
+		.cta-section {
+			padding: 120px 40px;
+			background: linear-gradient(135deg, var(--secondary), var(--accent));
+			text-align: center;
+			color: white;
+		}
+
+		.cta-section h2 {
+			font-size: 56px;
+			margin-bottom: 20px;
+		}
+
+		.cta-section p {
+			font-size: 20px;
+			margin-bottom: 40px;
+			opacity: 0.95;
+			max-width: 700px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.btn {
+			padding: 18px 40px;
+			border-radius: 50px;
+			font-size: 15px;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.3s ease;
+			display: inline-block;
+		}
+
+		.btn-white {
+			background: white;
+			color: var(--primary);
+		}
+
+		.btn-white:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+		}
+
+		/* Footer */
+		.footer {
+			background: var(--dark);
+			color: var(--accent);
+			padding: 80px 40px 40px;
+		}
+
+		.footer-content {
+			max-width: 1400px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: 2fr 1fr 1fr 1fr;
+			gap: 60px;
+			margin-bottom: 60px;
+		}
+
+		.footer-brand h3 {
+			color: white;
+			font-size: 32px;
+			margin-bottom: 20px;
+			font-family: 'Playfair Display', serif;
+			letter-spacing: 2px;
+		}
+
+		.footer-brand p {
+			line-height: 1.8;
+			margin-bottom: 30px;
+		}
+
+		.social-links {
+			display: flex;
+			gap: 15px;
+		}
+
+		.social-link {
+			width: 45px;
+			height: 45px;
+			background: rgba(255,255,255,0.05);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			transition: all 0.3s ease;
+		}
+
+		.social-link:hover {
+			background: var(--secondary);
+			transform: translateY(-3px);
+		}
+
+		.footer-links h4 {
+			color: white;
+			font-size: 18px;
+			margin-bottom: 25px;
+		}
+
+		.footer-links ul {
+			list-style: none;
+		}
+
+		.footer-links a {
+			color: var(--accent);
+			text-decoration: none;
+			font-size: 15px;
+			display: block;
+			margin-bottom: 12px;
+			transition: all 0.3s ease;
+		}
+
+		.footer-links a:hover {
+			color: white;
+			padding-left: 5px;
+		}
+
+		.footer-bottom {
+			max-width: 1400px;
+			margin: 0 auto;
+			padding-top: 40px;
+			border-top: 1px solid rgba(255,255,255,0.1);
+			text-align: center;
+		}
+
+		/* Responsive */
+		@media (max-width: 1024px) {
+			.overview-container,
+			.cs-container {
+				grid-template-columns: 1fr;
+			}
+
+			.info-bar-content {
+				grid-template-columns: repeat(3, 1fr);
+			}
+
+			.gallery-grid,
+			.related-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.gallery-item:first-child {
+				grid-column: 1;
+			}
+
+			.features-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.project-hero h1 {
+				font-size: 48px;
+			}
+		}
+
+		@media (max-width: 768px) {
+			.nav-menu {
+				display: none;
+			}
+
+			.mobile-toggle {
+				display: flex;
+			}
+
+			.project-hero h1 {
+				font-size: 36px;
+			}
+
+			.info-bar-content {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.features-grid,
+			.footer-content {
+				grid-template-columns: 1fr;
+			}
+
+			.section-title {
+				font-size: 36px;
+			}
+
+			.testimonial-text {
+				font-size: 18px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar">
+		<div class="nav-container">
+			<a href="{% url 'home' %}" class="logo">WOOD<span>ORA</span></a>
+			<ul class="nav-menu">
+				<li><a href="{% url 'service' %}">Services</a></li>
+				<li><a class='active' href="{% url 'portfolio' %}">Portfolio</a></li>
+				<li><a href="#process">Process</a></li>
+				<li><a href="#testimonials">Testimonials</a></li>
+				<li><a href="{% url 'about' %}">About</a></li>
+				<li><a href="{% url 'contact' %}" class="nav-cta">Start Project</a></li>
+			</ul>
+			<div class="mobile-toggle">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+		</div>
+	</nav>
+	<section class="project-hero">
+		<img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1920&h=1080&fit=crop" alt="Modern Minimalist Home" class="project-hero-image">
+		<div class="project-hero-overlay">
+			<div class="project-hero-content">
+				<span class="project-category">Residential Design</span>
+				<h1>Modern Minimalist Home</h1>
+				<p class="project-location">
+					<i class="fas fa-map-marker-alt"></i>
+					Beverly Hills, California
+				</p>
+			</div>
+		</div>
+	</section>
+	<section class="project-info-bar">
+		<div class="info-bar-content">
+			<div class="info-item">
+				<div class="info-label">Client</div>
+				<div class="info-value">Sarah Mitchell</div>
+			</div>
+			<div class="info-item">
+				<div class="info-label">Year</div>
+				<div class="info-value">2023</div>
+			</div>
+			<div class="info-item">
+				<div class="info-label">Area</div>
+				<div class="info-value">3,500 sq ft</div>
+			</div>
+			<div class="info-item">
+				<div class="info-label">Duration</div>
+				<div class="info-value">6 Months</div>
+			</div>
+			<div class="info-item">
+				<div class="info-label">Budget</div>
+				<div class="info-value">$120K</div>
+			</div>
+		</div>
+	</section>
+	<section class="project-overview">
+		<div class="overview-container">
+			<div class="overview-content">
+				<h2>Project Overview</h2>
+				<p>This stunning 3,500 sq ft residence in Beverly Hills showcases our expertise in creating serene, functional spaces through the principles of minimalist design. The project was a complete interior transformation of a mid-century modern home that had lost its original character through previous renovations.</p>
+				<p>Our client, a tech entrepreneur, sought a calming retreat from her busy professional life. She wanted a home that embodied simplicity, featured clean lines, and utilized natural materials while maintaining the warmth and comfort essential for daily living.</p>
+				<p>We approached this project with a focus on creating a cohesive flow throughout the home, emphasizing natural light, and carefully curating a neutral color palette accented with warm wood tones. Every element was thoughtfully selected to serve both aesthetic and functional purposes, embodying the "less is more" philosophy.</p>
+				<p>The result is a harmonious living environment that balances minimalism with livability, proving that simplicity doesn't mean sacrificing comfort or personality.</p>
+			</div>
+			<div class="overview-sidebar">
+				<div class="sidebar-section">
+					<h3>Project Details</h3>
+					<ul class="detail-list">
+						<li>
+							<span class="detail-label">Location</span>
+							<span class="detail-value">Beverly Hills, CA</span>
+						</li>
+						<li>
+							<span class="detail-label">Property Type</span>
+							<span class="detail-value">Single Family</span>
+						</li>
+						<li>
+							<span class="detail-label">Bedrooms</span>
+							<span class="detail-value">4</span>
+						</li>
+						<li>
+							<span class="detail-label">Bathrooms</span>
+							<span class="detail-value">3.5</span>
+						</li>
+						<li>
+							<span class="detail-label">Style</span>
+							<span class="detail-value">Minimalist Modern</span>
+						</li>
+					</ul>
+				</div>
+				<div class="sidebar-section">
+					<h3>Tags</h3>
+					<div class="project-tags">
+						<span class="tag">Minimalist</span>
+						<span class="tag">Modern</span>
+						<span class="tag">Eco-Friendly</span>
+						<span class="tag">Natural Light</span>
+						<span class="tag">Open Concept</span>
+					</div>
+				</div>
+				<div class="sidebar-section">
+					<h3>Share Project</h3>
+					<div class="share-buttons">
+						<button class="share-btn"><i class="fab fa-facebook-f"></i></button>
+						<button class="share-btn"><i class="fab fa-twitter"></i></button>
+						<button class="share-btn"><i class="fab fa-pinterest"></i></button>
+						<button class="share-btn"><i class="fab fa-linkedin-in"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="challenge-solution">
+		<div class="cs-container">
+			<div class="cs-box">
+				<h3>
+					<div class="cs-icon"><i class="fas fa-exclamation-triangle"></i></div>
+					The Challenge
+				</h3>
+				<p>The existing space had been heavily compartmentalized with dated renovations that blocked natural light and created a disjointed flow. Dark, heavy finishes throughout made the home feel smaller than its actual square footage. The client also needed better storage solutions without compromising the minimalist aesthetic.</p>
+			</div>
+			<div class="cs-box">
+				<h3>
+					<div class="cs-icon"><i class="fas fa-lightbulb"></i></div>
+					Our Solution
+				</h3>
+				<p>We removed non-structural walls to create an open-concept living area, installed floor-to-ceiling windows to maximize natural light, and implemented custom built-in storage throughout. A neutral color palette with warm wood accents created visual continuity, while carefully selected furniture pieces maintained the minimalist ethos without sacrificing functionality.</p>
+			</div>
+		</div>
+	</section>
+	<section class="project-gallery">
+		<div class="gallery-container">
+			<div class="section-header">
+				<span class="section-tag">Visual Tour</span>
+				<h2 class="section-title">Project Gallery</h2>
+			</div>
+			<div class="gallery-grid">
+				<div class="gallery-item">
+					<img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop" alt="Living Room">
+					<div class="gallery-overlay">
+						<i class="fas fa-search-plus"></i>
+					</div>
+				</div>
+				<div class="gallery-item">
+					<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=600&fit=crop" alt="Kitchen">
+					<div class="gallery-overlay">
+						<i class="fas fa-search-plus"></i>
+					</div>
+				</div>
+				<div class="gallery-item">
+					<img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop" alt="Bedroom">
+					<div class="gallery-overlay">
+						<i class="fas fa-search-plus"></i>
+					</div>
+				</div>
+				<div class="gallery-item">
+					<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" alt="Bathroom">
+					<div class="gallery-overlay">
+						<i class="fas fa-search-plus"></i>
+					</div>
+				</div>
+				<div class="gallery-item">
+					<img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop" alt="Dining Area">
+					<div class="gallery-overlay">
+						<i class="fas fa-search-plus"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="features-section">
+		<div class="features-container">
+			<div class="section-header">
+				<span class="section-tag">Key Features</span>
+				<h2 class="section-title">Design Highlights</h2>
+			</div>
+			<div class="features-grid">
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class="fas fa-sun"></i>
+					</div>
+					<h4>Natural Lighting</h4>
+					<p>Floor-to-ceiling windows and skylights maximize natural light throughout the home, creating an airy, bright atmosphere.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class="fas fa-leaf"></i>
+					</div>
+					<h4>Sustainable Materials</h4>
+					<p>Eco-friendly materials including reclaimed wood, low-VOC paints, and energy-efficient fixtures.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class="fas fa-palette"></i>
+					</div>
+					<h4>Neutral Palette</h4>
+					<p>Sophisticated color scheme of whites, grays, and warm wood tones creates a calming environment.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class="fas fa-box"></i>
+					</div>
+					<h4>Custom Storage</h4>
+					<p>Built-in storage solutions seamlessly integrated throughout to maintain clean, clutter-free spaces.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class="fas fa-couch"></i>
+					</div>
+					<h4>Bespoke Furniture</h4>
+					<p>Custom-designed furniture pieces perfectly scaled for each space, combining form and function.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">
+						<i class="fas fa-home"></i>
+					</div>
+					<h4>Smart Home Integration</h4>
+					<p>State-of-the-art home automation for lighting, climate, and security, all discreetly integrated.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="project-testimonial">
+		<div class="testimonial-container">
+			<div class="quote-icon">"</div>
+			<p class="testimonial-text">Woodora completely transformed my home beyond my wildest expectations. Their attention to detail and ability to understand my vision was remarkable. Every morning I wake up grateful to be in this beautiful, serene space. It's not just a house anymore—it's truly my sanctuary.</p>
+			<div class="client-info">
+				<div class="client-avatar"></div>
+				<div class="client-details">
+					<h4>Sarah Mitchell</h4>
+					<p>Homeowner</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="related-projects">
+		<div class="related-container">
+			<div class="section-header">
+				<span class="section-tag">More Projects</span>
+				<h2 class="section-title">Related Projects</h2>
+			</div>
+			<div class="related-grid">
+				<div class="related-card">
+					<div class="related-image">
+						<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=600&fit=crop" alt="Luxury Penthouse">
+					</div>
+					<div class="related-info">
+						<div class="related-category">Residential</div>
+						<h3 class="related-title">Luxury Penthouse</h3>
+						<p class="related-location">
+							<i class="fas fa-map-marker-alt"></i>
+							Miami, FL
+						</p>
+					</div>
+				</div>
+				<div class="related-card">
+					<div class="related-image">
+						<img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop" alt="Coastal Villa">
+					</div>
+					<div class="related-info">
+						<div class="related-category">Residential</div>
+						<h3 class="related-title">Coastal Villa</h3>
+						<p class="related-location">
+							<i class="fas fa-map-marker-alt"></i>
+							Malibu, CA
+						</p>
+					</div>
+				</div>
+				<div class="related-card">
+					<div class="related-image">
+						<img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop" alt="Mountain Retreat">
+					</div>
+					<div class="related-info">
+						<div class="related-category">Residential</div>
+						<h3 class="related-title">Mountain Retreat</h3>
+						<p class="related-location">
+							<i class="fas fa-map-marker-alt"></i>
+							Aspen, CO
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="cta-section">
+		<div class="container">
+			<h2>Ready to Transform Your Space?</h2>
+			<p>Let's collaborate to create an interior that reflects your unique vision and lifestyle. Schedule a consultation today.</p>
+			<a href="contact.html" class="btn btn-white">Start Your Project</a>
+		</div>
+	</section>
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-brand">
+				<h3>WOODORA</h3>
+				<p>We are a passionate interior design studio committed to creating exceptional spaces that inspire, function beautifully, and stand the test of time.</p>
+				<div class="social-links">
+					<a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+					<a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+					<a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+					<a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+				</div>
+			</div>
+			<div class="footer-links">
+				<h4>Services</h4>
+				<ul>
+					<li><a href="#">Residential Design</a></li>
+					<li><a href="#">Commercial Spaces</a></li>
+					<li><a href="#">Hospitality Design</a></li>
+					<li><a href="#">Space Planning</a></li>
+					<li><a href="#">Furniture Selection</a></li>
+					<li><a href="#">Color Consultation</a></li>
+				</ul>
+			</div>
+			<div class="footer-links">
+				<h4>Company</h4>
+				<ul>
+					<li><a href="#">About Us</a></li>
+					<li><a href="#">Our Portfolio</a></li>
+					<li><a href="#">Design Process</a></li>
+					<li><a href="#">Our Team</a></li>
+					<li><a href="#">Careers</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</div>
+			<div class="footer-links">
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="#">Design Blog</a></li>
+					<li><a href="#">Project Gallery</a></li>
+					<li><a href="#">Client Testimonials</a></li>
+					<li><a href="#">FAQ</a></li>
+					<li><a href="#">Request Quote</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<p>&copy; 2024 Woodora Interior Design. All rights reserved. | Crafting beautiful spaces since 2009</p>
+		</div>
+	</footer>
+
+	<script>
+	
+		window.addEventListener('scroll', function() {
+			const navbar = document.querySelector('.navbar');
+			if (window.scrollY > 50) {
+				navbar.classList.add('scrolled');
+			} else {
+				navbar.classList.remove('scrolled');
+			}
+		});
+
+		const mobileToggle = document.querySelector('.mobile-toggle');
+		const navMenu = document.querySelector('.nav-menu');
+		
+		if (mobileToggle && navMenu) {
+			mobileToggle.addEventListener('click', function() {
+				if (navMenu.style.display === 'flex') {
+					navMenu.style.display = 'none';
+				} else {
+					navMenu.style.display = 'flex';
+					navMenu.style.flexDirection = 'column';
+					navMenu.style.position = 'absolute';
+					navMenu.style.top = '80px';
+					navMenu.style.left = '0';
+					navMenu.style.right = '0';
+					navMenu.style.background = 'white';
+					navMenu.style.padding = '20px';
+					navMenu.style.boxShadow = '0 4px 30px rgba(0,0,0,0.1)';
+				}
+			});
+		}
+
+		const shareButtons = document.querySelectorAll('.share-btn');
+		shareButtons.forEach(button => {
+			button.addEventListener('click', function() {
+				const platform = this.querySelector('i').classList[1].split('-')[1];
+				const url = window.location.href;
+				const title = document.querySelector('.project-hero h1').textContent;
+				
+				let shareUrl = '';
+				switch(platform) {
+					case 'facebook':
+						shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+						break;
+					case 'twitter':
+						shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+						break;
+					case 'pinterest':
+						shareUrl = `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&description=${encodeURIComponent(title)}`;
+						break;
+					case 'linkedin':
+						shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+						break;
+				}
+				
+				if (shareUrl) {
+					window.open(shareUrl, '_blank', 'width=600,height=400');
+				}
+			});
+		});
+
+	
+		const galleryItems = document.querySelectorAll('.gallery-item');
+		galleryItems.forEach(item => {
+			item.addEventListener('click', function() {
+				const img = this.querySelector('img');
+				const lightbox = document.createElement('div');
+				lightbox.style.cssText = `
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background: rgba(0,0,0,0.95);
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					z-index: 10000;
+					cursor: pointer;
+				`;
+				
+				const lightboxImg = document.createElement('img');
+				lightboxImg.src = img.src;
+				lightboxImg.style.cssText = `
+					max-width: 90%;
+					max-height: 90%;
+					object-fit: contain;
+				`;
+				
+				lightbox.appendChild(lightboxImg);
+				document.body.appendChild(lightbox);
+				
+				lightbox.addEventListener('click', function() {
+					document.body.removeChild(lightbox);
+				});
+			});
+		});
+
+		
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function(e) {
+				e.preventDefault();
+				const target = document.querySelector(this.getAttribute('href'));
+				if (target) {
+					target.scrollIntoView({
+						behavior: 'smooth',
+						block: 'start'
+					});
+				}
+			});
+		})
+		const observerOptions = {
+			threshold: 0.1,
+			rootMargin: '0px 0px -100px 0px'
+		};
+
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.style.opacity = '1';
+					entry.target.style.transform = 'translateY(0)';
+				}
+			});
+		}, observerOptions);
+
+		
+		document.querySelectorAll('.overview-container, .cs-box, .feature-card, .gallery-item, .related-card').forEach(section => {
+			section.style.opacity = '0';
+			section.style.transform = 'translateY(30px)';
+			section.style.transition = 'all 0.6s ease';
+			observer.observe(section);
+		});
+
+
+		const relatedCards = document.querySelectorAll('.related-card');
+		relatedCards.forEach(card => {
+			card.addEventListener('click', function() {
+				console.log('Navigate to project:', this.querySelector('.related-title').textContent);
+			});
+		});
+	</script>
+</body>
+</html>

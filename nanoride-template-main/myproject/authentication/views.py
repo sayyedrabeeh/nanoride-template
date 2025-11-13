@@ -220,15 +220,8 @@ def portfolio(request):
     return render(request,'userside/portfolio.html')
 
 @login_required
-def singleproduct(request,id):
-    product = get_object_or_404(Product, id=id)
-    products = Product.objects.exclude(id=id)[:6]   
-    context = {
-        'product': product,
-        'products':products
-    }
-    
-    return render(request,'userside/singleproduct.html',context)
+def singleproject(request):
+    return render(request,'userside/singleproject.html')
 
 def custom_logout(request):
     logout(request)  # Log the user out
