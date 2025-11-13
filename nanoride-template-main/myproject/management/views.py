@@ -4,14 +4,13 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
-from .models import  Brand,Type1,Edition,Product,Variants
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 import logging
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import SportsCar
+
 from django.views.decorators.cache import never_cache
 
 @never_cache

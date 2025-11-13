@@ -22,7 +22,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.urls import reverse
-from management.models import Product
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -201,12 +200,7 @@ def custom_logout(request):
     return redirect(reverse( 'custom_login' )) 
 
 def home(request):
-    products=Product.objects.all()
-    
-    context={
-        'products':products
-    }
-    return render(request,'userside/home.html',context)
+    return render(request,'userside/home.html')
 
 @login_required
 def portfolio(request):
