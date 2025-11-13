@@ -31,6 +31,11 @@ def service_admin(request):
 
 @never_cache
 @login_required(login_url='admin_login')
+def contact_management(request):
+    return render(request, 'adminside/contact_management.html' )
+
+@never_cache
+@login_required(login_url='admin_login')
 def block_user(request, user_id):
     User = get_user_model()
     if request.method == 'POST':
