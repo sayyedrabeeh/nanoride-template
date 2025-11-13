@@ -6,15 +6,15 @@ class CustomUser(AbstractUser):
 
     groups = models.ManyToManyField(
         Group,
-        related_name='customuser_set',  # Change related_name
+        related_name='customuser_set',   
         blank=True,
     )
     
     user_permissions = models.ManyToManyField(
         Permission,
-        related_name='customuser_set',  # Change related_name
+        related_name='customuser_set',  
         blank=True,
     )
  
-    # You can add more fields if needed, such as alt text, order, etc.
+    
  
