@@ -268,3 +268,6 @@ def custom_logoutadmin(request):
 
 def about(request):
     return render(request,'userside/about.html')
+
+def service(request):
+    return render(request,'userside/service.html')
