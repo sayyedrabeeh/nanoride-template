@@ -28,7 +28,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic import TemplateView
 from django.contrib import messages
-# from .views import custom_logout
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -37,20 +36,15 @@ def admin_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
-        # Authenticate the user
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            if user.is_superuser:  # Check if the user is a superuser
+            if user.is_superuser:  
                 login(request, user)
                 messages.success(request, 'Login successful!')
-                return redirect('users')  # Redirect to your admin dashboard
+                return redirect('users')  
             else:
                 messages.error(request, 'You do not have permission to access this area.')
-                return redirect('admin_login')  # Redirect back to login
-         
-
-    # Render the login page if GET request or invalid login
+                return redirect('admin_login') 
     return render(request, 'adminside/login1.html')
 
 
@@ -230,15 +224,15 @@ def Testimonials(request):
     return render(request,'userside/Testimonials.html')
 
 def custom_logout(request):
-    logout(request)  # Log the user out
-    request.session.flush()  # Clear the session data
+    logout(request)   
+    request.session.flush()   
     return redirect('home')
 
 def restricted_view(request):
-    # Check if the user is authenticated
+   
     if not request.user.is_authenticated:
         messages.info(request, "Please log in to access this page.")
-        return redirect('custom_login')  # Redirect to login if not authenticated
+        return redirect('custom_login')  
     return render(request, 'restricted.html') 
 
 
@@ -255,11 +249,11 @@ class AdminHomeView(AdminRequiredMixin, TemplateView):
     template_name = 'adminside/users.html'
 
     def handle_no_permission(self):
-        return redirect('admin_login')  # Redirect to admin login if not permitted
+        return redirect('admin_login')  
     
 def custom_logoutadmin(request):
-    logout(request)  # Log the user out
-    messages.success(request, "You have been logged out successfully.")  # Optional: Add a success message
+    logout(request)  
+    messages.success(request, "You have been logged out successfully.")   
     return redirect('admin_login') 
 
 def about(request):
