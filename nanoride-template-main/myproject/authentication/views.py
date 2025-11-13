@@ -215,12 +215,9 @@ def home(request):
     return render(request,'userside/home.html',context)
 
 @login_required
-def userproducts(request):
-    products=Product.objects.all()
-    context={
-        'products':products
-    }
-    return render(request,'userside/products.html',context)
+def portfolio(request):
+     
+    return render(request,'userside/portfolio.html')
 
 @login_required
 def singleproduct(request,id):
