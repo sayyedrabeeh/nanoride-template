@@ -68,9 +68,5 @@ def admin_login(request):
     return render(request, 'adminside/login.html')
  
  
-@never_cache
-@login_required(login_url='admin_login')
-def products1(request):
-    return render(request, 'adminside/product.html')
  
  
