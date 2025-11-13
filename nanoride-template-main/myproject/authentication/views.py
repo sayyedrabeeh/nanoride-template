@@ -223,6 +223,12 @@ def portfolio(request):
 def singleproject(request):
     return render(request,'userside/singleproject.html')
 
+def process(request):
+    return render(request,'userside/process.html')
+
+def Testimonials(request):
+    return render(request,'userside/Testimonials.html')
+
 def custom_logout(request):
     logout(request)  # Log the user out
     request.session.flush()  # Clear the session data
