@@ -21,6 +21,16 @@ def users(request):
 
 @never_cache
 @login_required(login_url='admin_login')
+def admin_projects(request):
+    return render(request, 'adminside/admin_projects.html' )
+
+@never_cache
+@login_required(login_url='admin_login')
+def service_admin(request):
+    return render(request, 'adminside/service_admin.html' )
+
+@never_cache
+@login_required(login_url='admin_login')
 def block_user(request, user_id):
     User = get_user_model()
     if request.method == 'POST':

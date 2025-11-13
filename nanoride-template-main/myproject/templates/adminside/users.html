@@ -542,47 +542,29 @@
             <span class="sidebar-title">WOODORA</span>
         </div>  
         <div class="sidebar-content">
+             <div class="sidebar-content">
             <a href="#">
                 <i class="fas fa-tachometer-alt"></i>
                 <span class="link-text">Dashboard</span>
             </a>
-            <a href="{% url 'users' %}" class="active">
+            <a class='active' href="{% url 'users' %}">
                 <i class="fas fa-users"></i>
                 <span class="link-text">Customers</span>
             </a>
-            <a href=" ">
-                <i class="fas fa-couch"></i>
-                <span class="link-text">Products</span>
+            <a  href="{% url 'admin_projects' %}">
+                <i class="fas fa-project-diagram"></i>
+                <span class="link-text">Projects</span>
             </a>
-            <a href="#">
+            <a href="{% url 'service_admin' %}">
                 <i class="fas fa-shopping-cart"></i>
-                <span class="link-text">Orders</span>
+                <span class="link-text">Services</span>
             </a>
             <a href="#">
-                <i class="fas fa-tags"></i>
-                <span class="link-text">Offers</span>
+                <i class="fas fa-comments"></i>
+                <span class="link-text">Contact Form</span>
             </a>
-            <a href="">
-                <i class="fas fa-certificate"></i>
-                <span class="link-text">Brands</span>
-            </a>
-            
-            <a href="#">
-                <i class="fas fa-chart-bar"></i>
-                <span class="link-text">Reports</span>
-            </a>
-            <a href="">
-                <i class="fas fa-bookmark"></i>
-                <span class="link-text">Collections</span>
-            </a>
-            <a href="">
-                <i class="fas fa-th-large"></i>
-                <span class="link-text">Types</span>
-            </a>
-            <a href="{% url 'custom_logout1' %}">
-                <i class="fas fa-sign-out-alt"></i>
-                <span class="link-text">Logout</span>
-            </a>
+ 
+        </div>
         </div>
     </div>
     <div class="main-content" id="mainContent">
