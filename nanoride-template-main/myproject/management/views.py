@@ -107,7 +107,7 @@ def service_list(request):
 
 @login_required(login_url='admin_login')
 @require_http_methods(["GET", "POST"])
-def add_services(request):
+def add_service(request):
     if request.method == "POST":
         try:
             Service = services.objects.create(
@@ -331,6 +331,11 @@ def delete_project(request,project_id):
     messages.success(request,f'service {project_name} deleted successfully')
     return redirect('admin_projects')
 
+@login_required
+def view_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    context = {'project': project}
+    return render(request,'adminside/admin_projects.html',context)
 
 @login_required(login_url='admin_login')
 @require_http_methods(["POST"])
@@ -366,14 +371,14 @@ def Contact_form_list(request):
 
 
 @login_required
-def view_contacts(request,contact_id):
+def view_contact(request,contact_id):
     contact = get_object_or_404(ContactForm,id = contact_id)
     context = { 'contact':contact }
     return render(request,'adminside/contact_management.html',context)
 
 @login_required
 @require_http_methods(["POST"])
-def replay_contact(request,contact_id):
+def reply_contact(request,contact_id):
     contact = get_object_or_404(ContactForm,id = contact_id)
     try:
         replay_massage = request.POST.get('replay_massage')
