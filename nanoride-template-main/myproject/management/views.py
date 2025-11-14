@@ -319,5 +319,26 @@ def edit_project(request,project_id):
     return render(request,'adminside/admin_projects.html',context)
 
 
+@login_required
+@require_http_methods(["POST"])
+def delete_project(request,project_id):
+
+    project = get_object_or_404(services,id = project_id)
+    project_name = project.name
+    project.delete()
+    messages.success(request,f'service {project_name} deleted successfully')
+    return redirect('admin_projects')
+
+
+@login_required
+@require_http_methods(["POST"])
+def toggle_featured(request,project_id):
+    project = get_object_or_404(services,id = project_id)
+    project.featured =  not project.featured
+    project.save()
+    status = 'Featured' if project.featured else 'Unfeatured'
+    messages.success(request, f'Project marked as {status}!')
+    return redirect('admin_projects')
+
 
 
