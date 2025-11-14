@@ -10,9 +10,10 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import services,Project,ProjectImage
+from .models import services,Project,ProjectImage,ContactForm
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods
+from datetime import datetime
 
 @never_cache
 @login_required(login_url='admin_login')
@@ -151,8 +152,7 @@ def edit_service(request,service_id):
             
     return render(request,'adminside/service_admin')
 
-
-@login_required
+@login_required(login_url='admin_login')
 @require_http_methods(["POST"])
 def delete_service(request,service_id):
     if request.method == 'POST':
@@ -162,7 +162,7 @@ def delete_service(request,service_id):
         messages.success(request,f'service {service_name} deleted successfully')
         return redirect(service_admin)
     
-@login_required
+@login_required(login_url='admin_login')
 @require_http_methods(["POST"])
 def toggle_service(request,service_id):
     service = get_object_or_404(services,id = service_id)
@@ -171,14 +171,14 @@ def toggle_service(request,service_id):
     messages.success(request,f'service  status Updated successfully')
     return redirect(service_admin)
 
-@login_required
+@login_required(login_url='admin_login')
 def view_service(request,service_id):
     service = get_object_or_404(services,id = service_id)
     context = {'service': service}
     return render(request,'adminside/service_admin',context)
 
 
-@login_required
+@login_required(login_url='admin_login')
 def Project_list(request):
 
  
@@ -186,16 +186,16 @@ def Project_list(request):
     status_filter = request.GET.get('status')
 
     if status_filter and status_filter != 'all':
-        projects = Services.filter(status = status_filter)
+        projects = projects.filter(status = status_filter)
     category_filter  = request.GET.get('category')
 
     if category_filter  and category_filter  != 'all':
-        projects = Services.filter(status = category_filter )
+        projects = projects.filter(status = category_filter )
 
     search_query = request.GET.get('search')
 
     if search_query:
-        Services = projects.filter(title__icontains = search_query) |projects.filter(overview__icontains = search_query)|projects.filter(client_name__icontains = search_query) 
+        projects = projects.filter(title__icontains = search_query) |projects.filter(overview__icontains = search_query)|projects.filter(client_name__icontains = search_query) 
     context = {
         'projects': projects,
         'total_projects': Project.objects.count(),
@@ -205,7 +205,7 @@ def Project_list(request):
     }
     return render(request,'adminside/admin_projects.html',context)
 
-@login_required
+@login_required(login_url='admin_login')
 @require_http_methods(["GET", "POST"])
 def add_project(request):
     if request.method == 'POST':
@@ -263,7 +263,7 @@ def add_project(request):
 
 
 
-@login_required
+@login_required(login_url='admin_login')
 @require_http_methods(["GET", "POST"])
 def edit_project(request,project_id):
     project = get_object_or_404(Project,id = project_id)
@@ -319,7 +319,7 @@ def edit_project(request,project_id):
     return render(request,'adminside/admin_projects.html',context)
 
 
-@login_required
+@login_required(login_url='admin_login')
 @require_http_methods(["POST"])
 def delete_project(request,project_id):
 
@@ -330,7 +330,7 @@ def delete_project(request,project_id):
     return redirect('admin_projects')
 
 
-@login_required
+@login_required(login_url='admin_login')
 @require_http_methods(["POST"])
 def toggle_featured(request,project_id):
     project = get_object_or_404(services,id = project_id)
@@ -339,6 +339,75 @@ def toggle_featured(request,project_id):
     status = 'Featured' if project.featured else 'Unfeatured'
     messages.success(request, f'Project marked as {status}!')
     return redirect('admin_projects')
+
+
+@login_required(login_url='admin_login')
+def Contact_form_list(request):
+    contacts = ContactForm.objects.all().order_by('-created_at')
+
+    status_filter = request.GET.get('status')
+
+    if status_filter and status_filter != 'all':
+        contacts = contacts.filter(status = status_filter)
+    search_query = request.GET.get('search')
+
+    if search_query:
+        contacts = contacts.filter(user__first_name__icontains = search_query) |contacts.filter(user__email__icontains = search_query)|contacts.filter(subject__icontains = search_query) 
+  
+    context = {
+        'contacts': contacts,
+        'total_contacts': ContactForm.objects.count(),
+        'pending_contacts': ContactForm.objects.filter(status__in=['new', 'pending']).count(),
+        'replied_contacts': ContactForm.objects.filter(status='replied').count(),
+    }
+    return render(request, 'adminside/contact_management.html', context)
+
+
+@login_required
+def view_contacts(request,contact_id):
+    contact = get_object_or_404(ContactForm,id = contact_id)
+    context = { 'contact':contact }
+    return render(request,'adminside/contact_management',context)
+
+@login_required
+@require_http_methods(["POST"])
+def replay_contact(request,contact_id):
+    contact = get_object_or_404(ContactForm,id = contact_id)
+    try:
+        replay_massage = request.POST.get('replay_massage')
+        mark_replied = request.POST.get(mark_replied) == 'on'
+
+        contact.replay_message = replay_massage
+        if mark_replied:
+            contact.status = 'replied'
+            contact.replied_date = datetime.now()
+        else:
+            contact.status = 'pending'
+
+        contact.save()
+        messages.success(request,'Reply sent successfully')
+        return redirect('contact_management')
+    except Exception as e:
+        messages.error(request,f'error in sending messages {str(e)}')
+        return redirect('contact_management')
+
+@login_required
+@require_http_methods(["POST"])
+def delete_contact(request,contact_id):
+    contact = get_object_or_404(ContactForm,id = contact_id)
+    contact_subject = contact.subject
+    contact.delete()
+    messages.success(request, f'Contact "{contact_subject}" deleted successfully!')
+    return redirect('contact_management')
+
+
+
+
+
+
+
+
+
 
 
 
