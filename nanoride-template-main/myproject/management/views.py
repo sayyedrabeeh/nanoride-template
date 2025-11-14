@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import services
+from .models import services,Project,ProjectImage
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods
 
@@ -95,7 +95,7 @@ def service_list(request):
 
     if search_query:
         Services = Services.filter(name__icontains = search_query) |Services.filter(description__icontains = search_query) 
-        context = {
+    context = {
         'services': services,
         'total_services': services.objects.count(),
         'active_services': services.objects.filter(status='Active').count(),
@@ -177,4 +177,86 @@ def view_service(request,service_id):
     context = {'service': service}
     return render(request,'adminside/service_admin',context)
 
+
+@login_required
+def Project_list(request):
+
+ 
+    projects = Project.objects.all().order_by('-created_at')
+    status_filter = request.GET.get('status')
+
+    if status_filter and status_filter != 'all':
+        projects = Services.filter(status = status_filter)
+    category_filter  = request.GET.get('category')
+
+    if category_filter  and category_filter  != 'all':
+        projects = Services.filter(status = category_filter )
+
+    search_query = request.GET.get('search')
+
+    if search_query:
+        Services = projects.filter(title__icontains = search_query) |projects.filter(overview__icontains = search_query)|projects.filter(client_name__icontains = search_query) 
+    context = {
+        'projects': projects,
+        'total_projects': Project.objects.count(),
+        'published_projects': Project.objects.filter(status='published').count(),
+        'draft_projects': Project.objects.filter(status='draft').count(),
+        'featured_projects': Project.objects.filter(featured=True).count(),
+    }
+    return render(request,'adminside/admin_projects.html',context)
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def add_project(request):
+    if request.method == 'POST':
+        try:
+            project = Project.objects.create(
+                title=request.POST.get('title'),
+                category=request.POST.get('category'),
+                overview=request.POST.get('overview'),
+                client_name=request.POST.get('client_name'),
+                location=request.POST.get('location'),
+                year=request.POST.get('year'),
+                area=request.POST.get('area'),
+                duration=request.POST.get('duration'),
+                budget=request.POST.get('budget'),
+                property_type=request.POST.get('property_type', ''),
+                bedrooms=request.POST.get('bedrooms', 0),
+                bathrooms=request.POST.get('bathrooms', ''),
+                style=request.POST.get('style', ''),
+                challenge=request.POST.get('challenge', ''),
+                solution=request.POST.get('solution', ''),
+                feature1_title=request.POST.get('feature1_title', ''),
+                feature1_desc=request.POST.get('feature1_desc', ''),
+                feature2_title=request.POST.get('feature2_title', ''),
+                feature2_desc=request.POST.get('feature2_desc', ''),
+                feature3_title=request.POST.get('feature3_title', ''),
+                feature3_desc=request.POST.get('feature3_desc', ''),
+                feature4_title=request.POST.get('feature4_title', ''),
+                feature4_desc=request.POST.get('feature4_desc', ''),
+                tags=request.POST.get('tags', ''),
+                testimonial=request.POST.get('testimonial', ''),
+                status=request.POST.get('status', 'draft'),
+                featured=request.POST.get('featured') == 'yes',
+                hero_image=request.FILES.get('hero_image')
+            )
+            gallery_images = request.FILES.getlist('gallery_images')
+            for img in gallery_images:
+                img_obj = ProjectImage.objects.create(image=img)
+                project.gallery_images.add(img_obj)
+            messages.success(request, f'Project "{project.title}" added successfully!')
+            return redirect('admin_projects')
+        except Exception as e:
+            messages.error(request,f'error in creating Project : {str(e)}')
+            return redirect('admin_projects')
+    context = {
+        'categories': [
+            ('residential', 'Residential Design'),
+            ('commercial', 'Commercial Design'),
+            ('hospitality', 'Hospitality Design'),
+            ('retail', 'Retail Design'),
+            ('office', 'Office Design'),
+        ]
+    }
+    return render(request,'adminside/admin_projects.html',context)
 
