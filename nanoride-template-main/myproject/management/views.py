@@ -12,6 +12,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import services
 from django.views.decorators.cache import never_cache
+from django.views.decorators.http import require_http_methods
 
 @never_cache
 @login_required(login_url='admin_login')
@@ -102,4 +103,78 @@ def service_list(request):
     }
     return render(request,'adminside/service_admin.html',context)
 
- 
+
+@login_required(login_url='admin_login')
+@require_http_methods(["GET", "POST"])
+def add_services(request):
+    if request.method == "POST":
+        try:
+            Service = services.objects.create(
+                name =  request.POST.get('name'),
+                category = request.POST.get("category"),
+                starting_price = request.POST.get('starting_price'),
+                project_duration = request.POST.get('project_duration'),
+                description = request.POST.get('description'),
+                features =  request.POST.get('features'),
+                status = 'Active',
+                image = request.FILES.get('image')
+            )
+            messages.success(request,f'Service {Service.name} added successfully ')
+            return redirect(service_admin)
+        except Exception as e :
+            messages.error(request,f'error in adding service :{str(e)}')
+            return redirect(service_admin)
+        
+    return render(request,'adminside/service_admin')
+
+@login_required(login_url='admin_login')
+@require_http_methods(["GET", "POST"])
+def edit_service(request,service_id):
+    service = get_object_or_404(services,id = service_id)
+    if request.method  == 'POST':
+        try:
+            service.name =  request.POST.get('name'),
+            service.category = request.POST.get("category"),
+            service.starting_price = request.POST.get('starting_price'),
+            service.project_duration = request.POST.get('project_duration'),
+            service.description = request.POST.get('description'),
+            service.features =  request.POST.get('features'),
+
+            if request.FILES.get('image'):
+                service.image = request.FILES.get('image')
+            service.save()
+            messages.success(request,f'service {service.name} updated successfully')
+            return redirect(service_admin)
+        except Exception as e :
+                messages.error(request,f'error in adding service :{str(e)}')
+                return redirect(service_admin)
+            
+    return render(request,'adminside/service_admin')
+
+
+@login_required
+@require_http_methods(["POST"])
+def delete_service(request,service_id):
+    if request.method == 'POST':
+        service = get_object_or_404(services,id = service_id)
+        service_name = service.name
+        service.delete()
+        messages.success(request,f'service {service_name} deleted successfully')
+        return redirect(service_admin)
+    
+@login_required
+@require_http_methods(["POST"])
+def toggle_service(request,service_id):
+    service = get_object_or_404(services,id = service_id)
+    service.status = 'Inactive' if service.status == 'Active' else 'Active'
+    service.save()
+    messages.success(request,f'service  status Updated successfully')
+    return redirect(service_admin)
+
+@login_required
+def view_service(request,service_id):
+    service = get_object_or_404(services,id = service_id)
+    context = {'service': service}
+    return render(request,'adminside/service_admin',context)
+
+
