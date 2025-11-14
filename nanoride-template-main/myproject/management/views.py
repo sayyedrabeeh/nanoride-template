@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-
+from .models import services
 from django.views.decorators.cache import never_cache
 
 @never_cache
@@ -82,5 +82,24 @@ def admin_login(request):
     return render(request, 'adminside/login.html')
  
  
- 
+@login_required(login_url='admin_login')
+def service_list(request):
+    Services = services.objects.all().order_by('-created_at')
+    status_filter = request.GET.get('status')
+
+    if status_filter and status_filter != 'all':
+        Services = Services.filter(status = status_filter)
+
+    search_query = request.GET.get('search')
+
+    if search_query:
+        Services = Services.filter(name__icontains = search_query) |Services.filter(description__icontains = search_query) 
+        context = {
+        'services': services,
+        'total_services': services.objects.count(),
+        'active_services': services.objects.filter(status='Active').count(),
+        'inactive_services': services.objects.filter(status='Inactive').count(),
+    }
+    return render(request,'adminside/service_admin.html',context)
+
  

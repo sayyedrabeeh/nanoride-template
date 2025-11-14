@@ -130,7 +130,33 @@ class ProjectImage(models.Model):
         return f"Project Image {self.id}"
     
 
+class ContactForm(models.Model):
 
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='contact_forms')
+    phone = models.CharField(max_length=20,blank=True)
+    subject = models.CharField(max_length=200)
+
+    message = models.TextField()
+
+    status = models.CharField(max_length=20,default='new',choices=[
+        ('new', 'New'),
+        ('pending', 'Pending'),
+        ('replied', 'Replied'),
+    ])
+    replay_message = models.TextField(blank=True)
+    replied_date = models.DateTimeField(blank=True,null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name_plural = "Contact Forms"
+    def is_pending(self):
+        return self.status in ['new', 'pending']
+    
+    def is_replied(self):
+        return self.status == 'replied'
 
 
  
