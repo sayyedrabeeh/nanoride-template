@@ -260,3 +260,64 @@ def add_project(request):
     }
     return render(request,'adminside/admin_projects.html',context)
 
+
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def edit_project(request,project_id):
+    project = get_object_or_404(Project,id = project_id)
+    if request.method == 'POST':
+        try:
+  
+            project.title = request.POST.get('title',project.title),
+            project.category = request.POST.get('category',project.category),
+            project.overview = request.POST.get('overview',project.overview),
+            project.client_name = request.POST.get('client_name', project.client_name),
+            project.location = request.POST.get('location',project.location),
+            project.year = request.POST.get('year',project.year),
+            project.area = request.POST.get('area',project.area),
+            project.duration = request.POST.get('duration',project.duration),
+            project.budget = request.POST.get('budget',project.budget),
+            project.property_type = request.POST.get('property_type', project.property_type),
+            project.bedrooms = request.POST.get('bedrooms', project.bedrooms),
+            project.bathrooms = request.POST.get('bathrooms',  project.bathrooms),
+            project.style = request.POST.get('style', project.style),
+            project.challenge = request.POST.get('challenge', project.challenge),
+            project.solution = request.POST.get('solution', project.solution),
+            project.feature1_title = request.POST.get('feature1_title', project.feature1_title),
+            project.feature1_desc = request.POST.get('feature1_desc', project.feature1_desc),
+            project.feature2_title = request.POST.get('feature2_title', project.feature2_title),
+            project.feature2_desc = request.POST.get('feature2_desc', project.feature2_desc),
+            project.feature3_title = request.POST.get('feature3_title', project.feature3_title),
+            project.feature3_desc = request.POST.get('feature3_desc', project.feature3_desc),
+            project.feature4_title = request.POST.get('feature4_title', project.feature4_title),
+            project.feature4_desc = request.POST.get('feature4_desc', project.feature4_desc),
+            project.tags = request.POST.get('tags',  project.tags),
+            project.testimonial=request.POST.get('testimonial', ''),
+            project.status = request.POST.get('status',project.status),
+            project.featured=request.POST.get('featured') == 'yes',
+            if request.FILES.get('hero_image'):
+                project.hero_image=request.FILES.get('hero_image')
+            
+            project.save()
+            messages.success(request, f'Project "{project.title}" updated successfully!')
+            return redirect('admin_projects')
+        except Exception as e:
+            messages.error(request,f'error in updating Project : {str(e)}')
+            return redirect('admin_projects')
+    context = {
+        'project' : project,
+        'categories': [
+            ('residential', 'Residential Design'),
+            ('commercial', 'Commercial Design'),
+            ('hospitality', 'Hospitality Design'),
+            ('retail', 'Retail Design'),
+            ('office', 'Office Design'),
+        ]
+    }
+    return render(request,'adminside/admin_projects.html',context)
+
+
+
+
