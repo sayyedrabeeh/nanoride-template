@@ -126,7 +126,7 @@ def add_services(request):
             messages.error(request,f'error in adding service :{str(e)}')
             return redirect(service_admin)
         
-    return render(request,'adminside/service_admin')
+    return render(request,'adminside/service_admin.html')
 
 @login_required(login_url='admin_login')
 @require_http_methods(["GET", "POST"])
@@ -134,12 +134,12 @@ def edit_service(request,service_id):
     service = get_object_or_404(services,id = service_id)
     if request.method  == 'POST':
         try:
-            service.name =  request.POST.get('name'),
-            service.category = request.POST.get("category"),
-            service.starting_price = request.POST.get('starting_price'),
-            service.project_duration = request.POST.get('project_duration'),
-            service.description = request.POST.get('description'),
-            service.features =  request.POST.get('features'),
+            service.name =  request.POST.get('name')
+            service.category = request.POST.get("category")
+            service.starting_price = request.POST.get('starting_price')
+            service.project_duration = request.POST.get('project_duration')
+            service.description = request.POST.get('description')
+            service.features =  request.POST.get('features')
 
             if request.FILES.get('image'):
                 service.image = request.FILES.get('image')
@@ -150,7 +150,7 @@ def edit_service(request,service_id):
                 messages.error(request,f'error in adding service :{str(e)}')
                 return redirect(service_admin)
             
-    return render(request,'adminside/service_admin')
+    return render(request,'adminside/service_admin.html')
 
 @login_required(login_url='admin_login')
 @require_http_methods(["POST"])
@@ -175,7 +175,7 @@ def toggle_service(request,service_id):
 def view_service(request,service_id):
     service = get_object_or_404(services,id = service_id)
     context = {'service': service}
-    return render(request,'adminside/service_admin',context)
+    return render(request,'adminside/service_admin.html',context)
 
 
 @login_required(login_url='admin_login')
@@ -214,7 +214,7 @@ def add_project(request):
                 title=request.POST.get('title'),
                 category=request.POST.get('category'),
                 overview=request.POST.get('overview'),
-                client_name=request.POST.get('client_name'),
+                client_field =request.POST.get('client_name'),
                 location=request.POST.get('location'),
                 year=request.POST.get('year'),
                 area=request.POST.get('area'),
@@ -250,6 +250,7 @@ def add_project(request):
             messages.error(request,f'error in creating Project : {str(e)}')
             return redirect('admin_projects')
     context = {
+        "mode": "add",
         'categories': [
             ('residential', 'Residential Design'),
             ('commercial', 'Commercial Design'),
@@ -270,33 +271,33 @@ def edit_project(request,project_id):
     if request.method == 'POST':
         try:
   
-            project.title = request.POST.get('title',project.title),
-            project.category = request.POST.get('category',project.category),
-            project.overview = request.POST.get('overview',project.overview),
-            project.client_name = request.POST.get('client_name', project.client_name),
-            project.location = request.POST.get('location',project.location),
-            project.year = request.POST.get('year',project.year),
-            project.area = request.POST.get('area',project.area),
-            project.duration = request.POST.get('duration',project.duration),
-            project.budget = request.POST.get('budget',project.budget),
-            project.property_type = request.POST.get('property_type', project.property_type),
-            project.bedrooms = request.POST.get('bedrooms', project.bedrooms),
-            project.bathrooms = request.POST.get('bathrooms',  project.bathrooms),
-            project.style = request.POST.get('style', project.style),
-            project.challenge = request.POST.get('challenge', project.challenge),
-            project.solution = request.POST.get('solution', project.solution),
-            project.feature1_title = request.POST.get('feature1_title', project.feature1_title),
-            project.feature1_desc = request.POST.get('feature1_desc', project.feature1_desc),
-            project.feature2_title = request.POST.get('feature2_title', project.feature2_title),
-            project.feature2_desc = request.POST.get('feature2_desc', project.feature2_desc),
-            project.feature3_title = request.POST.get('feature3_title', project.feature3_title),
-            project.feature3_desc = request.POST.get('feature3_desc', project.feature3_desc),
-            project.feature4_title = request.POST.get('feature4_title', project.feature4_title),
-            project.feature4_desc = request.POST.get('feature4_desc', project.feature4_desc),
-            project.tags = request.POST.get('tags',  project.tags),
-            project.testimonial=request.POST.get('testimonial', ''),
-            project.status = request.POST.get('status',project.status),
-            project.featured=request.POST.get('featured') == 'yes',
+            project.title = request.POST.get('title',project.title)
+            project.category = request.POST.get('category',project.category)
+            project.overview = request.POST.get('overview',project.overview)
+            project.client_field  = request.POST.get('client_name', project.client_field )
+            project.location = request.POST.get('location',project.location)
+            project.year = request.POST.get('year',project.year)
+            project.area = request.POST.get('area',project.area)
+            project.duration = request.POST.get('duration',project.duration)
+            project.budget = request.POST.get('budget',project.budget)
+            project.property_type = request.POST.get('property_type', project.property_type)
+            project.bedrooms = request.POST.get('bedrooms', project.bedrooms)
+            project.bathrooms = request.POST.get('bathrooms',  project.bathrooms)
+            project.style = request.POST.get('style', project.style)
+            project.challenge = request.POST.get('challenge', project.challenge)
+            project.solution = request.POST.get('solution', project.solution)
+            project.feature1_title = request.POST.get('feature1_title', project.feature1_title)
+            project.feature1_desc = request.POST.get('feature1_desc', project.feature1_desc)
+            project.feature2_title = request.POST.get('feature2_title', project.feature2_title)
+            project.feature2_desc = request.POST.get('feature2_desc', project.feature2_desc)
+            project.feature3_title = request.POST.get('feature3_title', project.feature3_title)
+            project.feature3_desc = request.POST.get('feature3_desc', project.feature3_desc)
+            project.feature4_title = request.POST.get('feature4_title', project.feature4_title)
+            project.feature4_desc = request.POST.get('feature4_desc', project.feature4_desc)
+            project.tags = request.POST.get('tags',  project.tags)
+            project.testimonial=request.POST.get('testimonial', '')
+            project.status = request.POST.get('status',project.status)
+            project.featured=request.POST.get('featured') == 'yes'
             if request.FILES.get('hero_image'):
                 project.hero_image=request.FILES.get('hero_image')
             
@@ -307,6 +308,7 @@ def edit_project(request,project_id):
             messages.error(request,f'error in updating Project : {str(e)}')
             return redirect('admin_projects')
     context = {
+        "mode": "edit",
         'project' : project,
         'categories': [
             ('residential', 'Residential Design'),
@@ -323,7 +325,7 @@ def edit_project(request,project_id):
 @require_http_methods(["POST"])
 def delete_project(request,project_id):
 
-    project = get_object_or_404(services,id = project_id)
+    project = get_object_or_404(Project,id = project_id)
     project_name = project.name
     project.delete()
     messages.success(request,f'service {project_name} deleted successfully')
@@ -367,7 +369,7 @@ def Contact_form_list(request):
 def view_contacts(request,contact_id):
     contact = get_object_or_404(ContactForm,id = contact_id)
     context = { 'contact':contact }
-    return render(request,'adminside/contact_management',context)
+    return render(request,'adminside/contact_management.html',context)
 
 @login_required
 @require_http_methods(["POST"])

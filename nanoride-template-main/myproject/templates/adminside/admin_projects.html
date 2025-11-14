@@ -1005,7 +1005,7 @@
                     </button>
                 </div>
 
-                <form action=" " id="projectForm" method="POST" enctype="multipart/form-data">
+                <form action="{% if mode == 'edit' %}{% url 'edit_project' project.id %}{% else %}{% url 'add_project' %}{% endif %}" id="projectForm" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     
                  
@@ -1018,7 +1018,7 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <label>Project Title <span class="required">*</span></label>
-                                <input type="text" class="form-control" name="title" placeholder="e.g., Modern Minimalist Home" required>
+                                <input type="text"value="{{ project.title|default:'' }}" class="form-control" name="title" placeholder="e.g., Modern Minimalist Home" required>
                                 <span class="helper-text">Enter a descriptive title for the project</span>
                             </div>
                         </div>
@@ -1027,19 +1027,20 @@
                                 <label>Category <span class="required">*</span></label>
                                 <select class="form-control" name="category" required>
                                     <option value="">Select Category</option>
-                                    <option value="residential">Residential Design</option>
-                                    <option value="commercial">Commercial Design</option>
-                                    <option value="hospitality">Hospitality Design</option>
-                                    <option value="retail">Retail Design</option>
-                                    <option value="office">Office Design</option>
+                                    <option value="residential" {% if project.category == 'residential' %}selected{% endif %}>Residential Design</option>
+                                    <option value="commercial" {% if project.category == 'commercial' %}selected{% endif %}>Commercial Design</option>
+                                    <option value="hospitality" {% if project.category == 'hospitality' %}selected{% endif %}>Hospitality Design</option>
+                                    <option value="retail" {% if project.category == 'retail' %}selected{% endif %}>Retail Design</option>
+                                    <option value="office" {% if project.category == 'office' %}selected{% endif %}>Office Design</option>
                                 </select>
+
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>Project Overview <span class="required">*</span></label>
-                        <textarea class="form-control" name="overview" rows="6" placeholder="Provide a detailed description of the project, including design philosophy, client requirements, and unique features..." required></textarea>
+                        <textarea class="form-control"  name="overview" rows="6" placeholder="Provide a detailed description of the project, including design philosophy, client requirements, and unique features..." required>{{ project.overview|default:'' }}</textarea>
                         <span class="helper-text">This will be displayed on the project detail page</span>
                     </div>
 
@@ -1053,19 +1054,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Client Name <span class="required">*</span></label>
-                                <input type="text" class="form-control" name="client_name" placeholder="e.g., Sarah Mitchell" required>
+                                <input type="text" value="{{ project.client_field|default:'' }}" class="form-control" name="client_name" placeholder="e.g., Sarah Mitchell" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Location <span class="required">*</span></label>
-                                <input type="text" class="form-control" name="location" placeholder="e.g., Beverly Hills, CA" required>
+                                <input type="text" value="{{ project.location|default:'' }}"  class="form-control" name="location" placeholder="e.g., Beverly Hills, CA" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Year Completed <span class="required">*</span></label>
-                                <input type="number" class="form-control" name="year" placeholder="2024" required min="2000" max="2030">
+                                <input type="number" value="{{ project.year|default:'' }}" class="form-control" name="year" placeholder="2024" required min="2000" max="2030">
                             </div>
                         </div>
                     </div>
@@ -1074,19 +1075,19 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Project Area <span class="required">*</span></label>
-                                <input type="text" class="form-control" name="area" placeholder="e.g., 3,500 sq ft" required>
+                                <input type="text" value="{{ project.area|default:'' }}" class="form-control" name="area" placeholder="e.g., 3,500 sq ft" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Duration <span class="required">*</span></label>
-                                <input type="text" class="form-control" name="duration" placeholder="e.g., 6 Months" required>
+                                <input type="text" value="{{ project.duration|default:'' }}"  class="form-control" name="duration" placeholder="e.g., 6 Months" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Budget <span class="required">*</span></label>
-                                <input type="text" class="form-control" name="budget" placeholder="e.g., $120K" required>
+                                <input type="text" value="{{ project.budget|default:'' }}"  class="form-control" name="budget" placeholder="e.g., $120K" required>
                             </div>
                         </div>
                     </div>
@@ -1095,26 +1096,26 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Property Type</label>
-                                <input type="text" class="form-control" name="property_type" placeholder="e.g., Single Family">
+                                <input type="text" value="{{ project.property_type|default:'' }}"  class="form-control" name="property_type" placeholder="e.g., Single Family">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Bedrooms</label>
-                                <input type="number" class="form-control" name="bedrooms" placeholder="4" min="0">
+                                <input type="number" value="{{ project.bedrooms|default:'' }}" class="form-control" name="bedrooms" placeholder="4" min="0">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Bathrooms</label>
-                                <input type="text" class="form-control" name="bathrooms" placeholder="3.5">
+                                <input type="number" value="{{ project.bathrooms|default:'' }}" class="form-control" name="bathrooms" placeholder="3">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>Design Style</label>
-                        <input type="text" class="form-control" name="style" placeholder="e.g., Minimalist Modern">
+                        <input type="text" class="form-control" value="{{ project.style|default:'' }}" name="style" placeholder="e.g., Minimalist Modern">
                     </div>
 
                    
@@ -1127,13 +1128,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>The Challenge</label>
-                                <textarea class="form-control" name="challenge" rows="6" placeholder="Describe the main challenges faced in this project..."></textarea>
+                                <textarea class="form-control"   name="challenge" rows="6" placeholder="Describe the main challenges faced in this project...">{{ project.challenge|default:'' }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Our Solution</label>
-                                <textarea class="form-control" name="solution" rows="6" placeholder="Explain how you solved the challenges..."></textarea>
+                                <textarea class="form-control"   name="solution" rows="6" placeholder="Explain how you solved the challenges...">{{ project.solution|default:'' }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1148,15 +1149,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Feature 1</label>
-                                <input type="text" class="form-control" name="feature1_title" placeholder="Feature Title">
-                                <textarea class="form-control mt-2" name="feature1_desc" rows="2" placeholder="Feature Description"></textarea>
+                                <input type="text" value="{{ project.feature1_title|default:'' }}"  class="form-control" name="feature1_title" placeholder="Feature Title">
+                                <textarea class="form-control mt-2"  name="feature1_desc" rows="2" placeholder="Feature Description">{{ project.feature1_desc|default:'' }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Feature 2</label>
-                                <input type="text" class="form-control" name="feature2_title" placeholder="Feature Title">
-                                <textarea class="form-control mt-2" name="feature2_desc" rows="2" placeholder="Feature Description"></textarea>
+                                <input type="text"value="{{ project.feature2_title|default:'' }}"  class="form-control" name="feature2_title" placeholder="Feature Title">
+                                <textarea class="form-control mt-2"   name="feature2_desc" rows="2" placeholder="Feature Description">{{ project.feature2_desc|default:'' }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1165,15 +1166,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Feature 3</label>
-                                <input type="text" class="form-control" name="feature3_title" placeholder="Feature Title">
-                                <textarea class="form-control mt-2" name="feature3_desc" rows="2" placeholder="Feature Description"></textarea>
+                                <input type="text" value="{{ project.feature3_title|default:'' }}"class="form-control" name="feature3_title" placeholder="Feature Title">
+                                <textarea class="form-control mt-2"   name="feature3_desc" rows="2" placeholder="Feature Description">{{ project.feature3_desc|default:'' }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Feature 4</label>
-                                <input type="text" class="form-control" name="feature4_title" placeholder="Feature Title">
-                                <textarea class="form-control mt-2" name="feature4_desc" rows="2" placeholder="Feature Description"></textarea>
+                                <input type="text" class="form-control" value="{{ project.feature4_title|default:'' }}"  name="feature4_title" placeholder="Feature Title">
+                                <textarea class="form-control mt-2"   name="feature4_desc" rows="2" placeholder="Feature Description">{{ project.feature4_desc|default:'' }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1186,7 +1187,7 @@
 
                     <div class="form-group">
                         <label>Project Tags</label>
-                        <input type="text" class="form-control" name="tags" placeholder="e.g., Minimalist, Modern, Eco-Friendly (separate with commas)">
+                        <input type="text" value="{{ project.tags|default:'' }}" class="form-control" name="tags" placeholder="e.g., Minimalist, Modern, Eco-Friendly (separate with commas)">
                         <span class="helper-text">Add relevant tags to help categorize the project</span>
                     </div>
 
@@ -1202,7 +1203,11 @@
                             <i class="fas fa-cloud-upload-alt"></i>
                             <p><strong>Click to upload</strong> or drag and drop</p>
                             <p>Main project image (PNG, JPG - MAX. 5MB)</p>
-                            <input type="file" id="heroImage" name="hero_image" accept="image/*" required>
+                            <input type="file" id="heroImage" name="hero_image" accept="image/*" {% if mode != 'edit' %}required{% endif %}>
+                            {% if project.hero_image %}
+                            <img src="{{ project.hero_image.url }}" style="width:200px; border-radius:10px; margin-bottom:10px;" />
+                            {% endif %}
+
                         </div>
                     </div>
 
@@ -1213,6 +1218,14 @@
                             <p><strong>Click to upload multiple images</strong></p>
                             <p>Project gallery images (PNG, JPG - MAX. 5MB each)</p>
                             <input type="file" id="galleryImages" name="gallery_images" accept="image/*" multiple>
+                            {% if project.gallery_images.all %}
+                            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                                {% for img in project.gallery_images.all %}
+                                    <img src="{{ img.image.url }}" style="width:120px; border-radius:8px;" />
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+
                         </div>
                         <div class="gallery-upload" id="galleryPreview"></div>
                     </div>
@@ -1225,7 +1238,7 @@
 
                     <div class="form-group">
                         <label>Testimonial Text</label>
-                        <textarea class="form-control" name="testimonial" rows="4" placeholder="Enter client's testimonial about the project..."></textarea>
+                        <textarea class="form-control" name="testimonial" rows="4" placeholder="Enter client's testimonial about the project...">{{ project.testimonial|default:'' }}</textarea>
                     </div>
 
                    
@@ -1239,18 +1252,20 @@
                             <div class="form-group">
                                 <label>Status <span class="required">*</span></label>
                                 <select class="form-control" name="status" required>
-                                    <option value="draft">Draft</option>
-                                    <option value="published">Published</option>
+                                    <option value="draft" {% if project.status == 'draft' %}selected{% endif %}>Draft</option>
+                                    <option value="published" {% if project.status == 'published' %}selected{% endif %}>Published</option>
                                 </select>
+
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Featured Project</label>
                                 <select class="form-control" name="featured">
-                                    <option value="no">No</option>
-                                    <option value="yes">Yes</option>
+                                    <option value="no" {% if project.featured == 'no' %}selected{% endif %}>No</option>
+                                    <option value="yes" {% if project.featured == 'yes' %}selected{% endif %}>Yes</option>
                                 </select>
+
                                 <span class="helper-text">Featured projects appear on homepage</span>
                             </div>
                         </div>
