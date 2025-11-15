@@ -885,61 +885,63 @@
 			<h1>Our Services</h1>
 			<p>Comprehensive interior design solutions tailored to transform your space into a masterpiece</p>
 			<div class="breadcrumb">
-				<a href="#">Home</a>
-				<span>/</span>
-				<span>Services</span>
-			</div>
+            <a href="{% url 'home' %}">Home</a>
+            <span>/</span>
+            <span>Services</span>
+             </div>
 		</div>
 	</section>
+
 	<section class="services-overview">
 		<div class="container">
 			<div class="overview-grid">
-				<div class="overview-card">
-					<div class="overview-icon">
-						<i class="fas fa-home"></i>
-					</div>
-					<h3>Residential Design</h3>
-					<p>Transform your house into a dream home with personalized designs that reflect your lifestyle and personality.</p>
-				</div>
-				<div class="overview-card">
-					<div class="overview-icon">
-						<i class="fas fa-building"></i>
-					</div>
-					<h3>Commercial Spaces</h3>
-					<p>Create inspiring work environments that boost productivity and leave lasting impressions on clients.</p>
-				</div>
-				<div class="overview-card">
-					<div class="overview-icon">
-						<i class="fas fa-utensils"></i>
-					</div>
-					<h3>Hospitality Design</h3>
-					<p>Design memorable experiences for restaurants, hotels, and entertainment venues that captivate guests.</p>
-				</div>
+            {% for service in overview_services %}
+            <div class="overview-card">
+                <div class="overview-icon">
+                    <i class="{{ service.get_category_icon }}"></i>
+                </div>
+                <h3>{{ service.name }}</h3>
+                <p>{{ service.description|truncatewords:20 }}</p>
+            </div>
+            {% empty %}
+            <div class="overview-card">
+                <div class="overview-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>Residential Design</h3>
+                <p>Transform your house into a dream home with personalized designs.</p>
+            </div>
+            {% endfor %}
 			</div>
 		</div>
 	</section>
+    {% for service in all_services %}
 	<section class="service-detail">
 		<div class="service-content">
-			<div class="service-image">
-				<img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=600&fit=crop" alt="Residential Design">
-			</div>
+			 <div class="service-image">
+                {% if service.image %}
+                    <img src="{{ service.image.url }}" alt="{{ service.name }}">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=600&fit=crop" alt="{{ service.name }}">
+                {% endif %}
+            </div>
 			<div class="service-text">
-				<span class="service-badge">Premium Service</span>
-				<h2>Residential Design</h2>
-				<p>Your home is your sanctuary, and we understand that every space should tell your unique story. Our residential design services combine aesthetic excellence with practical functionality to create living spaces that enhance your daily life.</p>
-				<p>From concept to completion, we handle every detail—space planning, material selection, furniture curation, and custom millwork—ensuring a cohesive design that exceeds your expectations.</p>
-				<ul class="service-features">
-					<li>Complete home interior design and styling</li>
-					<li>Custom furniture design and selection</li>
-					<li>Space planning and layout optimization</li>
-					<li>Color consultation and material selection</li>
-					<li>Lighting design and installation coordination</li>
-					<li>Project management from concept to completion</li>
-				</ul>
-				<div class="service-price">
+				<span class="service-badge">{{ service.category }}</span>
+				<h2>{{ service.name }}</h2>
+				<p>{{ service.description }}</p>
+                
+            <ul class="service-features">
+                {% for feature in service.features.splitlines %}
+                    {% if feature.strip %}
+                        <li>{{ feature }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+			
+            <div class="service-price">
 					<div>
 						<div class="price-label">Starting From</div>
-						<div class="price-amount">$15,000</div>
+						<div class="price-amount">${{ service.starting_price|floatformat:0 }}</div>
 					</div>
 				</div>
 				<a href="#" class="btn btn-primary">Get Started</a>
@@ -947,93 +949,15 @@
 			</div>
 		</div>
 	</section>
-	<section class="service-detail">
-		<div class="service-content">
-			<div class="service-image">
-				<img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop" alt="Space Planning">
-			</div>
-			<div class="service-text">
-				<span class="service-badge">Strategic Design</span>
-				<h2>Space Planning</h2>
-				<p>Maximize your space's potential with expert space planning that optimizes flow, functionality, and visual appeal. We analyze how you use your space and create layouts that work seamlessly with your lifestyle or business needs.</p>
-				<p>Our strategic approach considers traffic patterns, natural light, zoning, and spatial relationships to create harmonious, efficient environments.</p>
-				<ul class="service-features">
-					<li>Floor plan development and optimization</li>
-					<li>Traffic flow analysis</li>
-					<li>Furniture layout and placement</li>
-					<li>Room zoning and function allocation</li>
-					<li>3D visualization and virtual walkthroughs</li>
-					<li>Renovation and remodeling planning</li>
-				</ul>
-				<div class="service-price">
-					<div>
-						<div class="price-label">Starting From</div>
-						<div class="price-amount">$3,500</div>
-					</div>
-				</div>
-				<a href="#" class="btn btn-primary">Get Started</a>
-				<a href="#" class="btn btn-outline">Learn More</a>
-			</div>
-		</div>
-	</section>
-	<section class="service-detail">
-		<div class="service-content">
-			<div class="service-image">
-				<img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=600&fit=crop" alt="Furniture Selection">
-			</div>
-			<div class="service-text">
-				<span class="service-badge">Curated Collections</span>
-				<h2>Furniture Selection & Sourcing</h2>
-				<p>Finding the perfect furniture pieces can be overwhelming. Our expert curators take the guesswork out of furniture selection, sourcing high-quality pieces that perfectly complement your design vision and budget.</p>
-				<p>We have relationships with premium furniture manufacturers and artisans worldwide, giving you access to exclusive pieces and custom options.</p>
-				<ul class="service-features">
-					<li>Custom furniture design and fabrication</li>
-					<li>Curated furniture selection from global sources</li>
-					<li>Vintage and antique sourcing</li>
-					<li>Upholstery and reupholstery services</li>
-					<li>Procurement and delivery coordination</li>
-					<li>Installation and placement supervision</li>
-				</ul>
-				<div class="service-price">
-					<div>
-						<div class="price-label">Starting From</div>
-						<div class="price-amount">$2,500</div>
-					</div>
-				</div>
-				<a href="#" class="btn btn-primary">Get Started</a>
-				<a href="#" class="btn btn-outline">View Catalog</a>
-			</div>
-		</div>
-	</section>
-	<section class="service-detail">
-		<div class="service-content">
-			<div class="service-image">
-				<img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=800&h=600&fit=crop" alt="Color Consultation">
-			</div>
-			<div class="service-text">
-				<span class="service-badge">Design Expertise</span>
-				<h2>Color Consultation</h2>
-				<p>Color has the power to transform a space and influence mood. Our color consultation services help you select the perfect palette that creates the desired atmosphere while reflecting your personal style or brand identity.</p>
-				<p>We consider lighting conditions, architectural features, and color psychology to create harmonious schemes that stand the test of time.</p>
-				<ul class="service-features">
-					<li>Complete color palette development</li>
-					<li>Paint color selection and testing</li>
-					<li>Material and finish coordination</li>
-					<li>Color psychology application</li>
-					<li>Lighting analysis for color accuracy</li>
-					<li>Sample boards and mood boards</li>
-				</ul>
-				<div class="service-price">
-					<div>
-						<div class="price-label">Starting From</div>
-						<div class="price-amount">$1,500</div>
-					</div>
-				</div>
-				<a href="#" class="btn btn-primary">Get Started</a>
-				<a href="#" class="btn btn-outline">Book Consultation</a>
-			</div>
-		</div>
-	</section>
+    {% empty %}
+    <section class="service-detail">
+        <div class="container">
+            <p>No services available at the moment.</p>
+        </div>
+    </section>
+    {% endfor %}
+
+
 	<section class="process-section">
 		<div class="container">
 			<div class="section-header">
@@ -1090,7 +1014,8 @@
 			</div>
 		</div>
 	</section>
-	<section class="pricing-section">
+
+    <section class="pricing-section">
 		<div class="container">
 			<div class="section-header">
 				<span class="section-tag" style="background: var(--accent); color: var(--primary);">Investment</span>
@@ -1145,7 +1070,8 @@
 			</div>
 		</div>
 	</section>
-	<section class="faq-section">
+
+    <section class="faq-section">
 		<div class="container">
 			<div class="section-header">
 				<span class="section-tag" style="background: var(--accent); color: var(--primary);">Questions</span>
@@ -1222,14 +1148,16 @@
 			</div>
 		</div>
 	</section>
-	<section class="cta-section">
+
+    <section class="cta-section">
 		<div class="container">
 			<h2>Ready to Start Your Project?</h2>
 			<p>Let's bring your vision to life with expert design services tailored to your unique needs and style. Schedule a complimentary consultation today.</p>
 			<a href="#" class="btn btn-white">Schedule Free Consultation</a>
 		</div>
 	</section>
-	<footer class="footer">
+
+    <footer class="footer">
 		<div class="footer-content">
 			<div class="footer-brand">
 				<h3>WOODORA</h3>
@@ -1280,7 +1208,8 @@
 		</div>
 	</footer>
 
-	<script>
+
+    <script>
 		window.addEventListener('scroll', function() {
 			const navbar = document.querySelector('.navbar');
 			if (window.scrollY > 50) {
