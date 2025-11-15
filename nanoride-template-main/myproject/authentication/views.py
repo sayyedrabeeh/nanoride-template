@@ -30,7 +30,7 @@ from django.contrib import messages
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from management.models import Project
+from management.models import Project,services
 
 
 
@@ -268,7 +268,16 @@ def about(request):
     return render(request,'userside/about.html')
 
 def service(request):
-    return render(request,'userside/service.html')
+    all_services = services.objects.filter(status='Active')
+    overview_services = all_services.filter(category__in=['Residential', 'Commercial', 'Hospitality'])[:3]
+    detail_services = all_services.exclude(category__in=['Residential', 'Commercial', 'Hospitality'])
+  
+    context = {
+        'overview_services': overview_services,
+        'detail_services': detail_services,
+        'all_services': all_services,
+    }
+    return render(request,'userside/service.html',context)
 
 def contact(request):
     return render(request,'userside/contact.html')

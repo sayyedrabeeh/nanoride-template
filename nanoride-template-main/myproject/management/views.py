@@ -99,7 +99,7 @@ def service_list(request):
     if search_query:
         Services = Services.filter(name__icontains = search_query) |Services.filter(description__icontains = search_query) 
     context = {
-        'services': services,
+        'services': Services,
         'total_services': services.objects.count(),
         'active_services': services.objects.filter(status='Active').count(),
         'inactive_services': services.objects.filter(status='Inactive').count(),
@@ -123,10 +123,10 @@ def add_service(request):
                 image = request.FILES.get('image')
             )
             messages.success(request,f'Service {Service.name} added successfully ')
-            return redirect(service_admin)
+            return redirect(service_list)
         except Exception as e :
             messages.error(request,f'error in adding service :{str(e)}')
-            return redirect(service_admin)
+            return redirect(service_list)
         
     return render(request,'adminside/service_admin.html')
 
@@ -147,10 +147,10 @@ def edit_service(request,service_id):
                 service.image = request.FILES.get('image')
             service.save()
             messages.success(request,f'service {service.name} updated successfully')
-            return redirect(service_admin)
+            return redirect(service_list)
         except Exception as e :
                 messages.error(request,f'error in adding service :{str(e)}')
-                return redirect(service_admin)
+                return redirect(service_list)
             
     return render(request,'adminside/service_admin.html')
 
@@ -162,7 +162,7 @@ def delete_service(request,service_id):
         service_name = service.name
         service.delete()
         messages.success(request,f'service {service_name} deleted successfully')
-        return redirect(service_admin)
+        return redirect(service_list)
     
 @login_required(login_url='admin_login')
 @require_http_methods(["POST"])
@@ -171,7 +171,7 @@ def toggle_service(request,service_id):
     service.status = 'Inactive' if service.status == 'Active' else 'Active'
     service.save()
     messages.success(request,f'service  status Updated successfully')
-    return redirect(service_admin)
+    return redirect(service_list)
 
 @login_required(login_url='admin_login')
 def view_service(request,service_id):

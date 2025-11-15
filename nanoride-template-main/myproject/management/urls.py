@@ -11,6 +11,7 @@ urlpatterns = [
     path('projects/view/<int:project_id>/', views.view_project, name='view_project'),
     path('projects/toggle-featured/<int:project_id>/', views.toggle_featured, name='toggle_featured'),
     path('service_admin/', views.service_admin, name='service_admin'),
+    path('service_list/', views.service_list, name='service_list'),
     path('services/add/', views.add_service, name='add_service'),
     path('services/edit/<int:service_id>/', views.edit_service, name='edit_service'),
     path('services/delete/<int:service_id>/', views.delete_service, name='delete_service'),
