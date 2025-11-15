@@ -822,11 +822,11 @@
 						<div class="stat-label">Projects Completed</div>
 					</div>
 					<div class="stat-item">
-						<div class="stat-number">90%</div>
+						<div class="stat-number">98%</div>
 						<div class="stat-label">Client Satisfaction</div>
 					</div>
 					<div class="stat-item">
-						<div class="stat-number">10+</div>
+						<div class="stat-number">50+</div>
 						<div class="stat-label">Design Awards</div>
 					</div>
 				</div>
@@ -846,7 +846,7 @@
 				</div>
 				<div class="floating-badge badge-2">
 					<div class="badge-text">
-						<h4 style="font-size: 28px; color: var(--secondary); margin-bottom: 5px;">15 Years</h4>
+						<h4 style="font-size: 28px; color: var(--secondary); margin-bottom: 5px;">15 Year</h4>
 						<p style="color: var(--gray);">Of Excellence</p>
 					</div>
 				</div>
@@ -861,57 +861,30 @@
 				<p class="section-desc">Comprehensive design solutions tailored to bring your vision to life with exceptional craftsmanship and attention to detail</p>
 			</div>
 			<div class="services-grid">
-				<div class="service-card">
-					<div class="service-icon">
-						<i class="fas fa-home"></i>
-					</div>
-					<h3 class="service-title">Residential Design</h3>
-					<p class="service-desc">Transform your home into a personalized sanctuary that reflects your lifestyle and aesthetic preferences.</p>
-					<a href="#" class="service-link">Explore More <i class="fas fa-arrow-right"></i></a>
-				</div>
-				<div class="service-card">
-					<div class="service-icon">
-						<i class="fas fa-building"></i>
-					</div>
-					<h3 class="service-title">Commercial Spaces</h3>
-					<p class="service-desc">Create inspiring workspaces that enhance productivity and leave lasting impressions on clients.</p>
-					<a href="#" class="service-link">Explore More <i class="fas fa-arrow-right"></i></a>
-				</div>
-				<div class="service-card">
-					<div class="service-icon">
-						<i class="fas fa-utensils"></i>
-					</div>
-					<h3 class="service-title">Hospitality Design</h3>
-					<p class="service-desc">Design memorable experiences for restaurants, hotels, and entertainment venues.</p>
-					<a href="#" class="service-link">Explore More <i class="fas fa-arrow-right"></i></a>
-				</div>
-				<div class="service-card">
-					<div class="service-icon">
-						<i class="fas fa-pencil-ruler"></i>
-					</div>
-					<h3 class="service-title">Space Planning</h3>
-					<p class="service-desc">Optimize your space with strategic layouts that maximize functionality and flow.</p>
-					<a href="#" class="service-link">Explore More <i class="fas fa-arrow-right"></i></a>
-				</div>
-				<div class="service-card">
-					<div class="service-icon">
-						<i class="fas fa-couch"></i>
-					</div>
-					<h3 class="service-title">Furniture Selection</h3>
-					<p class="service-desc">Curate the perfect pieces that combine comfort, style, and quality craftsmanship.</p>
-					<a href="#" class="service-link">Explore More <i class="fas fa-arrow-right"></i></a>
-				</div>
-				<div class="service-card">
-					<div class="service-icon">
-						<i class="fas fa-palette"></i>
-					</div>
-					<h3 class="service-title">Color Consultation</h3>
-					<p class="service-desc">Expert guidance on color schemes that create the perfect mood and ambiance.</p>
-					<a href="#" class="service-link">Explore More <i class="fas fa-arrow-right"></i></a>
-				</div>
+				 {% for service in services %}
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="{{ service.get_category_icon }}"></i>
+                </div>
+                <h3 class="service-title">{{ service.name }}</h3>
+                <p class="service-desc">{{ service.description|truncatewords:20 }}</p>
+                <a href="{% url 'service' %}" class="service-link">Explore More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            {% empty %}
+             
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3 class="service-title">Residential Design</h3>
+                <p class="service-desc">Transform your home into a personalized sanctuary that reflects your lifestyle and aesthetic preferences.</p>
+                <a href="#" class="service-link">Explore More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            {% endfor %}				 
 			</div>
 		</div>
 	</section>
+
 	<section class="portfolio" id="portfolio">
 		<div class="container">
 			<div class="section-header">
@@ -920,33 +893,34 @@
 				<p class="section-desc">Explore our curated collection of stunning interiors that showcase our design philosophy and expertise</p>
 			</div>
 			<div class="portfolio-grid">
-				<div class="portfolio-item">
-					<img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop" alt="Modern Living Room" class="portfolio-img">
-					<div class="portfolio-overlay">
-						<div class="portfolio-category">Residential</div>
-						<h3 class="portfolio-title">Modern Minimalist Home</h3>
-						<p class="portfolio-desc">A serene 3,500 sq ft residence featuring clean lines and natural materials</p>
-					</div>
-				</div>
-				<div class="portfolio-item">
-					<img src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=800&h=600&fit=crop" alt="Office Space" class="portfolio-img">
-					<div class="portfolio-overlay">
-						<div class="portfolio-category">Commercial</div>
-						<h3 class="portfolio-title">Tech Startup Office</h3>
-						<p class="portfolio-desc">Collaborative workspace designed for innovation and creativity</p>
-					</div>
-				</div>
-				<div class="portfolio-item">
-					<img src="https://images.unsplash.com/photo-1571624436279-b272aff752b5?w=800&h=600&fit=crop" alt="Restaurant" class="portfolio-img">
-					<div class="portfolio-overlay">
-						<div class="portfolio-category">Hospitality</div>
-						<h3 class="portfolio-title">Fine Dining Restaurant</h3>
-						<p class="portfolio-desc">Elegant ambiance combining luxury with comfort</p>
-					</div>
-				</div>
+				{% for project in projects %}
+            <div class="portfolio-item">
+                {% if project.hero_image %}
+                    <img src="{{ project.hero_image.url }}" alt="{{ project.title }}" class="portfolio-img">
+                {% else %}
+                    <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop" alt="{{ project.title }}" class="portfolio-img">
+                {% endif %}
+                <div class="portfolio-overlay">
+                    <div class="portfolio-category">{{ project.get_category_display }}</div>
+                    <h3 class="portfolio-title">{{ project.title }}</h3>
+                    <p class="portfolio-desc">{{ project.overview|truncatewords:15 }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="portfolio-item">
+                <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop" alt="Modern Living Room" class="portfolio-img">
+                <div class="portfolio-overlay">
+                    <div class="portfolio-category">Residential</div>
+                    <h3 class="portfolio-title">Modern Minimalist Home</h3>
+                    <p class="portfolio-desc">A serene 3,500 sq ft residence featuring clean lines and natural materials</p>
+                </div>
+            </div>
+            {% endfor %}
 			</div>
 		</div>
 	</section>
+
+
 	<section class="process" id="process">
 		<div class="container">
 			<div class="section-header">
@@ -978,6 +952,7 @@
 			</div>
 		</div>
 	</section>
+
 	<section class="testimonials" id="testimonials">
 		<div class="container">
 			<div class="section-header">
@@ -1022,6 +997,7 @@
 			</div>
 		</div>
 	</section>
+	
 	<section class="cta" id="contact">
 		<div class="container">
 			<h2>Ready to Transform Your Space?</h2>
