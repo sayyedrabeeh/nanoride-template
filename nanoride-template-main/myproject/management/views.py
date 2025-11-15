@@ -11,8 +11,10 @@ import logging
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import services,Project,ProjectImage,ContactForm
+from django.db.models import Sum
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods
+from django.utils.timezone import now
 from datetime import datetime
 
 @never_cache
@@ -180,30 +182,32 @@ def view_service(request,service_id):
 
 @login_required(login_url='admin_login')
 def Project_list(request):
-
- 
     projects = Project.objects.all().order_by('-created_at')
     status_filter = request.GET.get('status')
-
     if status_filter and status_filter != 'all':
         projects = projects.filter(status = status_filter)
     category_filter  = request.GET.get('category')
-
     if category_filter  and category_filter  != 'all':
         projects = projects.filter(status = category_filter )
-
     search_query = request.GET.get('search')
-
+    current_year = now().year
+    projects_this_year = Project.objects.filter(created_at__year=current_year).count()
     if search_query:
         projects = projects.filter(title__icontains = search_query) |projects.filter(overview__icontains = search_query)|projects.filter(client_name__icontains = search_query) 
     context = {
         'projects': projects,
+        'projects_this_year':projects_this_year,
+        "residential_count": projects.filter(category="residential").count(),
+        "commercial_count": projects.filter(category="commercial").count(),
         'total_projects': Project.objects.count(),
         'published_projects': Project.objects.filter(status='published').count(),
         'draft_projects': Project.objects.filter(status='draft').count(),
         'featured_projects': Project.objects.filter(featured=True).count(),
     }
     return render(request,'adminside/admin_projects.html',context)
+
+
+
 
 @login_required(login_url='admin_login')
 @require_http_methods(["GET", "POST"])
@@ -245,10 +249,10 @@ def add_project(request):
                 img_obj = ProjectImage.objects.create(image=img)
                 project.gallery_images.add(img_obj)
             messages.success(request, f'Project "{project.title}" added successfully!')
-            return redirect('admin_projects')
+            return redirect('Project_list')
         except Exception as e:
             messages.error(request,f'error in creating Project : {str(e)}')
-            return redirect('admin_projects')
+            return redirect('Project_list')
     context = {
         "mode": "add",
         'categories': [
@@ -303,10 +307,10 @@ def edit_project(request,project_id):
             
             project.save()
             messages.success(request, f'Project "{project.title}" updated successfully!')
-            return redirect('admin_projects')
+            return redirect('Project_list')
         except Exception as e:
             messages.error(request,f'error in updating Project : {str(e)}')
-            return redirect('admin_projects')
+            return redirect('Project_list')
     context = {
         "mode": "edit",
         'project' : project,
@@ -329,7 +333,7 @@ def delete_project(request,project_id):
     project_name = project.name
     project.delete()
     messages.success(request,f'service {project_name} deleted successfully')
-    return redirect('admin_projects')
+    return redirect('Project_list')
 
 @login_required
 def view_project(request, project_id):
@@ -345,7 +349,7 @@ def toggle_featured(request,project_id):
     project.save()
     status = 'Featured' if project.featured else 'Unfeatured'
     messages.success(request, f'Project marked as {status}!')
-    return redirect('admin_projects')
+    return redirect('Project_list')
 
 
 @login_required(login_url='admin_login')

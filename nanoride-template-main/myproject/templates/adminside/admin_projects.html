@@ -696,29 +696,31 @@
                     <div class="stat-icon">
                         <i class="fas fa-folder-open"></i>
                     </div>
-                    <div class="stat-value">24</div>
+                    <div class="stat-value">{{ total_projects }}</div>
                     <div class="stat-label">Total Projects</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-home"></i>
                     </div>
-                    <div class="stat-value">18</div>
+                    <div class="stat-value">{{ residential_count }}</div>
                     <div class="stat-label">Residential</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-building"></i>
                     </div>
-                    <div class="stat-value">6</div>
+                    <div class="stat-value">{{ commercial_count }}</div>
                     <div class="stat-label">Commercial</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">
                         <i class="fas fa-eye"></i>
                     </div>
-                    <div class="stat-value">15.2K</div>
-                    <div class="stat-label">Total Views</div>
+                   <div class="stat-value">{{ projects_this_year }}</div>
+                    <div class="stat-label">Projects This Year</div>
+
+
                 </div>
             </div>
 
@@ -749,244 +751,61 @@
 
             <div class="projects-grid">
            
+               {% for project in projects %}
                 <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&h=400&fit=crop" alt="Modern Minimalist Home" class="project-image">
-                    <span class="project-badge">Published</span>
-                    <div class="project-content">
-                        <div class="project-category">Residential Design</div>
-                        <h3 class="project-title">Modern Minimalist Home</h3>
-                        <p class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Beverly Hills, CA
-                        </p>
-                        <div class="project-meta">
-                            <div class="meta-item">
-                                <span class="meta-label">Year</span>
-                                <span class="meta-value">2023</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Area</span>
-                                <span class="meta-value">3,500 sq ft</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Budget</span>
-                                <span class="meta-value">$120K</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Views</span>
-                                <span class="meta-value">2.4K</span>
-                            </div>
-                        </div>
-                        <div class="project-actions">
-                            <button class="btn-action btn-edit" onclick="showEditForm()">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-action btn-delete">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                    <img src="{{ project.hero_image.url }}" 
+                        alt="{{ project.title }}" 
+                        class="project-image">
 
-                
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&h=400&fit=crop" alt="Luxury Penthouse" class="project-image">
-                    <span class="project-badge" style="background: var(--info);">Published</span>
-                    <div class="project-content">
-                        <div class="project-category">Residential Design</div>
-                        <h3 class="project-title">Luxury Penthouse</h3>
-                        <p class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Miami, FL
-                        </p>
-                        <div class="project-meta">
-                            <div class="meta-item">
-                                <span class="meta-label">Year</span>
-                                <span class="meta-value">2023</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Area</span>
-                                <span class="meta-value">4,200 sq ft</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Budget</span>
-                                <span class="meta-value">$180K</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Views</span>
-                                <span class="meta-value">3.1K</span>
-                            </div>
-                        </div>
-                        <div class="project-actions">
-                            <button class="btn-action btn-edit">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-action btn-delete">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                    <span class="project-badge" style="background: 
+                        {% if project.status == 'published' %}var(--success)
+                        {% elif project.status == 'draft' %}var(--warning)
+                        {% else %}var(--info)
+                        {% endif %}
+                    ">
+                        {{ project.status|title }}
+                    </span>
 
-                
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop" alt="Coastal Villa" class="project-image">
-                    <span class="project-badge" style="background: var(--warning);">Draft</span>
                     <div class="project-content">
-                        <div class="project-category">Residential Design</div>
-                        <h3 class="project-title">Coastal Villa</h3>
-                        <p class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Malibu, CA
-                        </p>
-                        <div class="project-meta">
-                            <div class="meta-item">
-                                <span class="meta-label">Year</span>
-                                <span class="meta-value">2024</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Area</span>
-                                <span class="meta-value">5,000 sq ft</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Budget</span>
-                                <span class="meta-value">$250K</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Views</span>
-                                <span class="meta-value">1.8K</span>
-                            </div>
-                        </div>
-                        <div class="project-actions">
-                            <button class="btn-action btn-edit">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-action btn-delete">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                        <div class="project-category">{{ project.get_category_display }}</div>
 
-               
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=600&h=400&fit=crop" alt="Corporate Office" class="project-image">
-                    <span class="project-badge" style="background: var(--success);">Published</span>
-                    <div class="project-content">
-                        <div class="project-category">Commercial Design</div>
-                        <h3 class="project-title">Corporate Office</h3>
-                        <p class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            San Francisco, CA
-                        </p>
-                        <div class="project-meta">
-                            <div class="meta-item">
-                                <span class="meta-label">Year</span>
-                                <span class="meta-value">2023</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Area</span>
-                                <span class="meta-value">8,000 sq ft</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Budget</span>
-                                <span class="meta-value">$300K</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Views</span>
-                                <span class="meta-value">4.2K</span>
-                            </div>
-                        </div>
-                        <div class="project-actions">
-                            <button class="btn-action btn-edit">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-action btn-delete">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                        <h3 class="project-title">{{ project.title }}</h3>
 
-                
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop" alt="Boutique Hotel" class="project-image">
-                    <span class="project-badge">Published</span>
-                    <div class="project-content">
-                        <div class="project-category">Hospitality Design</div>
-                        <h3 class="project-title">Boutique Hotel</h3>
                         <p class="project-location">
                             <i class="fas fa-map-marker-alt"></i>
-                            New York, NY
+                            {{ project.location }}
                         </p>
-                        <div class="project-meta">
-                            <div class="meta-item">
-                                <span class="meta-label">Year</span>
-                                <span class="meta-value">2022</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Area</span>
-                                <span class="meta-value">12,000 sq ft</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Budget</span>
-                                <span class="meta-value">$450K</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Views</span>
-                                <span class="meta-value">5.6K</span>
-                            </div>
-                        </div>
-                        <div class="project-actions">
-                            <button class="btn-action btn-edit">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-action btn-delete">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
 
-            
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&h=400&fit=crop" alt="Mountain Retreat" class="project-image">
-                    <span class="project-badge">Published</span>
-                    <div class="project-content">
-                        <div class="project-category">Residential Design</div>
-                        <h3 class="project-title">Mountain Retreat</h3>
-                        <p class="project-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            Aspen, CO
-                        </p>
                         <div class="project-meta">
                             <div class="meta-item">
                                 <span class="meta-label">Year</span>
-                                <span class="meta-value">2023</span>
+                                <span class="meta-value">{{ project.year }}</span>
                             </div>
                             <div class="meta-item">
                                 <span class="meta-label">Area</span>
-                                <span class="meta-value">4,800 sq ft</span>
+                                <span class="meta-value">{{ project.area }}</span>
                             </div>
                             <div class="meta-item">
                                 <span class="meta-label">Budget</span>
-                                <span class="meta-value">$220K</span>
+                                <span class="meta-value">{{ project.budget }}</span>
                             </div>
                             <div class="meta-item">
                                 <span class="meta-label">Views</span>
-                                <span class="meta-value">3.7K</span>
+                                <span class="meta-value">{{ project.views }}</span>
                             </div>
                         </div>
+
                         <div class="project-actions">
-                            <button class="btn-action btn-edit">
+                            <a href="{% url 'edit_project' project.id %}" class="btn-action btn-edit">
                                 <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button class="btn-action btn-delete">
+                            </a>
+                            <a href="{% url 'delete_project' project.id %}" class="btn-action btn-delete">
                                 <i class="fas fa-trash"></i> Delete
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
 
             <button class="btn-add-project" id="showAddForm">
@@ -1202,10 +1021,10 @@
                         <div class="image-upload-area">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <p><strong>Click to upload</strong> or drag and drop</p>
-                            <p>Main project image (PNG, JPG - MAX. 5MB)</p>
+                            <p>Main project image ( MAX. 10MB)</p>
                             <input type="file" id="heroImage" name="hero_image" accept="image/*" {% if mode != 'edit' %}required{% endif %}>
                             {% if project.hero_image %}
-                            <img src="{{ project.hero_image.url }}" style="width:200px; border-radius:10px; margin-bottom:10px;" />
+                            <img id="heroImagePreview" src="{{ project.hero_image.url }}" style="width:200px; border-radius:10px; margin-bottom:10px;" />
                             {% endif %}
 
                         </div>
@@ -1216,7 +1035,7 @@
                         <div class="image-upload-area">
                             <i class="fas fa-images"></i>
                             <p><strong>Click to upload multiple images</strong></p>
-                            <p>Project gallery images (PNG, JPG - MAX. 5MB each)</p>
+                            <p>Project gallery images (  MAX. 10MB each)</p>
                             <input type="file" id="galleryImages" name="gallery_images" accept="image/*" multiple>
                             {% if project.gallery_images.all %}
                             <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -1406,8 +1225,8 @@
                     const files = Array.from(e.target.files);
 
                     files.forEach((file, index) => {
-                        if (file.size > 5 * 1024 * 1024) {
-                            alert(`File ${file.name} is too large. Maximum size is 5MB.`);
+                        if (file.size > 10 * 1024 * 1024) {
+                            alert(`File ${file.name} is too large. Maximum size is 10MB.`);
                             return;
                         }
 
@@ -1467,6 +1286,42 @@
                 });
             });
         });
+ 
+        const heroInput = document.getElementById('heroImage');
+
+        if (heroInput) {
+            heroInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+
+                if (!file) return;
+
+                
+                if (file.size > 10 * 1024 * 1024) {
+                    alert(`File ${file.name} is too large. Maximum size is 10MB.`);
+                    heroInput.value = "";
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    let previewImg = document.querySelector('#heroImagePreview');
+
+                    if (!previewImg) {
+                        previewImg = document.createElement('img');
+                        previewImg.id = "heroImagePreview";
+                        previewImg.style.width = "200px";
+                        previewImg.style.borderRadius = "10px";
+                        previewImg.style.marginBottom = "10px";
+
+                        heroInput.parentElement.appendChild(previewImg);
+                    }
+
+                    previewImg.src = ev.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
 
          
         function showEditForm() {
@@ -1477,6 +1332,15 @@
             document.querySelector('.form-header h2').textContent = 'Edit Project';
             window.scrollTo(0, 0);
         }
+
+        {% if mode == 'edit' %}
+ 
+        document.addEventListener('DOMContentLoaded', function () {
+            showEditForm();
+        });
+        
+        {% endif %}
+
     </script>
 </body>
 </html>
