@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -847,7 +848,7 @@
 			<h1>Client Stories</h1>
 			<p>Hear directly from the homeowners and businesses we've had the privilege to transform</p>
 			<div class="breadcrumb">
-				<a href="#">Home</a>
+				<a href="{% url 'home' %}">Home</a>
 				<span>/</span>
 				<span>Testimonials</span>
 			</div>
@@ -916,10 +917,11 @@
 			<div class="testimonial-card">
 				<div class="card-header">
 					<div class="client-avatar">
-						<img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop" alt="Michael Chen">
+						<img src="{% static 'images/akhi.jpeg' %}" alt="Akhil Anwer">
+
 					</div>
 					<div class="client-info">
-						<h4>Michael Chen</h4>
+						<h4>Akhil Anwer</h4>
 						<p>Tech Startup Office</p>
 					</div>
 				</div>
@@ -939,10 +941,10 @@
 			<div class="testimonial-card">
 				<div class="card-header">
 					<div class="client-avatar">
-						<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Emma Rodriguez">
+						<img src="{% static 'images/ijas.jpeg' %}" alt="Ijas Ahammed">
 					</div>
 					<div class="client-info">
-						<h4>Emma Rodriguez</h4>
+						<h4>Ijas Ahammed</h4>
 						<p>Coastal Retreat</p>
 					</div>
 				</div>
@@ -962,10 +964,10 @@
 			<div class="testimonial-card">
 				<div class="card-header">
 					<div class="client-avatar">
-						<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop" alt="James Patterson">
+						<img src="{% static 'images/afsal.jpeg' %}" alt="Afsal M">
 					</div>
 					<div class="client-info">
-						<h4>James Patterson</h4>
+						<h4>Afsal M</h4>
 						<p>Urban Loft Renovation</p>
 					</div>
 				</div>
@@ -985,10 +987,10 @@
 			<div class="testimonial-card">
 				<div class="card-header">
 					<div class="client-avatar">
-						<img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop" alt="Lisa Thompson">
+						<img src="{% static 'images/davoodka.jpeg' %}" alt="Davood Hakkim">
 					</div>
 					<div class="client-info">
-						<h4>Lisa Thompson</h4>
+						<h4>Davood Hakkim</h4>
 						<p>Family Home Makeover</p>
 					</div>
 				</div>
@@ -1008,10 +1010,10 @@
 			<div class="testimonial-card">
 				<div class="card-header">
 					<div class="client-avatar">
-						<img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop" alt="David Kumar">
+						<img src="{% static 'images/abhinav.jpeg' %}" alt="Abhinav N T">
 					</div>
 					<div class="client-info">
-						<h4>David Kumar</h4>
+						<h4>Abhinav N T</h4>
 						<p>Boutique Hotel</p>
 					</div>
 				</div>
@@ -1031,10 +1033,10 @@
 			<div class="testimonial-card">
 				<div class="card-header">
 					<div class="client-avatar">
-						<img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop" alt="Rachel Green">
+						<img src="{% static 'images/anas.jpeg' %}" alt="Anas">
 					</div>
 					<div class="client-info">
-						<h4>Rachel Green</h4>
+						<h4>Anas</h4>
 						<p>Penthouse Suite</p>
 					</div>
 				</div>
@@ -1054,10 +1056,10 @@
 			<div class="testimonial-card">
 				<div class="card-header">
 					<div class="client-avatar">
-						<img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop" alt="Tom Anderson">
+						<img src="{% static 'images/jijj.jpeg' %}"  alt="Jijin">
 					</div>
 					<div class="client-info">
-						<h4>Tom Anderson</h4>
+						<h4>Jijin</h4>
 						<p>Historic Home Restoration</p>
 					</div>
 				</div>
@@ -1077,10 +1079,10 @@
 			<div class="testimonial-card">
 				<div class="card-header">
 					<div class="client-avatar">
-						<img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop" alt="Amanda Lee">
+						<img src="{% static 'images/jasim.jpeg' %}" alt="Jasim Ihsan M">
 					</div>
 					<div class="client-info">
-						<h4>Amanda Lee</h4>
+						<h4>Jasim Ihsan M</h4>
 						<p>Art Studio & Gallery</p>
 					</div>
 				</div>
@@ -1100,10 +1102,10 @@
 			<div class="testimonial-card">
 				<div class="card-header">
 					<div class="client-avatar">
-						<img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop" alt="Robert Williams">
+						<img src="{% static 'images/shahshad.jpeg' %}" alt="Muhammed Sahshad">
 					</div>
 					<div class="client-info">
-						<h4>Robert Williams</h4>
+						<h4>Muhammed Sahshad</h4>
 						<p>Executive Office</p>
 					</div>
 				</div>
@@ -1123,66 +1125,66 @@
 	</section>
 
 
-	<section class="video-testimonials">
-		<div class="section-header">
-			<span class="section-tag">Video Reviews</span>
-			<h2 class="section-title">See For Yourself</h2>
-			<p class="section-desc">Watch our clients share their transformation stories</p>
-		</div>
-		<div class="video-grid">
-			<div class="video-card">
-				<img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=400&fit=crop" alt="Video Testimonial" class="video-thumbnail">
-				<div class="video-overlay">
-					<div class="play-button">
-						<i class="fas fa-play"></i>
-					</div>
-					<div class="video-info">
-						<h4>The Martinez Family Home</h4>
-						<p>Complete renovation journey in 3 minutes</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="video-card">
-				<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=400&fit=crop" alt="Video Testimonial" class="video-thumbnail">
-				<div class="video-overlay">
-					<div class="play-button">
-						<i class="fas fa-play"></i>
-					</div>
-					<div class="video-info">
-						<h4>Downtown Restaurant Redesign</h4>
-						<p>From concept to grand opening</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="video-card">
-				<img src="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=800&h=400&fit=crop" alt="Video Testimonial" class="video-thumbnail">
-				<div class="video-overlay">
-					<div class="play-button">
-						<i class="fas fa-play"></i>
-					</div>
-					<div class="video-info">
-						<h4>Modern Farmhouse Transformation</h4>
-						<p>Before and after reveal</p>
-					</div>
-				</div>
-			</div>
-
-			<div class="video-card">
-				<img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=400&fit=crop" alt="Video Testimonial" class="video-thumbnail">
-				<div class="video-overlay">
-					<div class="play-button">
-						<i class="fas fa-play"></i>
-					</div>
-					<div class="video-info">
-						<h4>Luxury Condo Makeover</h4>
-						<p>Client walkthrough and reaction</p>
-					</div>
+<section class="video-testimonials">
+	<div class="section-header">
+		<span class="section-tag">Video Reviews</span>
+		<h2 class="section-title">See For Yourself</h2>
+		<p class="section-desc">Watch our clients share their transformation stories</p>
+	</div>
+	<div class="video-grid">
+		<div class="video-card">
+			<video class="video-thumbnail" muted loop playsinline autoplay poster="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=400&fit=crop">
+				<source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+			</video>
+			<div class="video-overlay">
+				 
+				<div class="video-info">
+					<h4>The Martinez Family Home</h4>
+					<p>Complete renovation journey in 3 minutes</p>
 				</div>
 			</div>
 		</div>
-	</section>
+
+		<div class="video-card">
+			<video class="video-thumbnail" muted loop playsinline autoplay poster="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=400&fit=crop">
+				<source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+			</video>
+			<div class="video-overlay">
+				 
+				<div class="video-info">
+					<h4>Downtown Restaurant Redesign</h4>
+					<p>From concept to grand opening</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="video-card">
+			<video class="video-thumbnail" muted loop playsinline autoplay poster="https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=800&h=400&fit=crop">
+				<source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" type="video/mp4">
+			</video>
+			<div class="video-overlay">
+				 
+				<div class="video-info">
+					<h4>Modern Farmhouse Transformation</h4>
+					<p>Before and after reveal</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="video-card">
+			<video class="video-thumbnail" muted loop playsinline autoplay poster="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=400&fit=crop">
+				<source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
+			</video>
+			<div class="video-overlay">
+				 
+				<div class="video-info">
+					<h4>Luxury Condo Makeover</h4>
+					<p>Client walkthrough and reaction</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 	
 	<section class="review-platforms">
@@ -1264,8 +1266,8 @@
 			<h2>Ready to Create Your Own Success Story?</h2>
 			<p>Join hundreds of satisfied clients who trusted Woodora to transform their spaces. Let's start your journey today.</p>
 			<div class="cta-buttons">
-				<a href="#" class="btn btn-primary">Schedule Consultation</a>
-				<a href="#" class="btn btn-secondary">View Our Portfolio</a>
+				<a href="{% url 'contact' %}" class="btn btn-primary">Schedule Consultation</a>
+				<a href="{% url 'portfolio' %}" class="btn btn-secondary">View Our Portfolio</a>
 			</div>
 		</div>
 	</section>
@@ -1329,17 +1331,31 @@
 		});
 
 		
-		document.querySelectorAll('.video-card').forEach(card => {
-			card.addEventListener('click', () => {
-				alert('Video player would open here. In production, this would play the actual testimonial video.');
-			});
+			const observer1 = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			const video = entry.target.querySelector('video');
+			if (entry.isIntersecting) {
+				video.play().catch(err => console.log('Autoplay prevented:', err));
+			}
 		});
+	}, { threshold: 0.5 });
 
+	document.querySelectorAll('.video-card').forEach(card => {
+		observer1.observe(card);
 		
-		document.querySelector('.mobile-toggle').addEventListener('click', function() {
-			document.querySelector('.nav-menu').classList.toggle('active');
-			this.classList.toggle('active');
+		 
+		card.addEventListener('click', () => {
+			alert('Video player would open here. In production, this would play the actual testimonial video.');
 		});
+	});
+
+	 
+       
+            
+            document.querySelector('.mobile-toggle').addEventListener('click', function() {
+                document.querySelector('.nav-menu').classList.toggle('active');
+                this.classList.toggle('active');
+            });
 
 
 		const observerOptions = {
