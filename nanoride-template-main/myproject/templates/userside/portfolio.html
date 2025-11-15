@@ -695,6 +695,9 @@
 				font-size: 38px;
 			}
 		}
+		 a{
+			text-decoration:none
+		}
 	</style>
 </head>
 <body>
@@ -725,7 +728,7 @@
 			<h1>Our Portfolio</h1>
 			<p>Explore our collection of stunning interior design projects across residential, commercial, and hospitality spaces</p>
 			<div class="breadcrumb">
-				<a href="#">Home</a>
+				<a href="{% url 'home' %}">Home</a>
 				<span>/</span>
 				<span>Portfolio</span>
 			</div>
@@ -831,7 +834,7 @@
 		<div class="container">
 			<h2>Have a Project in Mind?</h2>
 			<p>Let's collaborate to create a space that reflects your vision and exceeds your expectations. Schedule a consultation today.</p>
-			<a href="#" class="btn btn-white">Start Your Project</a>
+			<a href="{% url 'contact' %}" class="btn btn-white">Start Your Project</a>
 		</div>
 	</section>
 

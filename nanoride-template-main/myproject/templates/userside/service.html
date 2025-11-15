@@ -858,6 +858,9 @@
 				grid-template-columns: 1fr;
 			}
 		}
+        a{
+			text-decoration:none
+		}
 	</style>
 </head>
 <body>
@@ -944,8 +947,8 @@
 						<div class="price-amount">${{ service.starting_price|floatformat:0 }}</div>
 					</div>
 				</div>
-				<a href="#" class="btn btn-primary">Get Started</a>
-				<a href="#" class="btn btn-outline">View Portfolio</a>
+				<a href="{% url 'contact' %}" class="btn btn-primary">Get Started</a>
+				<a href="{% url 'portfolio' %}" class="btn btn-outline">View Portfolio</a>
 			</div>
 		</div>
 	</section>
@@ -1035,7 +1038,7 @@
 						<li>Furniture layout sketches</li>
 						<li>Shopping list and resources</li>
 					</ul>
-					<a href="#" class="btn btn-primary">Book Now</a>
+					<a href="{% url 'contact' %}" class="btn btn-primary">Book Now</a>
 				</div>
 				<div class="pricing-card featured">
 					<span class="featured-badge">Most Popular</span>
@@ -1051,7 +1054,7 @@
 						<li>Installation and styling</li>
 						<li>2 revisions included</li>
 					</ul>
-					<a href="#" class="btn btn-primary">Get Started</a>
+					<a href="{% url 'contact' %}" class="btn btn-primary">Get Started</a>
 				</div>
 				<div class="pricing-card">
 					<h3>E-Design</h3>
@@ -1065,7 +1068,7 @@
 						<li>Implementation guide</li>
 						<li>Email support for 30 days</li>
 					</ul>
-					<a href="#" class="btn btn-primary">Learn More</a>
+					<a href="{% url 'contact' %}" class="btn btn-primary">Learn More</a>
 				</div>
 			</div>
 		</div>
@@ -1153,7 +1156,7 @@
 		<div class="container">
 			<h2>Ready to Start Your Project?</h2>
 			<p>Let's bring your vision to life with expert design services tailored to your unique needs and style. Schedule a complimentary consultation today.</p>
-			<a href="#" class="btn btn-white">Schedule Free Consultation</a>
+			<a href="{% url 'contact' %}" class="btn btn-white">Schedule Free Consultation</a>
 		</div>
 	</section>
 

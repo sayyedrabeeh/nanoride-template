@@ -844,6 +844,121 @@
 				font-size: 32px;
 			}
 		}
+            /* MAIN SECTION */
+        .consultation-cta {
+            padding: 80px 120px;
+            background: #0f0f11; /* Deep dark background */
+        }
+
+        /* WHITE BOX REPLACED WITH DARK GLASS STYLE */
+        .consultation-box {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+
+            background: linear-gradient(135deg, rgba(25,25,30,0.95), rgba(15,15,18,0.95));
+            padding: 50px;
+            border-radius: 22px;
+
+            box-shadow: 0 18px 45px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        .consultation-content {
+            width: 55%;
+            color: white;
+        }
+
+        .consultation-content h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .consultation-content p {
+            color: #cfcfcf;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        /* LEFT SIDE LIST */
+        .consultation-features li {
+            margin: 10px 0;
+            font-size: 15px;
+            color: #d4d4d4;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .consultation-features li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--secondary); /* Gold / Accent */
+        }
+
+        /* RIGHT SIDE BOX — DARK GLASS CARD */
+        .minimal-box {
+            width: 35%;
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 35px;
+
+            box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(14px);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+            color: #f0f0f0;
+        }
+
+        .consultation-info p {
+            font-size: 15px;
+            margin: 12px 0;
+            color: #d4d4d4;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .consultation-info i {
+            color: var(--secondary);
+            font-size: 18px;
+        }
+
+        /* BUTTON */
+        .btn-submit {
+            margin-top: 25px;
+            padding: 14px 32px;
+            background: var(--secondary);
+            color: #111;
+            border-radius: 50px;
+
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: 0.3s;
+
+            border: none;
+        }
+
+        .btn-submit:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        a{
+			text-decoration:none
+		}
+
 	</style>
 </head>
 <body>
@@ -872,7 +987,7 @@
 			<h1>Our Design Process</h1>
 			<p>A proven methodology that transforms your vision into reality through collaboration, creativity, and meticulous attention to detail</p>
 			<div class="breadcrumb">
-				<a href="#">Home</a>
+				<a href="{% url 'home' %}">Home</a>
 				<span>/</span>
 				<span>Design Process</span>
 			</div>
@@ -948,7 +1063,7 @@
 					</ul>
 				</div>
 				<div class="timeline-image">
-					<img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop" alt="Concept">
+<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop" alt="Concept">
 				</div>
 				<div class="step-number">02</div>
 			</div>
@@ -1154,34 +1269,35 @@
 	</section>
 
 
-	<section class="consultation-cta">
-		<div class="consultation-box">
-			<div class="consultation-content">
-				<h2>Ready to Start Your Project?</h2>
-				<p>Schedule a complimentary consultation to discuss your vision and see how Woodora can transform your space.</p>
-				<ul class="consultation-features">
-					<li>Free 60-minute initial consultation</li>
-					<li>Preliminary budget assessment</li>
-					<li>Project feasibility discussion</li>
-					<li>Timeline estimation</li>
-					<li>No obligation to proceed</li>
-				</ul>
-			</div>
-			<div class="consultation-form">
-				<input type="text" placeholder="Your Name" required>
-				<input type="email" placeholder="Email Address" required>
-				<input type="tel" placeholder="Phone Number" required>
-				<select required>
-					<option value="">Project Type</option>
-					<option value="residential">Residential Design</option>
-					<option value="commercial">Commercial Design</option>
-					<option value="renovation">Renovation</option>
-					<option value="consultation">Consultation Only</option>
-				</select>
-				<button type="submit" class="btn-submit">Schedule Consultation</button>
-			</div>
-		</div>
-	</section>
+<section class="consultation-cta">
+    <div class="consultation-box">
+        <div class="consultation-content">
+            <h2>Ready to Start Your Project?</h2>
+            <p>Schedule a complimentary consultation to discuss your vision and see how Woodora can transform your space.</p>
+
+            <ul class="consultation-features">
+                <li>Free 60-minute initial consultation</li>
+                <li>Preliminary budget assessment</li>
+                <li>Project feasibility discussion</li>
+                <li>Timeline estimation</li>
+                <li>No obligation to proceed</li>
+            </ul>
+        </div>
+
+         <div class="consultation-form minimal-box">
+            <div class="consultation-info">
+                <p><i class="fas fa-calendar-check"></i> 7 Days Availability</p>
+                <p><i class="fas fa-user-tie"></i> Senior Designer Assigned</p>
+                <p><i class="fas fa-clock"></i> Quick Response Guaranteed</p>
+            </div>
+
+            <a href="{% url 'contact' %}" class="btn-submit">Schedule Consultation</a>
+        </div>
+    </div>
+</section>
+
+
+
 
 
 	<footer class="footer">
