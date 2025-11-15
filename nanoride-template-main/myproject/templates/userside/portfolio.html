@@ -766,6 +766,8 @@
                 <span class="project-category">{{ project.category|title }}</span>
                 <h3 class="project-title">{{ project.title }}</h3>
                 <p class="project-location"><i class="fas fa-map-marker-alt"></i> {{ project.location }}</p>
+				<a href="{% url 'singleproject'  project_id=project.id  %}" style='background:#59321D;' class="view-project-btn">View Project Details</a>
+
             </div>
             <div class="project-info">
                 <span class="project-category">{{ project.category|title }}</span>
@@ -788,11 +790,13 @@
                     {% endif %}
                 </div>
                 <div class="project-tags">
-                    {% for tag in project.get_tags %}
-                    <span class="tag">{{ tag }}</span>
-                    {% endfor %}
+                     {% for tag in project.get_tags %}
+						<span class="tag">{{ tag }}</span>
+					{% empty %}
+ 						<span class="tag">No Tags</span>
+					{% endfor %}
                 </div>
-                <a href="{% url 'singleproject' %}" class="view-project-btn">View Project Details</a>
+                <a href="{% url 'singleproject'  project_id=project.id  %}" class="view-project-btn">View Project Details</a>
             </div>
         </div>
         {% endfor %}
@@ -804,11 +808,11 @@
 	<section class="stats-section">
 		<div class="stats-grid">
 			<div class="stat-item">
-				<div class="stat-number">250+</div>
+				<div class="stat-number">{{completed_projects}}</div>
 				<p class="stat-label">Completed Projects</p>
 			</div>
 			<div class="stat-item">
-				<div class="stat-number">15</div>
+				<div class="stat-number">1</div>
 				<p class="stat-label">Years of Excellence</p>
 			</div>
 			<div class="stat-item">
@@ -816,7 +820,7 @@
 				<p class="stat-label">Client Satisfaction</p>
 			</div>
 			<div class="stat-item">
-				<div class="stat-number">20+</div>
+				<div class="stat-number">5+</div>
 				<p class="stat-label">Design Awards</p>
 			</div>
 		</div>

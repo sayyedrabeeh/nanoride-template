@@ -208,12 +208,16 @@ def home(request):
 @login_required
 def portfolio(request):
     projects = Project.objects.all().order_by('-created_at')
-    return render(request,'userside/portfolio.html',{'projects':projects})
+    return render(request,'userside/portfolio.html',{
+        'projects':projects,
+        'completed_projects': projects.count()
+        })
 
 @login_required
-def singleproject(request):
+def singleproject(request,project_id):
+    project = get_object_or_404(Project,id = project_id)
     
-    return render(request,'userside/singleproject.html')
+    return render(request,'userside/singleproject.html',{'project':project})
 
 def process(request):
     return render(request,'userside/process.html')
