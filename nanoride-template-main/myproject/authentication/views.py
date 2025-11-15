@@ -203,7 +203,17 @@ def custom_logout(request):
     return redirect(reverse( 'custom_login' )) 
 
 def home(request):
-    return render(request,'userside/home.html')
+    home_services = services.objects.filter(status='Active')[:6]
+    project_count = Project.objects.count()
+    featured_projects = Project.objects.filter(status='published',featured=True)[:3]
+    if not featured_projects:
+        featured_projects = Project.objects.filter(status='published')[:3]
+    context = {
+        'services': home_services,
+        'projects': featured_projects,
+        'project_count':project_count
+    }
+    return render(request,'userside/home.html',context)
 
 @login_required
 def portfolio(request):
