@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -710,6 +711,9 @@
 				font-size: 36px;
 			}
 		}
+         a{
+			text-decoration:none
+		}
 	</style>
 </head>
 <body>
@@ -739,7 +743,7 @@
 		<div class="page-header-content">
 			<h1>About Woodora</h1>
 			<div class="breadcrumb">
-				<a href="#">Home</a>
+				<a href="{% url 'home' %}">Home</a>
 				<span>/</span>
 				<span>About Us</span>
 			</div>
@@ -752,7 +756,7 @@
 			<div class="story-grid">
 				<div class="story-images">
 					<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" alt="Our Studio" class="story-img">
-					<img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=400&h=400&fit=crop" alt="Design Process" class="story-img">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=400&fit=crop" alt="Design Process" class="story-img">
 					<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&h=400&fit=crop" alt="Team Work" class="story-img">
 					<div class="experience-badge">
 						<h3>15+</h3>
@@ -820,8 +824,8 @@
 			</div>
 			<div class="team-grid">
 				<div class="team-member">
-					<div class="member-img"></div>
-					<h3 class="member-name">Elena Richardson</h3>
+                    <div class="member-img" style="background-image: url('{% static 'images/rabi.jpeg' %}'); background-size: cover; background-position: center;"></div>
+					<h3 class="member-name">Sayyed Rabeeh</h3>
 					<p class="member-role">Founder & Creative Director</p>
 					<div class="member-socials">
 						<a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
@@ -830,8 +834,8 @@
 					</div>
 				</div>
 				<div class="team-member">
-					<div class="member-img"></div>
-					<h3 class="member-name">Marcus Chen</h3>
+                    <div class="member-img" style="background-image: url('{% static 'images/akhi.jpeg' %}'); background-size: cover; background-position: center;"></div>
+					<h3 class="member-name"></h3>Akhil Anwer
 					<p class="member-role">Senior Interior Designer</p>
 					<div class="member-socials">
 						<a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
@@ -840,8 +844,8 @@
 					</div>
 				</div>
 				<div class="team-member">
-					<div class="member-img"></div>
-					<h3 class="member-name">Sophia Martinez</h3>
+					<div class="member-img" style="background-image: url('{% static 'images/ikka.jpeg' %}'); background-size: cover; background-position: center;"></div>
+					<h3 class="member-name">Muhammed Ashique</h3>
 					<p class="member-role">Lead Architect</p>
 					<div class="member-socials">
 						<a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
@@ -850,8 +854,8 @@
 					</div>
 				</div>
 				<div class="team-member">
-					<div class="member-img"></div>
-					<h3 class="member-name">James Anderson</h3>
+                    <div class="member-img" style="background-image: url('{% static 'images/shuru.jpeg' %}'); background-size: cover; background-position: center;"></div>
+					<h3 class="member-name">Muhammed Shuraif</h3>
 					<p class="member-role">Project Manager</p>
 					<div class="member-socials">
 						<a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
@@ -927,7 +931,7 @@
 		<div class="container">
 			<h2>Let's Create Something Beautiful Together</h2>
 			<p>Ready to transform your space? Our team is here to turn your vision into reality with expertise, creativity, and passion.</p>
-			<a href="#" class="btn btn-primary">Schedule a Consultation</a>
+			<a href="{% url 'contact' %}" class="btn btn-primary">Schedule a Consultation</a>
 		</div>
 	</section>
 
