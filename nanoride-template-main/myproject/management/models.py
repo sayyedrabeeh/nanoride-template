@@ -119,6 +119,11 @@ class Project(models.Model):
                 })
         return features
     
+    def get_tags(self):
+        if self.tags:
+            return [tag.strip() for tag in self.tags.split(',') if tag.strip()]
+        return []
+    
 class ProjectImage(models.Model):
     image = models.ImageField(upload_to='projects/gallery/')
     upload_at = models.DateTimeField(auto_now_add=True)

@@ -30,6 +30,9 @@ from django.contrib import messages
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from management.models import Project
+
+
 
 def admin_login(request):
     if request.method == 'POST':
@@ -204,11 +207,12 @@ def home(request):
 
 @login_required
 def portfolio(request):
-     
-    return render(request,'userside/portfolio.html')
+    projects = Project.objects.all().order_by('-created_at')
+    return render(request,'userside/portfolio.html',{'projects':projects})
 
 @login_required
 def singleproject(request):
+    
     return render(request,'userside/singleproject.html')
 
 def process(request):
