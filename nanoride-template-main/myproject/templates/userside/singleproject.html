@@ -869,14 +869,14 @@
 		</div>
 	</nav>
 	<section class="project-hero">
-		<img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1920&h=1080&fit=crop" alt="Modern Minimalist Home" class="project-hero-image">
+		<img src="{{ project.hero_image.url }}" alt="{{ project.title }}" class="project-hero-image">
 		<div class="project-hero-overlay">
 			<div class="project-hero-content">
-				<span class="project-category">Residential Design</span>
-				<h1>Modern Minimalist Home</h1>
+				<span class="project-category">{{ project.category|title }}</span>
+				<h1>{{ project.title }}</h1>
 				<p class="project-location">
 					<i class="fas fa-map-marker-alt"></i>
-					Beverly Hills, California
+					{{ project.location }}
 				</p>
 			</div>
 		</div>
@@ -885,23 +885,25 @@
 		<div class="info-bar-content">
 			<div class="info-item">
 				<div class="info-label">Client</div>
-				<div class="info-value">Sarah Mitchell</div>
+				<div class="info-value">{{ project.client_field }}</div>
 			</div>
 			<div class="info-item">
 				<div class="info-label">Year</div>
-				<div class="info-value">2023</div>
+				<div class="info-value">{{ project.year }}</div>
 			</div>
+			{% if project.area %}
 			<div class="info-item">
 				<div class="info-label">Area</div>
-				<div class="info-value">3,500 sq ft</div>
+				<div class="info-value">{{ project.area }}</div>
 			</div>
+			{% endif %}
 			<div class="info-item">
 				<div class="info-label">Duration</div>
-				<div class="info-value">6 Months</div>
+				<div class="info-value">{{ project.duration }}</div>
 			</div>
 			<div class="info-item">
 				<div class="info-label">Budget</div>
-				<div class="info-value">$120K</div>
+				<div class="info-value">${{ project.budget }}</div>
 			</div>
 		</div>
 	</section>
@@ -909,10 +911,7 @@
 		<div class="overview-container">
 			<div class="overview-content">
 				<h2>Project Overview</h2>
-				<p>This stunning 3,500 sq ft residence in Beverly Hills showcases our expertise in creating serene, functional spaces through the principles of minimalist design. The project was a complete interior transformation of a mid-century modern home that had lost its original character through previous renovations.</p>
-				<p>Our client, a tech entrepreneur, sought a calming retreat from her busy professional life. She wanted a home that embodied simplicity, featured clean lines, and utilized natural materials while maintaining the warmth and comfort essential for daily living.</p>
-				<p>We approached this project with a focus on creating a cohesive flow throughout the home, emphasizing natural light, and carefully curating a neutral color palette accented with warm wood tones. Every element was thoughtfully selected to serve both aesthetic and functional purposes, embodying the "less is more" philosophy.</p>
-				<p>The result is a harmonious living environment that balances minimalism with livability, proving that simplicity doesn't mean sacrificing comfort or personality.</p>
+				<p>{{ project.overview }}</p>
 			</div>
 			<div class="overview-sidebar">
 				<div class="sidebar-section">
@@ -920,34 +919,42 @@
 					<ul class="detail-list">
 						<li>
 							<span class="detail-label">Location</span>
-							<span class="detail-value">Beverly Hills, CA</span>
+							<span class="detail-value">{{ project.location }}</span>
 						</li>
+						{% if project.property_type %}
 						<li>
 							<span class="detail-label">Property Type</span>
-							<span class="detail-value">Single Family</span>
+							<span class="detail-value">{{ project.property_type }}</span>
 						</li>
+						{% endif %}
+						{% if project.bedrooms %}
 						<li>
 							<span class="detail-label">Bedrooms</span>
-							<span class="detail-value">4</span>
+							<span class="detail-value">{{ project.bedrooms }}</span>
 						</li>
+						{% endif %}
+						{% if project.bathrooms %}
 						<li>
 							<span class="detail-label">Bathrooms</span>
-							<span class="detail-value">3.5</span>
+							<span class="detail-value">{{ project.bathrooms }}</span>
 						</li>
+						{% endif %}
+						{% if project.style %}
 						<li>
 							<span class="detail-label">Style</span>
-							<span class="detail-value">Minimalist Modern</span>
+							<span class="detail-value">{{ project.style }}</span>
 						</li>
+						{% endif %}
 					</ul>
 				</div>
 				<div class="sidebar-section">
 					<h3>Tags</h3>
 					<div class="project-tags">
-						<span class="tag">Minimalist</span>
-						<span class="tag">Modern</span>
-						<span class="tag">Eco-Friendly</span>
-						<span class="tag">Natural Light</span>
-						<span class="tag">Open Concept</span>
+						{% for tag in project.get_tags %}
+                        <span class="tag">{{ tag }}</span>
+						{% empty %}
+							<span class="tag">No Tags</span>
+						{% endfor %}
 					</div>
 				</div>
 				<div class="sidebar-section">
@@ -964,22 +971,28 @@
 	</section>
 	<section class="challenge-solution">
 		<div class="cs-container">
-			<div class="cs-box">
-				<h3>
-					<div class="cs-icon"><i class="fas fa-exclamation-triangle"></i></div>
-					The Challenge
-				</h3>
-				<p>The existing space had been heavily compartmentalized with dated renovations that blocked natural light and created a disjointed flow. Dark, heavy finishes throughout made the home feel smaller than its actual square footage. The client also needed better storage solutions without compromising the minimalist aesthetic.</p>
-			</div>
-			<div class="cs-box">
-				<h3>
-					<div class="cs-icon"><i class="fas fa-lightbulb"></i></div>
-					Our Solution
-				</h3>
-				<p>We removed non-structural walls to create an open-concept living area, installed floor-to-ceiling windows to maximize natural light, and implemented custom built-in storage throughout. A neutral color palette with warm wood accents created visual continuity, while carefully selected furniture pieces maintained the minimalist ethos without sacrificing functionality.</p>
-			</div>
+			 {% if project.challenge %}
+				<div class="cs-box">
+					<h3>
+						<div class="cs-icon"><i class="fas fa-exclamation-triangle"></i></div>
+						The Challenge
+					</h3>
+					<p>{{ project.challenge }}</p>
+				</div>
+				{% endif %}
+
+			  {% if project.solution %}
+				<div class="cs-box">
+					<h3>
+						<div class="cs-icon"><i class="fas fa-lightbulb"></i></div>
+						Our Solution
+					</h3>
+					<p>{{ project.solution }}</p>
+				</div>
+				{% endif %}
 		</div>
 	</section>
+	{% if project.gallery_images.all %}
 	<section class="project-gallery">
 		<div class="gallery-container">
 			<div class="section-header">
@@ -987,39 +1000,17 @@
 				<h2 class="section-title">Project Gallery</h2>
 			</div>
 			<div class="gallery-grid">
+				{% for image in project.gallery_images.all %}
 				<div class="gallery-item">
-					<img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop" alt="Living Room">
-					<div class="gallery-overlay">
-						<i class="fas fa-search-plus"></i>
-					</div>
+					<img src="{{ image.image.url }}" alt="Gallery Image">
+					<div class="gallery-overlay"><i class="fas fa-search-plus"></i></div>
 				</div>
-				<div class="gallery-item">
-					<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=600&fit=crop" alt="Kitchen">
-					<div class="gallery-overlay">
-						<i class="fas fa-search-plus"></i>
-					</div>
-				</div>
-				<div class="gallery-item">
-					<img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=800&h=600&fit=crop" alt="Bedroom">
-					<div class="gallery-overlay">
-						<i class="fas fa-search-plus"></i>
-					</div>
-				</div>
-				<div class="gallery-item">
-					<img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" alt="Bathroom">
-					<div class="gallery-overlay">
-						<i class="fas fa-search-plus"></i>
-					</div>
-				</div>
-				<div class="gallery-item">
-					<img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop" alt="Dining Area">
-					<div class="gallery-overlay">
-						<i class="fas fa-search-plus"></i>
-					</div>
-				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</section>
+	{% endif %}
+	{% if project.get_features %}
 	<section class="features-section">
 		<div class="features-container">
 			<div class="section-header">
@@ -1027,65 +1018,35 @@
 				<h2 class="section-title">Design Highlights</h2>
 			</div>
 			<div class="features-grid">
+				{% for feature in project.get_features %}
 				<div class="feature-card">
-					<div class="feature-icon">
-						<i class="fas fa-sun"></i>
-					</div>
-					<h4>Natural Lighting</h4>
-					<p>Floor-to-ceiling windows and skylights maximize natural light throughout the home, creating an airy, bright atmosphere.</p>
+					<div class="feature-icon"><i class="fas fa-star"></i></div>
+					<h4>{{ feature.title }}</h4>
+					<p>{{ feature.description }}</p>
 				</div>
-				<div class="feature-card">
-					<div class="feature-icon">
-						<i class="fas fa-leaf"></i>
-					</div>
-					<h4>Sustainable Materials</h4>
-					<p>Eco-friendly materials including reclaimed wood, low-VOC paints, and energy-efficient fixtures.</p>
-				</div>
-				<div class="feature-card">
-					<div class="feature-icon">
-						<i class="fas fa-palette"></i>
-					</div>
-					<h4>Neutral Palette</h4>
-					<p>Sophisticated color scheme of whites, grays, and warm wood tones creates a calming environment.</p>
-				</div>
-				<div class="feature-card">
-					<div class="feature-icon">
-						<i class="fas fa-box"></i>
-					</div>
-					<h4>Custom Storage</h4>
-					<p>Built-in storage solutions seamlessly integrated throughout to maintain clean, clutter-free spaces.</p>
-				</div>
-				<div class="feature-card">
-					<div class="feature-icon">
-						<i class="fas fa-couch"></i>
-					</div>
-					<h4>Bespoke Furniture</h4>
-					<p>Custom-designed furniture pieces perfectly scaled for each space, combining form and function.</p>
-				</div>
-				<div class="feature-card">
-					<div class="feature-icon">
-						<i class="fas fa-home"></i>
-					</div>
-					<h4>Smart Home Integration</h4>
-					<p>State-of-the-art home automation for lighting, climate, and security, all discreetly integrated.</p>
-				</div>
+				{% endfor %}
 			</div>
 		</div>
 	</section>
+	{% endif %}
 
+	{% if project.testimonial %}
 	<section class="project-testimonial">
 		<div class="testimonial-container">
 			<div class="quote-icon">"</div>
-			<p class="testimonial-text">Woodora completely transformed my home beyond my wildest expectations. Their attention to detail and ability to understand my vision was remarkable. Every morning I wake up grateful to be in this beautiful, serene space. It's not just a house anymore—it's truly my sanctuary.</p>
+			<p class="testimonial-text">{{ project.testimonial }}</p>
+			 {% if project.client_field %}
 			<div class="client-info">
 				<div class="client-avatar"></div>
 				<div class="client-details">
-					<h4>Sarah Mitchell</h4>
-					<p>Homeowner</p>
+					<h4>{{ project.client_field }}</h4>
+					<p>Client</p>
 				</div>
 			</div>
+			{% endif %}
 		</div>
 	</section>
+	{% endif %}
 
 	<section class="related-projects">
 		<div class="related-container">
@@ -1094,45 +1055,26 @@
 				<h2 class="section-title">Related Projects</h2>
 			</div>
 			<div class="related-grid">
+				 {% for related in related_projects %}
 				<div class="related-card">
 					<div class="related-image">
-						<img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=600&fit=crop" alt="Luxury Penthouse">
+						<img src="{{ related.hero_image.url }}" alt="{{ related.title }}">
 					</div>
 					<div class="related-info">
-						<div class="related-category">Residential</div>
-						<h3 class="related-title">Luxury Penthouse</h3>
+						<div class="related-category">{{ related.category|title }}</div>
+						<h3 class="related-title">{{ related.title }}</h3>
 						<p class="related-location">
 							<i class="fas fa-map-marker-alt"></i>
-							Miami, FL
+							{{ related.location }}
 						</p>
+						<a href="{% url 'singleproject' project_id=related.id %}" class="view-project-btn">View Details</a>
 					</div>
 				</div>
-				<div class="related-card">
-					<div class="related-image">
-						<img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop" alt="Coastal Villa">
-					</div>
-					<div class="related-info">
-						<div class="related-category">Residential</div>
-						<h3 class="related-title">Coastal Villa</h3>
-						<p class="related-location">
-							<i class="fas fa-map-marker-alt"></i>
-							Malibu, CA
-						</p>
-					</div>
-				</div>
-				<div class="related-card">
-					<div class="related-image">
-						<img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop" alt="Mountain Retreat">
-					</div>
-					<div class="related-info">
-						<div class="related-category">Residential</div>
-						<h3 class="related-title">Mountain Retreat</h3>
-						<p class="related-location">
-							<i class="fas fa-map-marker-alt"></i>
-							Aspen, CO
-						</p>
-					</div>
-				</div>
+				{% empty %}
+				<p>No related projects found.</p>
+				{% endfor %}
+				 
+				 
 			</div>
 		</div>
 	</section>

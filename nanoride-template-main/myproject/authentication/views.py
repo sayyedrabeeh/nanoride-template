@@ -216,8 +216,14 @@ def portfolio(request):
 @login_required
 def singleproject(request,project_id):
     project = get_object_or_404(Project,id = project_id)
+    related_projects = Project.objects.filter(
+        category=project.category
+    ).exclude(id=project.id)[:3]
     
-    return render(request,'userside/singleproject.html',{'project':project})
+    return render(request,'userside/singleproject.html',{
+        'project':project,
+        'related_projects':related_projects
+        })
 
 def process(request):
     return render(request,'userside/process.html')
