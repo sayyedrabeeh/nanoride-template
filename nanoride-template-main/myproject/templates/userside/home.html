@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -606,7 +607,8 @@
 			width: 50px;
 			height: 50px;
 			border-radius: 50%;
-			background: var(--secondary);
+ 			background-size: cover;
+			background-position: center;
 		}
 
 		.author-name {
@@ -786,6 +788,24 @@
 				flex-wrap: wrap;
 			}
 		}
+		
+		.view-project-btn {
+			display: inline-block;
+			padding: 14px 35px;
+			background: var(--primary);
+			color: white;
+			text-decoration: none;
+			border-radius: 50px;
+			font-weight: 600;
+			font-size: 14px;
+			transition: all 0.3s ease;
+		}
+
+		.view-project-btn:hover {
+			background: var(--secondary);
+			transform: translateY(-2px);
+		}
+
 	</style>
 </head>
 <body>
@@ -818,7 +838,7 @@
 				</div>
 				<div class="hero-stats">
 					<div class="stat-item">
-						<div class="stat-number">{project_count}+</div>
+						<div class="stat-number">{{project_count}} +</div>
 						<div class="stat-label">Projects Completed</div>
 					</div>
 					<div class="stat-item">
@@ -904,13 +924,15 @@
                     <div class="portfolio-category">{{ project.get_category_display }}</div>
                     <h3 class="portfolio-title">{{ project.title }}</h3>
                     <p class="portfolio-desc">{{ project.overview|truncatewords:15 }}</p>
+					<a href="{% url 'singleproject'  project_id=project.id  %}" style='background:#59321D;' class="view-project-btn">View Project Details</a>
+
                 </div>
             </div>
             {% empty %}
             <div class="portfolio-item">
                 <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop" alt="Modern Living Room" class="portfolio-img">
                 <div class="portfolio-overlay">
-                    <div class="portfolio-category">Residential</div>
+                    <div class="portfolio-category">Residentiall</div>
                     <h3 class="portfolio-title">Modern Minimalist Home</h3>
                     <p class="portfolio-desc">A serene 3,500 sq ft residence featuring clean lines and natural materials</p>
                 </div>
@@ -965,10 +987,10 @@
 					<div class="testimonial-stars">★★★★★</div>
 					<p class="testimonial-text">"Woodora exceeded all our expectations. They transformed our house into a dream home that perfectly reflects our family's personality. The attention to detail is exceptional."</p>
 					<div class="testimonial-author">
-						<div class="author-img"></div>
+						<div class="author-img" style="background-image: url('{% static "images/shuru.jpeg" %}');"></div>
 						<div>
-							<div class="author-name">Sarah Mitchell</div>
-							<div class="author-role">Homeowner, Luxury Villa</div>
+							<div class="author-name">Muhammed Shuraif</div>
+							<div class="author-role">Kerala, India</div>
 						</div>
 					</div>
 				</div>
@@ -976,10 +998,10 @@
 					<div class="testimonial-stars">★★★★★</div>
 					<p class="testimonial-text">"The team's professionalism and creativity are unmatched. Our office redesign has significantly improved employee morale and productivity. Highly recommended!"</p>
 					<div class="testimonial-author">
-						<div class="author-img"></div>
+						<div class="author-img"style="background-image: url('{% static "images/ikka.jpeg" %}');"></div>
 						<div>
-							<div class="author-name">James Peterson</div>
-							<div class="author-role">CEO, TechVentures</div>
+							<div class="author-name">Muhammed Ashique</div>
+							<div class="author-role">CEO, TechVenture</div>
 						</div>
 					</div>
 				</div>
@@ -987,9 +1009,9 @@
 					<div class="testimonial-stars">★★★★★</div>
 					<p class="testimonial-text">"Working with Woodora was seamless from start to finish. They created a stunning restaurant interior that our customers absolutely love. Worth every penny."</p>
 					<div class="testimonial-author">
-						<div class="author-img"></div>
+						<div class="author-img"style="background-image: url('{% static "images/pachu.png" %}');"></div>
 						<div>
-							<div class="author-name">Maria Rodriguez</div>
+							<div class="author-name">Faraz shafi</div>
 							<div class="author-role">Restaurant Owner</div>
 						</div>
 					</div>
@@ -1002,7 +1024,7 @@
 		<div class="container">
 			<h2>Ready to Transform Your Space?</h2>
 			<p>Let's collaborate to create an interior that exceeds your expectations and brings your vision to life.</p>
-			<a href="#" class="btn btn-primary" style="background: white; color: var(--primary);">Schedule Free Consultation</a>
+			<a href="{% url 'contact' %}" class="btn btn-primary" style="background: white; color: var(--primary);">Schedule Free Consultation</a>
 		</div>
 	</section>
 	<footer class="footer">
