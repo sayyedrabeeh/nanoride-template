@@ -49,7 +49,22 @@ class services(models.Model):
     
     def __str__(self):
         return self.name
+    def get_category_icon(self):
+        
+        icons = {
+            'Residential': 'fas fa-home',
+            'Commercial': 'fas fa-building',
+            'Hospitality': 'fas fa-utensils',
+            'Space Planning': 'fas fa-drafting-compass',
+            'Color Consultation': 'fas fa-palette',
+            'Furniture Selection': 'fas fa-couch',
+        }
+        return icons.get(self.category, 'fas fa-star')
     
+    def get_features_list(self):
+        return [f.strip() for f in self.features.split('\n') if f.strip()]
+    
+ 
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
