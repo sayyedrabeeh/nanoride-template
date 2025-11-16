@@ -10,8 +10,8 @@ from django.contrib.auth import authenticate, login, logout
 import logging
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import services,Project,ProjectImage,ContactForm
-from django.db.models import Sum
+from .models import services,Project,ProjectImage,ContactForm,CustomUser
+from django.db.models import Sum,Count
 from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods
 from django.utils.timezone import now
@@ -493,6 +493,38 @@ def delete_contact(request,contact_id):
     messages.success(request, f'Contact "{contact_subject}" deleted successfully!')
     return redirect('Contact_form_list')
 
+
+def dashboard(request):
+    project_categories = ['residential', 'commercial', 'hospitality', 'retail', 'office']
+    projects_by_category = []
+    for cat in project_categories:
+        count = Project.objects.filter(category=cat).count()
+        projects_by_category.append(count)
+    
+    service_categories = ['Residential', 'Commercial', 'Hospitality', 'Space Planning', 'Color Consultation', 'Furniture Selection']
+    services_by_category = []
+    for cat in service_categories:
+        count = services.objects.filter(category=cat).count()
+        services_by_category.append(count)
+    
+    context = {
+        'total_users': CustomUser.objects.count(),
+        'total_projects': Project.objects.count(),
+        'published_projects': Project.objects.filter(status='published').count(),
+        'draft_projects': Project.objects.filter(status='draft').count(),
+        'total_services': services.objects.count(),
+        'active_services': services.objects.filter(status='Active').count(),
+        'total_contacts': ContactForm.objects.count(),
+        'pending_contacts': ContactForm.objects.filter(status__in=['new', 'pending']).count(),
+        'total_wallet': CustomUser.objects.aggregate(Sum('wallet'))['wallet__sum'] or 0,
+        'recent_projects': Project.objects.all()[:5],
+        'recent_services': services.objects.all()[:5],
+        'recent_contacts': ContactForm.objects.all()[:5],
+        'projects_by_category': projects_by_category,
+        'services_by_category': services_by_category,
+    }
+    
+    return render(request,'adminside/dashboard.html',context)
 
 
 
