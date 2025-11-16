@@ -1,5 +1,5 @@
 ================================================================================
-YOUR INTERIOR DESIGN COMPANY
+WOODORA YOUR INTERIOR DESIGN COMPANY
 Crafting Timeless Spaces
 ================================================================================
 
@@ -21,7 +21,7 @@ reflect your unique style and needs. If you have any additional questions or
 would like to schedule a consultation, please don't hesitate to reach out.
 
 
-YOUR ORIGINAL INQUIRY:
+WOODORA ORIGINAL INQUIRY:
 --------------------------------------------------------------------------------
 
 Name:    {{ contact.get_full_name }}
@@ -38,7 +38,7 @@ Message:
 Warm regards,
 The Interior Design Team
 
-YOUR INTERIOR DESIGN COMPANY
+WOODORA YOUR INTERIOR DESIGN COMPANY
 123 Design Street, Suite 100
 City, State 12345
 
@@ -49,6 +49,6 @@ Website: www.Woodora.com
 Follow us:
 Instagram | Facebook | Pinterest
 
-© 2024 Your Interior Design Company. All rights reserved.
+© 2024 Woodora Your Interior Design Company. All rights reserved.
 
 ================================================================================
