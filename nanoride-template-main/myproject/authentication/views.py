@@ -14,6 +14,7 @@ from django.views.decorators.csrf import csrf_protect
 import random
 from django.views.decorators.csrf import csrf_exempt
 import time
+from threading import Thread
 from django.contrib.auth import logout
 from django.contrib.auth import password_validation
 from django.contrib.auth import authenticate, login
@@ -293,24 +294,27 @@ def service(request):
 def contact(request):
     return render(request,'userside/contact.html')
  
-
+def send_async(email_obj):
+    Thread(target=email_obj.send).start()
  
 
 @csrf_exempt
 def submit_contact_form(request):
-    if request.method == 'POST':
-        firstName = request.POST.get('firstName')
-        lastName = request.POST.get('lastName')
-        email = request.POST.get('email')
-        phone = request.POST.get('phone')
-        projectType = request.POST.get('projectType')
-        budget = request.POST.get('budget')
-        timeline = request.POST.get('timeline')
-        message = request.POST.get("message")
+    if request.method == "POST":
+        
+        firstName = request.POST.get("firstName")
+        lastName = request.POST.get("lastName")
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        projectType = request.POST.get("projectType")
+        budget = request.POST.get("budget")
+        timeline = request.POST.get("timeline")
         source = request.POST.get("source")
-        newsletter = request.POST.get("newsletter", "off")
+        message = request.POST.get("message")
 
-        subject = f"New Inquiry: {projectType} - {firstName} {lastName}"
+        subject = f"New Inquiry from {firstName} {lastName}"
+
+       
         contact = ContactForm.objects.create(
             user=request.user if request.user.is_authenticated else None,
             first_name=firstName,
@@ -325,60 +329,49 @@ def submit_contact_form(request):
             message=message,
             status="new",
         )
-        admin_subject = f"New Project Inquiry from {firstName} {lastName}"
+
+      
         admin_message = f"""
-            New project inquiry received:
+Name: {firstName} {lastName}
+Email: {email}
+Phone: {phone}
 
-            Name: {firstName} {lastName}
-            Email: {email}
-            Phone: {phone}
+Project Type: {projectType}
+Budget: {budget}
+Timeline: {timeline}
 
-            Project Type: {projectType}
-            Budget: {budget}
-            Timeline: {timeline}
+Message:
+{message}
 
-            Message:
-            {message}
+Source: {source}
+"""
 
-            Heard About Us From: {source}
-            Subscribed to Newsletter: {newsletter}
-            """
-        admin_email = EmailMultiAlternatives(subject=admin_subject,body=admin_message,from_email='sayyedrabeeh240@gmail.com', to=["sayyedrabeeh240@gmail.com"])
-        admin_email.send()
-
-        user_subject = "Thanks for contacting Woodora!"
-        user_html_content = f"""
-        <html>
-            <body style="font-family: Arial; color: #333;">
-                <h2>Hi {firstName},</h2>
-                <p>Thank you for reaching out to <strong>Woodora Luxury Interiors</strong>.</p>
-
-                <p>We received your project inquiry and our design team will contact you within 24 hours.</p>
-
-                <h3>Your Project Details:</h3>
-                <ul>
-                    <li><strong>Project Type:</strong> {projectType}</li>
-                    <li><strong>Budget:</strong> {budget}</li>
-                    <li><strong>Timeline:</strong> {timeline}</li>
-                </ul>
-
-                <p>Your message:</p>
-                <blockquote>{message}</blockquote>
-
-                <p>We are excited to help you transform your space!</p>
-
-                <br><br>
-                <strong>— Woodora Interiors Team</strong>
-            </body>
-        </html>
+        admin_email = EmailMultiAlternatives(
+            subject=f"New Project Inquiry - {firstName}",
+            body=admin_message,
+            from_email="sayyedrabeeh240@gmail.com",
+            to=["sayyedrabeeh240@gmail.com"],
+        )
+        send_async(admin_email)
+ 
+        user_subject = "Thanks for Contacting Woodora"
+        user_html = f"""
+        <h3>Hi {firstName},</h3>
+        <p>Thank you for reaching out. Our team will contact you within 24 hours.</p>
+        <p><strong>Your Project Type:</strong> {projectType}</p>
+        <p><strong>Budget:</strong> {budget}</p>
+        <p><strong>Message:</strong><br>{message}</p>
         """
+
         user_email = EmailMultiAlternatives(
             subject=user_subject,
-            body="Thank you for contacting Woodora.",
+            body="Thank you for contacting us!",
             from_email="sayyedrabeeh240@gmail.com",
             to=[email],
         )
-        user_email.attach_alternative(user_html_content,'text/html')
-        user_email.send()
-        return JsonResponse({'status':'success'})
-    return JsonResponse({"status": "invalid request"})
+        user_email.attach_alternative(user_html, "text/html")
+        send_async(user_email)
+
+        return JsonResponse({"status": "success"})
+
+    return JsonResponse({"status": "invalid_request"})

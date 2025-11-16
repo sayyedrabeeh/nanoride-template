@@ -1338,48 +1338,42 @@
 
         
  
-   document.getElementById("contactForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+        document.getElementById("contactForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
 
-    const formMessage = document.getElementById("formMessage");
-    const submitBtn = this.querySelector(".submit-btn");
+            const formMessage = document.getElementById("formMessage");
+            formMessage.style.display = "none";
 
-    formMessage.style.display = "block";
-    formMessage.className = "form-message";     
-    formMessage.textContent = "";
+            let formData = new FormData(this);
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
+           
+            const submitBtn = this.querySelector(".submit-btn");
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Sending...";
 
-    let formData = new FormData(this);
+            let response = await fetch("/auth/submit-contact/", {
+                method: "POST",
+                body: formData,
+                credentials: "same-origin",
+            });
 
-    let response = await fetch("/auth/submit-contact/", {
-        method: "POST",
-        body: formData
-    });
+            let data = await response.json();
 
-    let data = await response.json();
+            if (data.status === "success") {
+                formMessage.className = "form-message success";
+                formMessage.textContent = "Your message has been sent successfully!";
+                formMessage.style.display = "block";
+                this.reset();
+            } else {
+                formMessage.className = "form-message error";
+                formMessage.textContent = "Something went wrong! Please try again.";
+                formMessage.style.display = "block";
+            }
 
-    if (data.status === "success") {
-      
-        formMessage.classList.add("success");
-        formMessage.textContent = "Thank you! Your message has been sent successfully.";
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Send Message";
+        });
 
-        this.reset();
-    } else {
-      
-        formMessage.classList.add("error");
-        formMessage.textContent = "Something went wrong. Please try again.";
-    }
-
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Send Message";
-
-    
-    setTimeout(() => {
-        formMessage.style.display = "none";
-    }, 10000);
-});
 
 
 

@@ -151,23 +151,26 @@ class ProjectImage(models.Model):
     
 
 class ContactForm(models.Model):
-
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    phone = models.CharField(max_length=20,blank=True)
-    subject = models.CharField(max_length=200)
 
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+
+    phone = models.CharField(max_length=20, blank=True)
+    project_type = models.CharField(max_length=200, blank=True)
+    budget = models.CharField(max_length=200, blank=True)
+    timeline = models.CharField(max_length=200, blank=True)
+    source = models.CharField(max_length=200, blank=True)
+
+    subject = models.CharField(max_length=255, blank=True)
     message = models.TextField()
 
-    status = models.CharField(max_length=20,default='new',choices=[
-        ('new', 'New'),
-        ('pending', 'Pending'),
-        ('replied', 'Replied'),
-    ])
-    replay_message = models.TextField(blank=True)
-    replied_date = models.DateTimeField(blank=True,null=True)
-
+    status = models.CharField(max_length=20, default="new")
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
 
     class Meta:
         ordering = ['-created_at']
