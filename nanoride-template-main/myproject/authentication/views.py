@@ -292,35 +292,9 @@ def service(request):
 
 def contact(request):
     return render(request,'userside/contact.html')
+ 
 
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.models import User
-
-@csrf_exempt
-def save_contact_form(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-
-            
-            user = request.user if request.user.is_authenticated else None
-
-            ContactForm.objects.create(
-                user=user,
-                phone=data.get("phone", ""),
-                subject=data.get("projectType", "New Project Inquiry"),
-                message=data.get("message", ""),
-                status="new"
-            )
-
-            return JsonResponse({"status": "success"})
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=400)
-
-    return JsonResponse({"error": "Invalid request"}, status=400)
-
+ 
 
 @csrf_exempt
 def submit_contact_form(request):
@@ -336,6 +310,21 @@ def submit_contact_form(request):
         source = request.POST.get("source")
         newsletter = request.POST.get("newsletter", "off")
 
+        contact = ContactForm.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            first_name=firstName,
+            last_name=lastName,
+            email=email,
+            phone=phone,
+            project_type=projectType,
+            budget=budget,
+            timeline=timeline,
+            source=source,
+            subject=subject,
+            message=message,
+            status="new",
+        )
+        subject = f"New Inquiry: {projectType} - {firstName} {lastName}"
         admin_subject = f"New Project Inquiry from {firstName} {lastName}"
         admin_message = f"""
             New project inquiry received:
