@@ -152,7 +152,7 @@ class ProjectImage(models.Model):
 
 class ContactForm(models.Model):
 
-    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='contact_forms')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     phone = models.CharField(max_length=20,blank=True)
     subject = models.CharField(max_length=200)
 

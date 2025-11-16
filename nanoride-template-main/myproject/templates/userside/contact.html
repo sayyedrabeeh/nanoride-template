@@ -837,13 +837,16 @@
 				font-size: 32px;
 			}
 		}
+         a{
+			text-decoration:none
+		}
 	</style>
 </head>
 <body>
  
 	<nav class="navbar">
 		<div class="nav-container">
-			<a href="{% url 'contact' %}" class="logo">WOOD<span>ORA</span></a>
+			<a href="{% url 'home' %}" class="logo">WOOD<span>ORA</span></a>
 			<ul class="nav-menu">
 				<li><a href="{% url 'service' %}">Services</a></li>
 				<li><a href="{% url 'portfolio' %}">Portfolio</a></li>
@@ -866,7 +869,7 @@
 			<h1>Get In Touch</h1>
 			<p>Let's start a conversation about your dream space. We're here to bring your vision to life.</p>
 			<div class="breadcrumb">
-				<a href="#">Home</a>
+				<a href="{% url 'home' %}">Home</a>
 				<span>/</span>
 				<span>Contact</span>
 			</div>
@@ -1373,6 +1376,11 @@
 			section.style.transition = 'all 0.6s ease';
 			observer.observe(section);
 		});
+
+        
+ 
+ 
+
 	</script>
 </body>
 </html>

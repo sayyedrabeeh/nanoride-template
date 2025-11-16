@@ -30,7 +30,8 @@ from django.contrib import messages
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from management.models import Project,services
+from django.core.mail import EmailMultiAlternatives
+from management.models import Project,services,ContactForm
 
 
 
@@ -291,3 +292,104 @@ def service(request):
 
 def contact(request):
     return render(request,'userside/contact.html')
+
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+
+@csrf_exempt
+def save_contact_form(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+
+            
+            user = request.user if request.user.is_authenticated else None
+
+            ContactForm.objects.create(
+                user=user,
+                phone=data.get("phone", ""),
+                subject=data.get("projectType", "New Project Inquiry"),
+                message=data.get("message", ""),
+                status="new"
+            )
+
+            return JsonResponse({"status": "success"})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+@csrf_exempt
+def submit_contact_form(request):
+    if request.method == 'POST':
+        firstName = request.POST.get('firstName')
+        lastName = request.POST.get('lastName')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        projectType = request.POST.get('projectType')
+        budget = request.POST.get('budget')
+        timeline = request.POST.get('timeline')
+        message = request.POST.get("message")
+        source = request.POST.get("source")
+        newsletter = request.POST.get("newsletter", "off")
+
+        admin_subject = f"New Project Inquiry from {firstName} {lastName}"
+        admin_message = f"""
+            New project inquiry received:
+
+            Name: {firstName} {lastName}
+            Email: {email}
+            Phone: {phone}
+
+            Project Type: {projectType}
+            Budget: {budget}
+            Timeline: {timeline}
+
+            Message:
+            {message}
+
+            Heard About Us From: {source}
+            Subscribed to Newsletter: {newsletter}
+            """
+        admin_email = EmailMultiAlternatives(subject=admin_subject,body=admin_message,from_email='sayyedrabeeh240@gmail.com', to=["sayyedrabeeh240@gmail.com"])
+        admin_email.send()
+
+        user_subject = "Thanks for contacting Woodora!"
+        user_html_content = f"""
+        <html>
+            <body style="font-family: Arial; color: #333;">
+                <h2>Hi {firstName},</h2>
+                <p>Thank you for reaching out to <strong>Woodora Luxury Interiors</strong>.</p>
+
+                <p>We received your project inquiry and our design team will contact you within 24 hours.</p>
+
+                <h3>Your Project Details:</h3>
+                <ul>
+                    <li><strong>Project Type:</strong> {projectType}</li>
+                    <li><strong>Budget:</strong> {budget}</li>
+                    <li><strong>Timeline:</strong> {timeline}</li>
+                </ul>
+
+                <p>Your message:</p>
+                <blockquote>{message}</blockquote>
+
+                <p>We are excited to help you transform your space!</p>
+
+                <br><br>
+                <strong>— Woodora Interiors Team</strong>
+            </body>
+        </html>
+        """
+        user_email = EmailMultiAlternatives(
+            subject=user_subject,
+            body="Thank you for contacting Woodora.",
+            from_email="sayyedrabeeh240@gmail.com",
+            to=[email],
+        )
+        user_email.attach_alternative(user_html_content,'text/html')
+        user_email.send()
+        return JsonResponse({'status':'success'})
+    return JsonResponse({"status": "invalid request"})
