@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -523,13 +524,13 @@
                     </div>
                 </div>
 
-                <div class="stat-card">
+               <div class="stat-card">
                     <div class="stat-icon wallet">
                         <i class="fas fa-dollar-sign"></i>
                     </div>
                     <div class="stat-content">
-                        <h3>₹{{ total_revenue|default:"0" }}</h3>
-                        <p>Total Service Value</p>
+                        <h3>₹{{ total_revenue|format_number|default:"0" }}</h3>
+                         <p>Total Service Value</p>
                         <small><i class="fas fa-info-circle"></i> All Services</small>
                     </div>
                 </div>
