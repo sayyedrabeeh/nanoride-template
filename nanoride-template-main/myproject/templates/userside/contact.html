@@ -1379,7 +1379,26 @@
 
         
  
- 
+    document.getElementById("contactForm").addEventListener("submit", async function(e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        let response = await fetch("/submit-contact/", {
+            method: "POST",
+            body: formData
+        });
+
+        let data = await response.json();
+
+        if (data.status === "success") {
+            alert("Your message has been sent!");
+            this.reset();
+        } else {
+            alert("Something went wrong!");
+        }
+    });
+
 
 	</script>
 </body>
