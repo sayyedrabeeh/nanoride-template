@@ -414,7 +414,7 @@ def reply_contact(request,contact_id):
     contact = get_object_or_404(ContactForm,id = contact_id)
     try:
         reply_message = request.POST.get('replay_massage')
-        mark_replied = request.POST.get(mark_replied) == 'on'
+        mark_replied = request.POST.get('mark_replied') == 'on'
         if not reply_message:
           messages.error(request, 'Reply message cannot be empty!')
           return redirect('contact_management')

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reply from Interior Design Company</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: #f5f3f0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #d4c5b9;
+        }
+        .header {
+            background: linear-gradient(135deg, #6b4423 0%, #8b6f47 100%);
+            padding: 40px 30px;
+            text-align: center;
+            border-bottom: 4px solid #4a2c1a;
+        }
+        .header h1 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            color: #e8dcc8;
+            font-size: 14px;
+            font-style: italic;
+        }
+        .content {
+            padding: 40px 30px;
+            color: #4a3728;
+            line-height: 1.8;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #6b4423;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .reply-box {
+            background-color: #faf8f5;
+            border-left: 4px solid #8b6f47;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .reply-box p {
+            margin: 0;
+            color: #4a3728;
+            font-size: 15px;
+        }
+        .original-message {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e8dcc8;
+        }
+        .original-message h3 {
+            color: #6b4423;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .message-details {
+            background-color: #f9f6f2;
+            padding: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .message-details p {
+            margin: 8px 0;
+            color: #5a4435;
+        }
+        .message-details strong {
+            color: #6b4423;
+            display: inline-block;
+            width: 100px;
+        }
+        .footer {
+            background-color: #4a3728;
+            padding: 30px;
+            text-align: center;
+            color: #d4c5b9;
+        }
+        .footer p {
+            margin: 8px 0;
+            font-size: 13px;
+        }
+        .footer a {
+            color: #c9a66b;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #8b6f47, transparent);
+            margin: 20px 0;
+        }
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+            color: #6b4423;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Your Interior Design Company</h1>
+            <p>Crafting Timeless Spaces</p>
+        </div>
+        
+        <div class="content">
+            <p class="greeting">Dear {{ recipient_name }},</p>
+            
+            <p>Thank you for reaching out to us. We appreciate your interest in our interior design services.</p>
+            
+            <div class="reply-box">
+                <p>{{ reply_message|linebreaks }}</p>
+            </div>
+            
+            <p>We're committed to bringing your vision to life and creating spaces that reflect your unique style and needs. If you have any additional questions or would like to schedule a consultation, please don't hesitate to reach out.</p>
+            
+            <div class="divider"></div>
+            
+            <div class="original-message">
+                <h3>Your Original Inquiry</h3>
+                <div class="message-details">
+                    <p><strong>Name:</strong> {{ contact.get_full_name }}</p>
+                    <p><strong>Email:</strong> {{ contact.email }}</p>
+                    {% if contact.phone %}
+                    <p><strong>Phone:</strong> {{ contact.phone }}</p>
+                    {% endif %}
+                    {% if contact.subject %}
+                    <p><strong>Subject:</strong> {{ contact.subject }}</p>
+                    {% endif %}
+                    {% if contact.message %}
+                    <p><strong>Message:</strong></p>
+                    <p style="margin-top: 10px; padding-left: 20px;">{{ contact.message }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <p class="signature">
+                Warm regards,<br>
+                The Interior Design Team
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Your Interior Design Company</strong></p>
+            <p>123 Design Street, Suite 100 | City, State 12345</p>
+            <p>Phone: (123) 456-7890 | Email: <a href="mailto:info@yourcompany.com">info@yourcompany.com</a></p>
+            <p style="margin-top: 15px;">
+                <a href="#">Website</a> | 
+                <a href="#">Portfolio</a> | 
+                <a href="#">Instagram</a> | 
+                <a href="#">Facebook</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 11px; color: #9a8672;">
+                © 2024 Your Interior Design Company. All rights reserved.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
