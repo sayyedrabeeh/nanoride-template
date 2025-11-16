@@ -151,11 +151,17 @@ class ProjectImage(models.Model):
     
 
 class ContactForm(models.Model):
+    STATUS_CHOICES = [
+        ('new', 'New'),
+        ('pending', 'Pending'),
+        ('replied', 'Replied'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
-    first_name = models.CharField(max_length=100,default='rabi')
-    last_name = models.CharField(max_length=100,default='rabii')
-    email = models.EmailField(blank=True,default='rabi@gmail.com')
+    first_name = models.CharField(max_length=100,default='')
+    last_name = models.CharField(max_length=100,default='')
+    email = models.EmailField(blank=True,default='')
 
     phone = models.CharField(max_length=20, blank=True)
     project_type = models.CharField(max_length=200, blank=True)
@@ -166,7 +172,11 @@ class ContactForm(models.Model):
     subject = models.CharField(max_length=255, blank=True)
     message = models.TextField()
 
-    status = models.CharField(max_length=20, default="new")
+    reply_message = models.TextField(blank=True, null=True)
+    replied_date = models.DateTimeField(blank=True, null=True)
+
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="new")
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -175,11 +185,14 @@ class ContactForm(models.Model):
     class Meta:
         ordering = ['-created_at']
         verbose_name_plural = "Contact Forms"
+
     def is_pending(self):
         return self.status in ['new', 'pending']
     
     def is_replied(self):
         return self.status == 'replied'
 
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}".strip()
 
  

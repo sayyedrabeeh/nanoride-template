@@ -16,6 +16,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods
 from django.utils.timezone import now
 from datetime import datetime
+from django.core.paginator import Paginator
 from django.db.models import Q
 
 @never_cache
@@ -378,12 +379,18 @@ def Contact_form_list(request):
         Q(user__email__icontains=search_query) |
         Q(subject__icontains=search_query)
     )
+    paginator = Paginator(contacts, 10)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
     context = {
-        'contacts': contacts,
+        'contacts': page_obj,
         'total_contacts': ContactForm.objects.count(),
         'pending_contacts': ContactForm.objects.filter(status__in=['new', 'pending']).count(),
         'replied_contacts': ContactForm.objects.filter(status='replied').count(),
+        'status_filter': status_filter,
+        'search_query': search_query,
     }
+    
     return render(request, 'adminside/contact_management.html', context)
 
 
