@@ -16,6 +16,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.http import require_http_methods
 from django.utils.timezone import now
 from datetime import datetime
+from django.db.models import Q
 
 @never_cache
 @login_required(login_url='admin_login')
@@ -97,7 +98,10 @@ def service_list(request):
     search_query = request.GET.get('search')
 
     if search_query:
-        Services = Services.filter(name__icontains = search_query) |Services.filter(description__icontains = search_query) 
+     Services = Services.filter(
+        Q(name__icontains=search_query) |
+        Q(description__icontains=search_query)
+    )
     context = {
         'services': Services,
         'total_services': services.objects.count(),
@@ -192,8 +196,13 @@ def Project_list(request):
     search_query = request.GET.get('search')
     current_year = now().year
     projects_this_year = Project.objects.filter(created_at__year=current_year).count()
+   
     if search_query:
-        projects = projects.filter(title__icontains = search_query) |projects.filter(overview__icontains = search_query)|projects.filter(client_name__icontains = search_query) 
+     projects = projects.filter(
+        Q(title__icontains=search_query) |
+        Q(overview__icontains=search_query) |
+        Q(client_name__icontains=search_query)
+    )
     context = {
         'projects': projects,
         'projects_this_year':projects_this_year,
@@ -363,8 +372,12 @@ def Contact_form_list(request):
     search_query = request.GET.get('search')
 
     if search_query:
-        contacts = contacts.filter(user__first_name__icontains = search_query) |contacts.filter(user__email__icontains = search_query)|contacts.filter(subject__icontains = search_query) 
-  
+     contacts = contacts.filter(
+        Q(user__first_name__icontains=search_query) |
+        Q(user__last_name__icontains=search_query) |
+        Q(user__email__icontains=search_query) |
+        Q(subject__icontains=search_query)
+    )
     context = {
         'contacts': contacts,
         'total_contacts': ContactForm.objects.count(),
