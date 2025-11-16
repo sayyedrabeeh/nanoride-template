@@ -451,15 +451,15 @@
                 <i class="fas fa-users"></i>
                 <span class="link-text">Customers</span>
             </a>
-            <a class='active' href="{% url 'admin_projects' %}">
+            <a class='active' href="{% url 'Project_list' %}">
                 <i class="fas fa-project-diagram"></i>
                 <span class="link-text">Projects</span>
             </a>
-            <a href="{% url 'service_admin' %} ">
+            <a href="{% url 'service_list' %} ">
                 <i class="fas fa-shopping-cart"></i>
                 <span class="link-text">Services</span>
             </a>
-            <a class='active' href="{% url 'contact_management' %}">
+            <a class='active' href="{% url 'Contact_form_list' %}">
                 <i class="fas fa-comments"></i>
                 <span class="link-text">Contact Form</span>
             </a>
@@ -576,15 +576,15 @@
                             </td>
                             <td>
                                 <button class="action-btn view" data-toggle="modal" data-target="#viewContactModal{{ contact.id }}">
-                                    <i class="fas fa-eye"></i> View
+                                    <i class="fas fa-eye"></i> 
                                 </button>
                                 <button class="action-btn reply" data-toggle="modal" data-target="#replyModal{{ contact.id }}">
-                                    <i class="fas fa-reply"></i> Reply
+                                    <i class="fas fa-reply"></i> 
                                 </button>
                                 <form method="POST" action="{% url 'delete_contact' contact.id %}" style="display: inline;" onsubmit="return confirm('Delete this contact?');">
                                     {% csrf_token %}
                                     <button class="action-btn delete" type="submit">
-                                        <i class="fas fa-trash"></i> Delete
+                                        <i class="fas fa-trash"></i> 
                                     </button>
                                 </form>
                             </td>
@@ -687,7 +687,7 @@
 
                             <div class="form-group">
                                 <label>Reply Message *</label>
-                                <textarea class="form-control" name="reply_message" placeholder="Type your response here..." required></textarea>
+                                <textarea class="form-control" name="reply_massage" placeholder="Type your response here..." required></textarea>
                             </div>
 
                             <div class="form-group">

@@ -413,13 +413,14 @@ def view_contact(request,contact_id):
 def reply_contact(request,contact_id):
     contact = get_object_or_404(ContactForm,id = contact_id)
     try:
-        reply_message = request.POST.get('replay_massage')
+        reply_message = request.POST.get('reply_massage')
         mark_replied = request.POST.get('mark_replied') == 'on'
         if not reply_message:
+           
           messages.error(request, 'Reply message cannot be empty!')
-          return redirect('contact_management')
+          return redirect('Contact_form_list')
 
-        contact.replay_message = reply_message
+        contact.reply_message = reply_message
         if mark_replied:
             contact.status = 'replied'
             contact.replied_date = datetime.now()
@@ -430,8 +431,9 @@ def reply_contact(request,contact_id):
         recipient_email = contact.email if contact.email else None
         recipient_name = contact.get_full_name()
         if not recipient_email:
+             
             messages.warning(request, 'Reply saved but no email address found for this contact.')
-            return redirect('contact_management')
+            return redirect('Contact_form_list')
         context = {
             'contact': contact,
             'recipient_name': recipient_name,
@@ -452,15 +454,15 @@ def reply_contact(request,contact_id):
         else:
             messages.warning(request, f' Reply saved in database but email failed to send to {recipient_email}')
         
-        return redirect('contact_management')
+        return redirect('Contact_form_list')
         
     except Exception as e:
         messages.error(request,f'error in sending messages {str(e)}')
-        return redirect('contact_management')
+        return redirect('Contact_form_list')
 
 def send_email_reply(subject, message, html_message, recipient_email):
     try:
-        
+         
         if '\n' in subject or '\r' in subject:
             raise BadHeaderError('Invalid header found.')
         send_mail(
@@ -489,7 +491,7 @@ def delete_contact(request,contact_id):
     contact_subject = contact.subject
     contact.delete()
     messages.success(request, f'Contact "{contact_subject}" deleted successfully!')
-    return redirect('contact_management')
+    return redirect('Contact_form_list')
 
 
 
