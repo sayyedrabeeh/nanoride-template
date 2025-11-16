@@ -938,7 +938,7 @@
 				<p>Fill out the form below and our team will get back to you within 24 hours to discuss your project.</p>
 				
 				<div class="form-message" id="formMessage"></div>
-
+                
 				<form class="contact-form" id="contactForm">
 					<div class="form-row">
 						<div class="form-group">
@@ -1261,48 +1261,7 @@
 		});
 
 		 
-		const contactForm = document.getElementById('contactForm');
-		const formMessage = document.getElementById('formMessage');
-
-		contactForm.addEventListener('submit', function(e) {
-			e.preventDefault();
-			
-			 
-			const formData = new FormData(contactForm);
-			const data = {};
-			formData.forEach((value, key) => {
-				data[key] = value;
-			});
- 
-			const submitBtn = contactForm.querySelector('.submit-btn');
-			submitBtn.disabled = true;
-			submitBtn.textContent = 'Sending...';
-
 		 
-			setTimeout(() => {
-				 
-				formMessage.className = 'form-message success';
-				formMessage.textContent = 'Thank you for contacting us! We\'ll get back to you within 24 hours.';
-				
-			 
-				contactForm.reset();
-				
-				 
-				submitBtn.disabled = false;
-				submitBtn.textContent = 'Send Message';
-
-			 
-				formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-	 
-				setTimeout(() => {
-					formMessage.style.display = 'none';
-				}, 5000);
-
-			}, 1500);
-
-		 
-		});
 
 	 
 		const inputs = contactForm.querySelectorAll('input[required], select[required], textarea[required]');
@@ -1379,25 +1338,49 @@
 
         
  
-    document.getElementById("contactForm").addEventListener("submit", async function(e) {
-        e.preventDefault();
+   document.getElementById("contactForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-        let formData = new FormData(this);
+    const formMessage = document.getElementById("formMessage");
+    const submitBtn = this.querySelector(".submit-btn");
 
-        let response = await fetch("/submit-contact/", {
-            method: "POST",
-            body: formData
-        });
+    formMessage.style.display = "block";
+    formMessage.className = "form-message";     
+    formMessage.textContent = "";
 
-        let data = await response.json();
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
 
-        if (data.status === "success") {
-            alert("Your message has been sent!");
-            this.reset();
-        } else {
-            alert("Something went wrong!");
-        }
+    let formData = new FormData(this);
+
+    let response = await fetch("/auth/submit-contact/", {
+        method: "POST",
+        body: formData
     });
+
+    let data = await response.json();
+
+    if (data.status === "success") {
+      
+        formMessage.classList.add("success");
+        formMessage.textContent = "Thank you! Your message has been sent successfully.";
+
+        this.reset();
+    } else {
+      
+        formMessage.classList.add("error");
+        formMessage.textContent = "Something went wrong. Please try again.";
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Send Message";
+
+    
+    setTimeout(() => {
+        formMessage.style.display = "none";
+    }, 10000);
+});
+
 
 
 	</script>

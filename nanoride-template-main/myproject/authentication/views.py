@@ -310,6 +310,7 @@ def submit_contact_form(request):
         source = request.POST.get("source")
         newsletter = request.POST.get("newsletter", "off")
 
+        subject = f"New Inquiry: {projectType} - {firstName} {lastName}"
         contact = ContactForm.objects.create(
             user=request.user if request.user.is_authenticated else None,
             first_name=firstName,
@@ -324,7 +325,6 @@ def submit_contact_form(request):
             message=message,
             status="new",
         )
-        subject = f"New Inquiry: {projectType} - {firstName} {lastName}"
         admin_subject = f"New Project Inquiry from {firstName} {lastName}"
         admin_message = f"""
             New project inquiry received:

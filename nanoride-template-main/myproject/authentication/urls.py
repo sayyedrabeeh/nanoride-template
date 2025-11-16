@@ -21,7 +21,6 @@ urlpatterns = [
      path('admin-login/', views.admin_login, name='admin_login'),
     path('admin-home/', views.AdminHomeView.as_view(), name='admin_home'),
     path('custom_logout1/', custom_logoutadmin, name='custom_logout1'),
-    path("save-contact-form/", views.save_contact_form, name="save_contact_form"),
     path("submit-contact/", views.submit_contact_form, name="submit_contact"),
 
 ]
