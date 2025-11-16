@@ -648,6 +648,48 @@
             background: var(--secondary);
             border-radius: 10px;
         }
+        .messages-wrapper {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    margin-bottom: 10px;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.alert.success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border-left: 4px solid #0f5132;
+}
+
+.alert.error,
+.alert.danger {
+    background-color: #f8d7da;
+    color: #842029;
+    border-left: 4px solid #842029;
+}
+
+.alert.warning {
+    background-color: #fff3cd;
+    color: #664d03;
+    border-left: 4px solid #664d03;
+}
+
+.alert.info {
+    background-color: #cff4fc;
+    color: #055160;
+    border-left: 4px solid #055160;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
     </style>
 </head>
 <body>
@@ -748,6 +790,15 @@
                     <i class="fas fa-search"></i>
                 </div>
             </div>
+            {% if messages %}
+            <div class="messages-wrapper">
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% endif %}
 
             <div class="projects-grid">
            
@@ -1342,5 +1393,14 @@
         {% endif %}
 
     </script>
+    <script>
+    setTimeout(() => {
+        document.querySelectorAll('.alert').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transition = '0.5s';
+        });
+    }, 3000);
+</script>
+
 </body>
 </html>
