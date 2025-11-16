@@ -401,6 +401,32 @@
                 grid-template-columns: 1fr;
             }
         }
+        .recent-avatar.project {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #f0f0f0; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;  /* IMPORTANT for image */
+        border: 2px solid #ddd;
+    }
+
+    /* Image styling */
+    .recent-avatar.project .avatar-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;   
+        border-radius: 50%;
+    }
+
+    /* Default icon styling */
+    .recent-avatar.project .default-icon {
+        font-size: 24px;
+        color: #888;
+    }
+
     </style>
 </head>
 <body>
@@ -564,7 +590,11 @@
                     {% for project in recent_projects %}
                     <div class="recent-item">
                         <div class="recent-avatar project">
-                            <i class="fas fa-project-diagram"></i>
+                            {% if project.hero_image %}
+                                <img src="{{ project.hero_image.url }}" alt="Project Image" class="avatar-img">
+                            {% else %}
+                                <i class="fas fa-project-diagram default-icon"></i>
+                            {% endif %}
                         </div>
                         <div class="recent-details">
                             <h5>{{ project.title }}</h5>

@@ -508,7 +508,7 @@ def dashboard(request):
         services_by_category.append(count)
     
     context = {
-        'total_users': CustomUser.objects.count(),
+        'total_users': User.objects.count(),
         'total_projects': Project.objects.count(),
         'published_projects': Project.objects.filter(status='published').count(),
         'draft_projects': Project.objects.filter(status='draft').count(),
