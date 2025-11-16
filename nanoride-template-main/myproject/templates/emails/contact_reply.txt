@@ -1,0 +1,54 @@
+================================================================================
+YOUR INTERIOR DESIGN COMPANY
+Crafting Timeless Spaces
+================================================================================
+
+Dear {{ recipient_name }},
+
+Thank you for reaching out to us. We appreciate your interest in our interior 
+design services.
+
+--------------------------------------------------------------------------------
+OUR RESPONSE:
+--------------------------------------------------------------------------------
+
+{{ reply_message }}
+
+--------------------------------------------------------------------------------
+
+We're committed to bringing your vision to life and creating spaces that 
+reflect your unique style and needs. If you have any additional questions or 
+would like to schedule a consultation, please don't hesitate to reach out.
+
+
+YOUR ORIGINAL INQUIRY:
+--------------------------------------------------------------------------------
+
+Name:    {{ contact.get_full_name }}
+Email:   {{ contact.email }}
+{% if contact.phone %}Phone:   {{ contact.phone }}{% endif %}
+{% if contact.subject %}Subject: {{ contact.subject }}{% endif %}
+{% if contact.message %}
+Message:
+{{ contact.message }}
+{% endif %}
+
+================================================================================
+
+Warm regards,
+The Interior Design Team
+
+YOUR INTERIOR DESIGN COMPANY
+123 Design Street, Suite 100
+City, State 12345
+
+Phone: (123) 456-7890
+Email: info@Woodora.com
+Website: www.Woodora.com
+
+Follow us:
+Instagram | Facebook | Pinterest
+
+© 2024 Your Interior Design Company. All rights reserved.
+
+================================================================================
