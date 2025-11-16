@@ -153,9 +153,9 @@ class ProjectImage(models.Model):
 class ContactForm(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField()
+    first_name = models.CharField(max_length=100,default='rabi')
+    last_name = models.CharField(max_length=100,default='rabii')
+    email = models.EmailField(blank=True,default='rabi@gmail.com')
 
     phone = models.CharField(max_length=20, blank=True)
     project_type = models.CharField(max_length=200, blank=True)

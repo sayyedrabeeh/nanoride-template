@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4;">
+    <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #f4f4f4;">
+        <tr>
+            <td align="center" style="padding: 40px 0;">
+                <table role="presentation" style="width: 600px; border-collapse: collapse; background-color: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); padding: 40px 30px; text-align: center;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 300; letter-spacing: 2px;">
+                                WOODORA INTERIORS
+                            </h1>
+                            <p style="margin: 10px 0 0 0; color: #ecf0f1; font-size: 14px; letter-spacing: 1px;">
+                                NEW PROJECT INQUIRY
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Alert Banner -->
+                    <tr>
+                        <td style="background-color: #3498db; padding: 20px 30px; border-left: 5px solid #2980b9;">
+                            <p style="margin: 0; color: #ffffff; font-size: 16px; font-weight: 600;">
+                                ⚡ Action Required: New client inquiry received
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Client Information -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <h2 style="margin: 0 0 25px 0; color: #2c3e50; font-size: 22px; font-weight: 600; border-bottom: 3px solid #3498db; padding-bottom: 10px;">
+                                Client Information
+                            </h2>
+                            
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #ecf0f1;">
+                                        <strong style="color: #34495e; font-size: 14px;">Full Name:</strong>
+                                    </td>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #ecf0f1; text-align: right;">
+                                        <span style="color: #2c3e50; font-size: 15px; font-weight: 600;">{{ firstName }} {{ lastName }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #ecf0f1;">
+                                        <strong style="color: #34495e; font-size: 14px;">Email:</strong>
+                                    </td>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #ecf0f1; text-align: right;">
+                                        <a href="mailto:{{ email }}" style="color: #3498db; text-decoration: none; font-size: 14px;">{{ email }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #ecf0f1;">
+                                        <strong style="color: #34495e; font-size: 14px;">Phone:</strong>
+                                    </td>
+                                    <td style="padding: 12px 0; border-bottom: 1px solid #ecf0f1; text-align: right;">
+                                        <a href="tel:{{ phone }}" style="color: #3498db; text-decoration: none; font-size: 14px;">{{ phone }}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 12px 0;">
+                                        <strong style="color: #34495e; font-size: 14px;">Referral Source:</strong>
+                                    </td>
+                                    <td style="padding: 12px 0; text-align: right;">
+                                        <span style="color: #7f8c8d; font-size: 14px;">{{ source }}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Project Details -->
+                    <tr>
+                        <td style="padding: 0 30px 40px 30px;">
+                            <h2 style="margin: 0 0 25px 0; color: #2c3e50; font-size: 22px; font-weight: 600; border-bottom: 3px solid #e67e22; padding-bottom: 10px;">
+                                Project Details
+                            </h2>
+                            
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="width: 33.33%; padding: 20px; background-color: #ecf0f1; border-radius: 8px; text-align: center;">
+                                        <p style="margin: 0 0 8px 0; color: #7f8c8d; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Project Type</p>
+                                        <p style="margin: 0; color: #2c3e50; font-size: 16px; font-weight: 700;">{{ projectType }}</p>
+                                    </td>
+                                    <td style="width: 10px;"></td>
+                                    <td style="width: 33.33%; padding: 20px; background-color: #ecf0f1; border-radius: 8px; text-align: center;">
+                                        <p style="margin: 0 0 8px 0; color: #7f8c8d; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Budget Range</p>
+                                        <p style="margin: 0; color: #27ae60; font-size: 16px; font-weight: 700;">{{ budget }}</p>
+                                    </td>
+                                    <td style="width: 10px;"></td>
+                                    <td style="width: 33.33%; padding: 20px; background-color: #ecf0f1; border-radius: 8px; text-align: center;">
+                                        <p style="margin: 0 0 8px 0; color: #7f8c8d; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Timeline</p>
+                                        <p style="margin: 0; color: #e74c3c; font-size: 16px; font-weight: 700;">{{ timeline }}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Client Message -->
+                    <tr>
+                        <td style="padding: 0 30px 40px 30px;">
+                            <h2 style="margin: 0 0 20px 0; color: #2c3e50; font-size: 22px; font-weight: 600; border-bottom: 3px solid #9b59b6; padding-bottom: 10px;">
+                                Client Message
+                            </h2>
+                            <div style="background-color: #f8f9fa; padding: 25px; border-left: 4px solid #9b59b6; border-radius: 4px;">
+                                <p style="margin: 0; color: #2c3e50; font-size: 15px; line-height: 1.8; font-style: italic;">
+                                    "{{ message }}"
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Newsletter Status -->
+                    <tr>
+                        <td style="padding: 0 30px 40px 30px;">
+                            <div style="background-color: {% if newsletter == 'on' %}#d4edda{% else %}#f8d7da{% endif %}; padding: 15px; border-radius: 4px; border-left: 4px solid {% if newsletter == 'on' %}#28a745{% else %}#dc3545{% endif %};">
+                                <p style="margin: 0; color: #2c3e50; font-size: 14px;">
+                                    <strong>Newsletter Subscription:</strong> 
+                                    <span style="color: {% if newsletter == 'on' %}#28a745{% else %}#dc3545{% endif %}; font-weight: 600;">
+                                        {% if newsletter == 'on' %}✓ Subscribed{% else %}✗ Not Subscribed{% endif %}
+                                    </span>
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Action Buttons -->
+                    <tr>
+                        <td style="padding: 0 30px 40px 30px;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td style="padding: 0 5px 0 0;">
+                                        <a href="mailto:{{ email }}" style="display: block; background-color: #3498db; color: #ffffff; text-decoration: none; padding: 15px 20px; border-radius: 5px; text-align: center; font-weight: 600; font-size: 14px;">
+                                            📧 Reply via Email
+                                        </a>
+                                    </td>
+                                    <td style="padding: 0 0 0 5px;">
+                                        <a href="tel:{{ phone }}" style="display: block; background-color: #27ae60; color: #ffffff; text-decoration: none; padding: 15px 20px; border-radius: 5px; text-align: center; font-weight: 600; font-size: 14px;">
+                                            📞 Call Client
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                 
+                    <tr>
+                        <td style="background-color: #2c3e50; padding: 30px; text-align: center;">
+                            <p style="margin: 0 0 10px 0; color: #ecf0f1; font-size: 13px;">
+                                This is an automated notification from Woodora CRM System
+                            </p>
+                            <p style="margin: 0; color: #95a5a6; font-size: 12px;">
+                                © 2024 Woodora Luxury Interiors. All rights reserved.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
