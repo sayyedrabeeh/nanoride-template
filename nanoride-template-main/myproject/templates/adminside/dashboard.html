@@ -12,6 +12,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-chart-3d"></script>
+
     <style>
         * {
             margin: 0;
@@ -654,6 +657,8 @@
             </div>
         </div>
     </div>
+ 
+
  <script>
        
         const sidebar = document.getElementById('sidebar');
@@ -665,10 +670,9 @@
             mainContent.classList.toggle('expanded');
         });
 
-       
-        const projectsCtx = document.getElementById('projectsChart').getContext('2d');
-        const projectsChart = new Chart(projectsCtx, {
-            type: 'doughnut',
+         const projectsCtx = document.getElementById('projectsChart').getContext('2d');
+         const projectsChart = new Chart(projectsCtx, {
+            type: 'polarArea',
             data: {
                 labels: ['Residential', 'Commercial', 'Hospitality', 'Retail', 'Office'],
                 datasets: [{
@@ -699,9 +703,9 @@
                     }
                 }
             }
-        });
+        });   
 
-         
+ 
         const servicesCtx = document.getElementById('servicesChart').getContext('2d');
         const servicesChart = new Chart(servicesCtx, {
             type: 'bar',
