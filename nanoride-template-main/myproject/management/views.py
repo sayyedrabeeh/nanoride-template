@@ -17,6 +17,8 @@ from django.views.decorators.http import require_http_methods
 from django.utils.timezone import now
 from datetime import datetime
 from django.core.paginator import Paginator
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 from django.db.models import Q
 
 @never_cache
@@ -405,10 +407,13 @@ def view_contact(request,contact_id):
 def reply_contact(request,contact_id):
     contact = get_object_or_404(ContactForm,id = contact_id)
     try:
-        replay_massage = request.POST.get('replay_massage')
+        reply_message = request.POST.get('replay_massage')
         mark_replied = request.POST.get(mark_replied) == 'on'
+        if not reply_message:
+          messages.error(request, 'Reply message cannot be empty!')
+          return redirect('contact_management')
 
-        contact.replay_message = replay_massage
+        contact.replay_message = reply_message
         if mark_replied:
             contact.status = 'replied'
             contact.replied_date = datetime.now()
@@ -416,8 +421,33 @@ def reply_contact(request,contact_id):
             contact.status = 'pending'
 
         contact.save()
-        messages.success(request,'Reply sent successfully')
+        recipient_email = contact.email if contact.email else None
+        recipient_name = contact.get_full_name()
+        if not recipient_email:
+            messages.warning(request, 'Reply saved but no email address found for this contact.')
+            return redirect('contact_management')
+        context = {
+            'contact': contact,
+            'recipient_name': recipient_name,
+            'reply_message': reply_message,
+        }
+
+        email_html = render_to_string('emails/contact_reply.html', context)
+        email_text = render_to_string('emails/contact_reply.txt', context)
+
+        email_sent = send_email_reply(
+            subject=f'Reply to User :{contact.email}',
+            message=email_text,
+            html_message=email_html,
+            recipient_email=recipient_email
+        )
+        if email_sent:
+            messages.success(request, f' Reply sent successfully to {recipient_email}!')
+        else:
+            messages.warning(request, f' Reply saved in database but email failed to send to {recipient_email}')
+        
         return redirect('contact_management')
+        
     except Exception as e:
         messages.error(request,f'error in sending messages {str(e)}')
         return redirect('contact_management')

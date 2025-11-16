@@ -521,7 +521,7 @@
                         <tr>
                             <th>User</th>
                             <th>Email</th>
-                            <th>Subject</th>
+                            <th>Msg send mail</th>
                             <th>Submitted Date</th>
                             <th>Status</th>
                             <th>Replied Date</th>
@@ -534,7 +534,7 @@
                             <td>
                                 <div class="user-info">
                                     <div class="user-avatar">
-                                        {{ contact.user.first_name|first|upper }}
+                                            <img src="{% static 'images/profile.png' %}" class="user-avatar">
                                     </div>
                                     <div class="user-details">
                                         <h5>{{ contact.user.first_name }} {{ contact.user.last_name }}</h5>
@@ -543,9 +543,8 @@
                                 </div>
                             </td>
                             <td>{{ contact.user.email }}</td>
-                            <td>
-                                <strong>{{ contact.subject }}</strong>
-                            </td>
+                            <td>{{ contact.email }}</td>
+                             
                             <td class="date-cell">
                                 <i class="fas fa-calendar-alt"></i> {{ contact.created_at|date:"M d, Y" }}
                                 <br>
@@ -683,7 +682,7 @@
 
                             <div class="form-group">
                                 <label>To:</label>
-                                <input type="email" class="form-control" value="{{ contact.user.email }}" readonly>
+                                <input type="email" class="form-control" value="{{ contact.email }}" readonly>
                             </div>
 
                             <div class="form-group">
