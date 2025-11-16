@@ -20,6 +20,12 @@ from django.core.paginator import Paginator
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.db.models import Q
+from django.conf import settings
+import logging
+from django.core.mail import send_mail, BadHeaderError
+
+
+logger = logging.getLogger(__name__)
 
 @never_cache
 @login_required(login_url='admin_login')
@@ -451,6 +457,30 @@ def reply_contact(request,contact_id):
     except Exception as e:
         messages.error(request,f'error in sending messages {str(e)}')
         return redirect('contact_management')
+
+def send_email_reply(subject, message, html_message, recipient_email):
+    try:
+        
+        if '\n' in subject or '\r' in subject:
+            raise BadHeaderError('Invalid header found.')
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[recipient_email],
+            html_message=html_message,
+            fail_silently=False,
+        )
+        
+        logger.info(f"Email sent successfully to {recipient_email}")
+        return True
+    except BadHeaderError:
+        logger.error(f"Bad header error when sending to {recipient_email}")
+        return False
+        
+    except Exception as e:
+        logger.error(f"Failed to send email to {recipient_email}: {str(e)}")
+        return False
 
 @login_required
 @require_http_methods(["POST"])
