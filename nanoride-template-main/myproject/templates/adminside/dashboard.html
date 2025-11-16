@@ -623,7 +623,100 @@
             </div>
         </div>
     </div>
+ <script>
+       
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const toggleButton = document.getElementById('toggleButton');
 
+        toggleButton.addEventListener('click', () => {
+            sidebar.classList.toggle('expanded');
+            mainContent.classList.toggle('expanded');
+        });
+
+       
+        const projectsCtx = document.getElementById('projectsChart').getContext('2d');
+        const projectsChart = new Chart(projectsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Residential', 'Commercial', 'Hospitality', 'Retail', 'Office'],
+                datasets: [{
+                    data: {{ projects_by_category|default:"[0, 0, 0, 0, 0]"|safe }},
+                    backgroundColor: [
+                        '#667eea',
+                        '#f093fb',
+                        '#4facfe',
+                        '#43e97b',
+                        '#fa709a'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+         
+        const servicesCtx = document.getElementById('servicesChart').getContext('2d');
+        const servicesChart = new Chart(servicesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Residential', 'Commercial', 'Hospitality', 'Space Planning', 'Color', 'Furniture'],
+                datasets: [{
+                    label: 'Number of Services',
+                    data: {{ services_by_category|default:"[0, 0, 0, 0, 0, 0]"|safe }},
+                    backgroundColor: [
+                        'rgba(102, 126, 234, 0.8)',
+                        'rgba(240, 147, 251, 0.8)',
+                        'rgba(79, 172, 254, 0.8)',
+                        'rgba(67, 233, 123, 0.8)',
+                        'rgba(250, 112, 154, 0.8)',
+                        'rgba(254, 225, 64, 0.8)'
+                    ],
+                    borderColor: [
+                        '#667eea',
+                        '#f093fb',
+                        '#4facfe',
+                        '#43e97b',
+                        '#fa709a',
+                        '#fee140'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+    </script>
    
 </body>
 </html>
