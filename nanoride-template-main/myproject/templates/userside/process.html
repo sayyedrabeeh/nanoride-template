@@ -1,9 +1,12 @@
+{% load static  %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Our Process - Woodora Interior Design</title>
+    	<link rel="icon" type="image/png" href="{% static 'images/favi7.png' %}">
+ 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 	<style>
@@ -957,7 +960,42 @@
 
         a{
 			text-decoration:none
-		}
+		}.logo {
+    display: flex;
+    align-items: center;
+    
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-logo-img {
+    width: 40px;
+    height: auto;
+}
+
+.nav-logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* space between image and the whole text block */
+}
+
+.logo-text {
+    display: inline-block;
+}
+
+.logo-text span {
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0;
+}
 
 	</style>
 </head>
@@ -965,8 +1003,10 @@
  
 	<nav class="navbar">
 		<div class="nav-container">
-			<a href="{% url 'home' %}" class="logo">WOOD<span>ORA</span></a>
-			<ul class="nav-menu">
+<a href="{% url 'home' %}" class="logo">
+    <img src="{% static 'images/favi8.png' %}" class="nav-logo-img">
+    <p class="logo-text">WOOD<span>ORA</span></p>
+</a>			<ul class="nav-menu">
 				<li><a href="{% url 'service' %}">Services</a></li>
 				<li><a href="{% url 'portfolio' %}">Portfolio</a></li>
 				<li><a class='active' href="{% url 'process' %}">Process</a></li>
