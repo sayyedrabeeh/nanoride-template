@@ -999,7 +999,7 @@
 						</div>
 						<div class="form-group">
 							<label>Phone Number <span class="required">*</span></label>
-							<input type="tel" name="phone" required      placeholder="Enter 10-digit phone number"pattern="[0-9]{10}"/>
+							<input type="number" name="phone" required      placeholder="Enter 10-digit phone number" />
 						</div>
 					</div>
 
@@ -1323,22 +1323,7 @@
 			});
 		});
  
-		const phoneInput = contactForm.querySelector('input[name="phone"]');
-		if (phoneInput) {
-			phoneInput.addEventListener('input', function(e) {
-				let value = e.target.value.replace(/\D/g, '');
-				if (value.length > 0) {
-					if (value.length <= 3) {
-						value = `(${value}`;
-					} else if (value.length <= 6) {
-						value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
-					} else {
-						value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
-					}
-				}
-				e.target.value = value;
-			});
-		}
+		 
 
 		 
 		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
