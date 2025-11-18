@@ -1,8 +1,9 @@
-*.html linguist-detectable=true
-*.css  linguist-detectable=true
-*.js   linguist-detectable=true
+# Treat HTML as Django templates (NOT counted as HTML)
+*.html linguist-language=Django
 
-*.html linguist-weight=0.3
-*.css  linguist-weight=0.1
-*.js   linguist-weight=0.1
-*.py   linguist-weight=1
+# Do NOT count CSS/JS as main languages
+*.css linguist-vendored
+*.js linguist-vendored
+
+# Force Python to be fully counted
+*.py linguist-detectable=true
