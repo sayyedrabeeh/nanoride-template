@@ -19,8 +19,8 @@ import dj_database_url
 load_dotenv() 
  
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-+b=h0@f!xtvfibg*2-6wj8mi@!h*e&wwofw^sz#lb-tp$gu&)v'
-DEBUG = True
+SECRET_KEY = os.getenv("SECRET_KEY", "replace-this-in-production")
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
