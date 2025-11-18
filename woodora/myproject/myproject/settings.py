@@ -24,7 +24,10 @@ DEBUG = True
 
 
  
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "http://127.0.0.1:8000/").split(",")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",") + [
+    "127.0.0.1",
+    "localhost",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
