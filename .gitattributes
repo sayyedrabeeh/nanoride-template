@@ -1,6 +1,6 @@
  *.html linguist-language=Python
 *.css linguist-language=Python 
-*.js linguist-language=Python
+ 
 
 # Keep some HTML/CSS/JS files as their original type
 # Adjust these patterns to control which files remain as HTML/CSS/JS
@@ -8,5 +8,9 @@ home.html linguist-language=HTML
 admin_project.html linguist-language=HTML
 dashboard.html linguist-language=HTML
 service_admin.html linguist-language=HTML
+contact_management.html linguist-language=HTML
+portfolio.html linguist-language=HTML
+singleproject.html linguist-language=HTML
+testimonials.html linguist-language=HTML
 # css/specific-folder/*.css linguist-language=CSS
 # js/important-files/*.js linguist-language=JavaScript
