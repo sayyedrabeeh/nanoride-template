@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os 
 from dotenv import load_dotenv
+import dj_database_url
+ 
 
 load_dotenv() 
  
@@ -33,9 +35,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
- 
     'allauth.socialaccount.providers.google',
-  
     'authentication',
     'image_cropping',
     'management',
@@ -77,16 +77,25 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
  
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'woodora',   
+#         'USER': 'postgres',         
+#         'PASSWORD': '920728',     
+#         'HOST': 'localhost',             
+#         'PORT': '5432',                  
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'woodora',   
-        'USER': 'postgres',         
-        'PASSWORD': '920728',     
-        'HOST': 'localhost',             
-        'PORT': '5432',                  
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True,
+    )
 }
+
  
 
 
