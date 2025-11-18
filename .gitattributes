@@ -1,9 +1,12 @@
-# Treat HTML as Django templates (NOT counted as HTML)
-*.html linguist-language=Django
+ *.html linguist-language=Python
+*.css linguist-language=Python 
+*.js linguist-language=Python
 
-# Do NOT count CSS/JS as main languages
-*.css linguist-vendored
-*.js linguist-vendored
-
-# Force Python to be fully counted
-*.py linguist-detectable=true
+# Keep some HTML/CSS/JS files as their original type
+# Adjust these patterns to control which files remain as HTML/CSS/JS
+home.html linguist-language=HTML
+admin_project.html linguist-language=HTML
+dashboard.html linguist-language=HTML
+service_admin.html linguist-language=HTML
+# css/specific-folder/*.css linguist-language=CSS
+# js/important-files/*.js linguist-language=JavaScript
