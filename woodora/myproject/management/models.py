@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser,User, Group, Permission
 from django.db import models
+from cloudinary.models import CloudinaryField
 # from image_cropping import ImageRatioField
 
 class CustomUser(AbstractUser):
@@ -39,7 +40,7 @@ class services(models.Model):
         ('Active', 'Active'),
         ('Inactive', 'Inactive'),
     ]) 
-    image = models.ImageField(upload_to='services/')
+    image = CloudinaryField('image')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -103,7 +104,7 @@ class Project(models.Model):
     tags = models.TextField(max_length=500,blank=True,help_text="Comma separated tags")
     testimonial = models.TextField(blank=True)
 
-    hero_image = models.ImageField(upload_to='projects/hero/')
+    hero_image = CloudinaryField('image')
     gallery_images = models.ManyToManyField('ProjectImage',blank=True,related_name='projects')
 
     status = models.CharField(max_length=20,default='draft',choices=[
@@ -140,7 +141,7 @@ class Project(models.Model):
         return []
     
 class ProjectImage(models.Model):
-    image = models.ImageField(upload_to='projects/gallery/')
+    image = CloudinaryField('image')
     upload_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
