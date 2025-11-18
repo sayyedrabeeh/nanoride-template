@@ -12,5 +12,12 @@ contact_management.html linguist-language=HTML
 portfolio.html linguist-language=HTML
 singleproject.html linguist-language=HTML
 testimonials.html linguist-language=HTML
+
 # css/specific-folder/*.css linguist-language=CSS
-# js/important-files/*.js linguist-language=JavaScript
+cropper.common.js linguist-language=JavaScript
+cropper.js linguist-language=JavaScript
+cropper.esm.js linguist-language=JavaScript
+cropper.min.js linguist-language=JavaScript
+jquery.js linguist-language=JavaScript
+jquery.min.js linguist-language=JavaScript
+jquery.slim.js linguist-language=JavaScript
