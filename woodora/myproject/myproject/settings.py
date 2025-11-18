@@ -156,7 +156,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-SITE_ID = 2
+SITE_ID = 3
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
 
