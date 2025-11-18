@@ -846,16 +846,25 @@
     letter-spacing: 0;
 }
 .btn-dashboard {
-    padding: 8px 16px;
-    background-color: #111;
-    color: #fff;
-    border-radius: 6px;
-    text-decoration: none;
+    padding: 10px 22px;
+    background: var(--primary);
+    color: var(--white);
+    border-radius: 10px;
     font-weight: 600;
+    text-decoration: none;
     margin-left: auto;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    height: 44px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
+
 .btn-dashboard:hover {
-    background-color: #333;
+    background: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 
  
@@ -869,10 +878,8 @@
     <img src="{% static 'images/favi8.png' %}" class="nav-logo-img">
     <p class="logo-text">WOOD<span>ORA</span></p>
 </a>
-{% if user.is_authenticated and user.is_superuser %}
-        <a href="{% url 'dashboard' %}" class="btn btn-dashboard">
-            Dashboard
-        </a>
+ {% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'dashboard' %}" class="btn-dashboard">Dashboard</a>
     {% endif %}
 
 			 
