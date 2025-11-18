@@ -1,0 +1,8 @@
+*.html linguist-detectable=true
+*.css  linguist-detectable=true
+*.js   linguist-detectable=true
+
+*.html linguist-weight=0.3
+*.css  linguist-weight=0.1
+*.js   linguist-weight=0.1
+*.py   linguist-weight=1
