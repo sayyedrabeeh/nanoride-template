@@ -33,5 +33,4 @@ urlpatterns = [
     path('accounts/login/', LoginView.as_view(), name='custom_login'),
     path('accounts/signup/', SignupView.as_view(), name='custom_signup'), 
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+ 
