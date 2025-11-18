@@ -200,11 +200,7 @@ class CustomBackend(ModelBackend):
         except User.DoesNotExist:
             return None
 
-   
-def custom_logout(request):
-    logout(request)   
-    return redirect(reverse( 'custom_login' )) 
-
+ 
 def home(request):
     home_services = services.objects.filter(status='Active')[:6]
     project_count = Project.objects.count()
