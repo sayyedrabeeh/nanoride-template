@@ -845,6 +845,19 @@
     padding: 0;
     letter-spacing: 0;
 }
+.btn-dashboard {
+    padding: 8px 16px;
+    background-color: #111;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: auto;
+}
+.btn-dashboard:hover {
+    background-color: #333;
+}
+
  
 
 	</style>
@@ -856,6 +869,11 @@
     <img src="{% static 'images/favi8.png' %}" class="nav-logo-img">
     <p class="logo-text">WOOD<span>ORA</span></p>
 </a>
+{% if user.is_authenticated and user.is_superuser %}
+        <a href="{% url 'dashboard' %}" class="btn btn-dashboard">
+            Dashboard
+        </a>
+    {% endif %}
 
 			 
 			<ul class="nav-menu">
