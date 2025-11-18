@@ -22,7 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "replace-this-in-production")
 DEBUG = False
 
-ALLOWED_HOSTS = []
+
+ 
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "http://127.0.0.1:8000/").split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
