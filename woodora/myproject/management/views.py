@@ -139,7 +139,13 @@ def add_service(request):
             return redirect(service_list)
         except Exception as e :
             messages.error(request,f'error in adding service :{str(e)}')
-            return redirect(service_list)
+            context = {
+            'services': Service,
+            'total_services': services.objects.count(),
+            'active_services': services.objects.filter(status='Active').count(),
+            'inactive_services': services.objects.filter(status='Inactive').count(),
+            }
+            return render(request,'adminside/service_admin.html',context)
         
     return render(request,'adminside/service_admin.html')
 
@@ -163,7 +169,13 @@ def edit_service(request,service_id):
             return redirect(service_list)
         except Exception as e :
                 messages.error(request,f'error in adding service :{str(e)}')
-                return redirect(service_list)
+                context = {
+                    'services': service,
+                    'total_services': services.objects.count(),
+                    'active_services': services.objects.filter(status='Active').count(),
+                    'inactive_services': services.objects.filter(status='Inactive').count(),
+                }
+                return render(request,'adminside/service_admin.html',context)
             
     return render(request,'adminside/service_admin.html')
 
@@ -230,6 +242,8 @@ def Project_list(request):
 @login_required(login_url='admin_login')
 @require_http_methods(["GET", "POST"])
 def add_project(request):
+    current_year = now().year
+    projects_this_year = Project.objects.filter(created_at__year=current_year).count()
     if request.method == 'POST':
         try:
             project = Project.objects.create(
@@ -270,7 +284,17 @@ def add_project(request):
             return redirect('Project_list')
         except Exception as e:
             messages.error(request,f'error in creating Project : {str(e)}')
-            return redirect('Project_list')
+            context = {
+            'projects': project,
+            'projects_this_year':projects_this_year,
+            "residential_count": project.filter(category="residential").count(),
+            "commercial_count": project.filter(category="commercial").count(),
+            'total_projects': Project.objects.count(),
+            'published_projects': Project.objects.filter(status='published').count(),
+            'draft_projects': Project.objects.filter(status='draft').count(),
+            'featured_projects': Project.objects.filter(featured=True).count(),
+        }
+        return render(request,'adminside/admin_projects.html',context)
     context = {
         "mode": "add",
         'categories': [
@@ -290,6 +314,9 @@ def add_project(request):
 @require_http_methods(["GET", "POST"])
 def edit_project(request,project_id):
     project = get_object_or_404(Project,id = project_id)
+    current_year = now().year
+    projects_this_year = Project.objects.filter(created_at__year=current_year).count()
+    
     if request.method == 'POST':
         try:
   
@@ -328,7 +355,17 @@ def edit_project(request,project_id):
             return redirect('Project_list')
         except Exception as e:
             messages.error(request,f'error in updating Project : {str(e)}')
-            return redirect('Project_list')
+            context = {
+                'projects': project,
+                'projects_this_year':projects_this_year,
+                "residential_count": project.filter(category="residential").count(),
+                "commercial_count": project.filter(category="commercial").count(),
+                'total_projects': Project.objects.count(),
+                'published_projects': Project.objects.filter(status='published').count(),
+                'draft_projects': Project.objects.filter(status='draft').count(),
+                'featured_projects': Project.objects.filter(featured=True).count(),
+            }
+            return render(request,'adminside/admin_projects.html',context)
     context = {
         "mode": "edit",
         'project' : project,
