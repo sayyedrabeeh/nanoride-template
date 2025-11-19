@@ -335,7 +335,7 @@ def submit_contact_form(request):
         def send_admin_email():
             email = sib_api_v3_sdk.SendSmtpEmail(
                 to=[{"email": "sayyedrabeeh240@gmail.com"}],
-                sender={"email": "no-reply@woodora.com"},
+                sender={"email": "sayyedrabeeh240@gmail.com"},
                 subject=f"New Inquiry: {data['projectType']}",
                 html_content=admin_html,
             )
@@ -345,7 +345,7 @@ def submit_contact_form(request):
         def send_user_email():
             email = sib_api_v3_sdk.SendSmtpEmail(
                 to=[{"email": data["email"]}],
-                sender={"email": "no-reply@woodora.com"},
+                sender={"email": "sayyedrabeeh240@gmail.com"},
                 subject=f"Thank You for Contacting Woodora, {data['firstName']}!",
                 html_content=user_html,
             )
