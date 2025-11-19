@@ -143,12 +143,24 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   
-EMAIL_HOST = 'smtp.gmail.com'                                   
-EMAIL_PORT = 587                                               
-EMAIL_USE_TLS = True                                                 
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')                
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   
+# EMAIL_HOST = 'smtp.gmail.com'                                   
+# EMAIL_PORT = 587                                               
+# EMAIL_USE_TLS = True                                                 
+# EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')                
+# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+import sib_api_v3_sdk
+from sib_api_v3_sdk.rest import ApiException
+
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+
+configuration = sib_api_v3_sdk.Configuration()
+configuration.api_key['api-key'] = BREVO_API_KEY
+brevo_client = sib_api_v3_sdk.TransactionalEmailsApi(
+    sib_api_v3_sdk.ApiClient(configuration)
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

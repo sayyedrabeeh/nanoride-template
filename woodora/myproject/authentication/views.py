@@ -35,6 +35,8 @@ from django.core.mail import EmailMultiAlternatives
 from management.models import Project,services,ContactForm
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+import sib_api_v3_sdk
+from sib_api_v3_sdk.rest import ApiException
 
 
 def admin_login(request):
@@ -328,33 +330,29 @@ def submit_contact_form(request):
             status="new",
         )
 
-        admin_subject = f"🏠 New Project Inquiry: {data['projectType']} - {data['firstName']} {data['lastName']}"
-        admin_html_content = render_to_string('emails/admin_notification.html', data)
-        admin_text_content = strip_tags(admin_html_content)
+        admin_html = render_to_string('emails/admin_notification.html', data)
+        user_html = render_to_string('emails/user_confirmation.html', data)
+ 
+        def send_admin_email():
+            email = sib_api_v3_sdk.SendSmtpEmail(
+                to=[{"email": "sayyedrabeeh240@gmail.com"}],
+                sender={"email": "no-reply@woodora.com"},
+                subject=f"🏠 New Project Inquiry: {data['projectType']}",
+                html_content=admin_html,
+            )
+            settings.brevo_client.send_transac_email(email)
 
-        admin_email = EmailMultiAlternatives(
-            subject=admin_subject,
-            body=admin_text_content,
-            from_email='sayyedrabeeh240@gmail.com',
-            to=["sayyedrabeeh240@gmail.com"]
-        )
-        admin_email.attach_alternative(admin_html_content, 'text/html')
-        admin_email.send()
+        def send_user_email():
+            email = sib_api_v3_sdk.SendSmtpEmail(
+                to=[{"email": data["email"]}],
+                sender={"email": "no-reply@woodora.com"},
+                subject=f"Thank You for Contacting Woodora, {data['firstName']}!",
+                html_content=user_html,
+            )
+            settings.brevo_client.send_transac_email(email)
 
-        user_subject = f"Thank You for Contacting Woodora Luxury Interiors, {data['firstName']}!"
-        user_html_content = render_to_string('emails/user_confirmation.html', data)
-        user_text_content = strip_tags(user_html_content)
-
-        user_email = EmailMultiAlternatives(
-            subject=user_subject,
-            body=user_text_content,
-            from_email="sayyedrabeeh240@gmail.com",
-            to=[data['email']],
-        )
-        user_email.attach_alternative(user_html_content, 'text/html')
-        user_email.send()
-
-         
+        send_async(send_admin_email)
+        send_async(send_user_email)
 
         return JsonResponse({"status": "success"})
 

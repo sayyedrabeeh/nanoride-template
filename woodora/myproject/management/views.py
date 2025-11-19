@@ -216,7 +216,7 @@ def Project_list(request):
         projects = projects.filter(status = category_filter )
     search_query = request.GET.get('search')
     current_year = now().year
-    projects_this_year = Project.objects.filter(created_at__year=current_year).count()
+    projects_this_year = Project.objects.filter(year=current_year).count()
    
     if search_query:
      projects = projects.filter(
@@ -243,7 +243,7 @@ def Project_list(request):
 @require_http_methods(["GET", "POST"])
 def add_project(request):
     current_year = now().year
-    projects_this_year = Project.objects.filter(created_at__year=current_year).count()
+    projects_this_year = Project.objects.filter(year=current_year).count()
     if request.method == 'POST':
         try:
             project = Project.objects.create(
@@ -315,8 +315,8 @@ def add_project(request):
 def edit_project(request,project_id):
     project = get_object_or_404(Project,id = project_id)
     current_year = now().year
-    projects_this_year = Project.objects.filter(created_at__year=current_year).count()
-    
+    projects_this_year = Project.objects.filter(year=current_year).count()
+
     if request.method == 'POST':
         try:
   
