@@ -37,7 +37,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
-
+from myproject.brevo_client import brevo_client
 
 def admin_login(request):
     if request.method == 'POST':
