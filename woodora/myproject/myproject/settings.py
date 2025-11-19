@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "replace-this-in-production")
 DEBUG = False
 
-
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
  
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -150,16 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')                
 # EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
-import sib_api_v3_sdk
-from sib_api_v3_sdk.rest import ApiException
-
-BREVO_API_KEY = os.getenv("BREVO_API_KEY")
-
-configuration = sib_api_v3_sdk.Configuration()
-configuration.api_key['api-key'] = BREVO_API_KEY
-brevo_client = sib_api_v3_sdk.TransactionalEmailsApi(
-    sib_api_v3_sdk.ApiClient(configuration)
-)
+ 
 
 
 # Internationalization

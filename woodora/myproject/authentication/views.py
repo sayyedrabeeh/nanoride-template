@@ -293,13 +293,13 @@ def service(request):
 def contact(request):
     return render(request,'userside/contact.html')
  
-def send_async(email_obj):
-    Thread(target=email_obj.send).start()
- 
+def send_async(func):
+    Thread(target=func).start()
 
 @csrf_exempt
 def submit_contact_form(request):
     if request.method == "POST":
+
         data = {
             'firstName': request.POST.get('firstName'),
             'lastName': request.POST.get('lastName'),
@@ -310,13 +310,10 @@ def submit_contact_form(request):
             'timeline': request.POST.get('timeline'),
             'message': request.POST.get("message"),
             'source': request.POST.get("source"),
-            'newsletter': request.POST.get("newsletter", "off"),
         }
 
       
-
-       
-        contact = ContactForm.objects.create(
+        ContactForm.objects.create(
             user=request.user if request.user.is_authenticated else None,
             first_name=data['firstName'],
             last_name=data['lastName'],
@@ -330,18 +327,21 @@ def submit_contact_form(request):
             status="new",
         )
 
+        
         admin_html = render_to_string('emails/admin_notification.html', data)
         user_html = render_to_string('emails/user_confirmation.html', data)
- 
+
+       
         def send_admin_email():
             email = sib_api_v3_sdk.SendSmtpEmail(
                 to=[{"email": "sayyedrabeeh240@gmail.com"}],
                 sender={"email": "no-reply@woodora.com"},
-                subject=f"🏠 New Project Inquiry: {data['projectType']}",
+                subject=f"New Inquiry: {data['projectType']}",
                 html_content=admin_html,
             )
-            settings.brevo_client.send_transac_email(email)
+            brevo_client.send_transac_email(email)
 
+         
         def send_user_email():
             email = sib_api_v3_sdk.SendSmtpEmail(
                 to=[{"email": data["email"]}],
@@ -349,8 +349,9 @@ def submit_contact_form(request):
                 subject=f"Thank You for Contacting Woodora, {data['firstName']}!",
                 html_content=user_html,
             )
-            settings.brevo_client.send_transac_email(email)
+            brevo_client.send_transac_email(email)
 
+    
         send_async(send_admin_email)
         send_async(send_user_email)
 
