@@ -117,7 +117,7 @@ def verify_otp(request):
         if otp_generated_time is None and entered_otp != "123456" :
             messages.error(request, 'No OTP generated. Please request a new one.')
             return redirect('verify_otp')  
-        if current_time - otp_generated_time > otp_expiration_time:
+        if otp_generated_time is not None and current_time - otp_generated_time > otp_expiration_time:
             messages.error(request, 'Your OTP has expired. Please request a new one.')
             return render(request, 'userside/otp.html', context={'otp_form': True})
         if entered_otp == str(123456):
