@@ -14,7 +14,8 @@ from pathlib import Path
 import os 
 from dotenv import load_dotenv
 import dj_database_url
- 
+import resend
+
 
 load_dotenv() 
  
@@ -22,7 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "replace-this-in-production")
 DEBUG = False
 
-BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+# BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+
+RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+EMAIL_FROM = os.getenv("EMAIL_FROM")
+
+# Initialize Resend
+resend.api_key = RESEND_API_KEY
  
 ALLOWED_HOSTS = [
     "127.0.0.1",

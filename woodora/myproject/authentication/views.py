@@ -38,6 +38,7 @@ from django.utils.html import strip_tags
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 from myproject.brevo_client import brevo_client
+from myproject.email_service import send_otp_email
 
 def admin_login(request):
     if request.method == 'POST':
@@ -78,20 +79,18 @@ def usersignup(request):
             user = User(username=username, email=email)
             user.set_password(password1)
             otp = generate_otp()
-            subject = 'Your OTP Code'
-            message = f'Your OTP code is {otp}'
-            from_email = settings.EMAIL_HOST_USER
-            try:
-                send_mail(subject, message, from_email, [email])
+            success = send_otp_email(email, otp)
+            if success:
+                 
                 request.session['otp'] = otp 
                 request.session['otp_generated_time'] = time.time() 
                 request.session['otp_expiration_time'] = 300
                 request.session['resend_otp_time'] = 30   
                 request.session['user_data'] = {'username': username, 'email': email, 'password': password1}
                 return redirect('verify_otp')
-            except Exception as e:
-                messages.error(request, f'Error sending email: {str(e)}')
-                return render(request, 'userside/otp.html',{'error': str(e)}) 
+            else:
+                messages.error(request, 'Error sending email. Try again later.')
+                return render(request, 'userside/otp.html') 
     return render(request, 'account/signup.html')  
 
 
