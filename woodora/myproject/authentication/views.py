@@ -128,7 +128,7 @@ def verify_otp(request):
                     user.full_clean()  
                     user.save()  
                     messages.success(request, 'Account created successfully!')
-                    login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
+                    login(request, user)
                     del request.session['otp']
                     del request.session['user_data']
                     return redirect('userlogin') 
