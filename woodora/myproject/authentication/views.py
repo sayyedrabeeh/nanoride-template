@@ -80,18 +80,19 @@ def usersignup(request):
             user = User(username=username, email=email)
             user.set_password(password1)
             otp = generate_otp()
+                 
+            request.session['otp'] = otp 
+            request.session['otp_generated_time'] = time.time() 
+            request.session['otp_expiration_time'] = 300
+            request.session['resend_otp_time'] = 30   
+            request.session['user_data'] = {'username': username, 'email': email, 'password': password1}
+             
             success = send_otp_email(email, otp)
             if success:
-                 
-                request.session['otp'] = otp 
-                request.session['otp_generated_time'] = time.time() 
-                request.session['otp_expiration_time'] = 300
-                request.session['resend_otp_time'] = 30   
-                request.session['user_data'] = {'username': username, 'email': email, 'password': password1}
-                return redirect('verify_otp')
+                messages.error(request, 'sucessfully mail sent .')
             else:
                 messages.error(request, 'Error sending email. Try again later.')
-                return render(request, 'userside/otp.html') 
+            return redirect('verify_otp')
     return render(request, 'account/signup.html')  
 
 
