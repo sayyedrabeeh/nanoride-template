@@ -21,7 +21,7 @@ load_dotenv()
  
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY", "replace-this-in-production")
-DEBUG = False
+DEBUG = True
 
 # BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 
