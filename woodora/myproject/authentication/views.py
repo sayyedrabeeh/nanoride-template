@@ -116,7 +116,7 @@ def verify_otp(request):
         current_time = time.time()
         if otp_generated_time is None:
             messages.error(request, 'No OTP generated. Please request a new one.')
-            return redirect('request_otp')  
+            return redirect('verify_otp')  
         if current_time - otp_generated_time > otp_expiration_time:
             messages.error(request, 'Your OTP has expired. Please request a new one.')
             return render(request, 'userside/otp.html', context={'otp_form': True})
