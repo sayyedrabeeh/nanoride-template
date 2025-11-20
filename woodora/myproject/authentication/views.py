@@ -129,7 +129,7 @@ def verify_otp(request):
                     user.full_clean()  
                     user.save()  
                     messages.success(request, 'Account created successfully!')
-                    login(request, user)
+                    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                     del request.session['otp']
                     del request.session['user_data']
                     return redirect('userlogin') 
