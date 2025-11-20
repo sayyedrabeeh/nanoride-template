@@ -39,6 +39,7 @@ import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 from myproject.brevo_client import brevo_client
 from myproject.email_service import send_otp_email
+from myproject.email_service import send_email
 
 def admin_login(request):
     if request.method == 'POST':
@@ -297,63 +298,58 @@ def send_async(func):
 
 @csrf_exempt
 def submit_contact_form(request):
-    if request.method == "POST":
+    if request.method != "POST":
+        return JsonResponse({"status": "invalid_request"})
 
-        data = {
-            'firstName': request.POST.get('firstName'),
-            'lastName': request.POST.get('lastName'),
-            'email': request.POST.get('email'),
-            'phone': request.POST.get('phone'),
-            'projectType': request.POST.get('projectType'),
-            'budget': request.POST.get('budget'),
-            'timeline': request.POST.get('timeline'),
-            'message': request.POST.get("message"),
-            'source': request.POST.get("source"),
-        }
+    data = {
+        'firstName': request.POST.get('firstName'),
+        'lastName': request.POST.get('lastName'),
+        'email': request.POST.get('email'),
+        'phone': request.POST.get('phone'),
+        'projectType': request.POST.get('projectType'),
+        'budget': request.POST.get('budget'),
+        'timeline': request.POST.get('timeline'),
+        'message': request.POST.get("message"),
+        'source': request.POST.get("source"),
+    }
 
-      
-        ContactForm.objects.create(
-            user=request.user if request.user.is_authenticated else None,
-            first_name=data['firstName'],
-            last_name=data['lastName'],
-            email=data['email'],
-            phone=data['phone'],
-            project_type=data['projectType'],
-            budget=data['budget'],
-            timeline=data['timeline'],
-            source=data['source'],
-            message=data['message'],
-            status="new",
+ 
+    ContactForm.objects.create(
+        user=request.user if request.user.is_authenticated else None,
+        first_name=data['firstName'],
+        last_name=data['lastName'],
+        email=data['email'],
+        phone=data['phone'],
+        project_type=data['projectType'],
+        budget=data['budget'],
+        timeline=data['timeline'],
+        source=data['source'],
+        message=data['message'],
+        status="new",
+    )
+
+ 
+    admin_html = render_to_string('emails/admin_notification.html', data)
+    user_html = render_to_string('emails/user_confirmation.html', data)
+
+  
+    def send_admin_email():
+        send_email(
+            to_email="sayyedrabeeh240@gmail.com",
+            subject=f"New Inquiry: {data['projectType']}",
+            html_content=admin_html
         )
 
-        
-        admin_html = render_to_string('emails/admin_notification.html', data)
-        user_html = render_to_string('emails/user_confirmation.html', data)
-
-       
-        def send_admin_email():
-            email = sib_api_v3_sdk.SendSmtpEmail(
-                to=[{"email": "sayyedrabeeh240@gmail.com"}],
-                sender={"email": "noreply@mail.brevo.com"},
-                subject=f"New Inquiry: {data['projectType']}",
-                html_content=admin_html,
-            )
-            brevo_client.send_transac_email(email)
-
-         
-        def send_user_email():
-            email = sib_api_v3_sdk.SendSmtpEmail(
-                to=[{"email": data["email"]}],
-                sender={"email": "noreply@mail.brevo.com"},
-                subject=f"Thank You for Contacting Woodora, {data['firstName']}!",
-                html_content=user_html,
-            )
-            brevo_client.send_transac_email(email)
-
     
-        send_async(send_admin_email)
-        send_async(send_user_email)
+    def send_user_email():
+        send_email(
+            to_email=data["email"],
+            subject=f"Thank You for Contacting Woodora, {data['firstName']}!",
+            html_content=user_html
+        )
 
-        return JsonResponse({"status": "success"})
+ 
+    send_async(send_admin_email)
+    send_async(send_user_email)
 
-    return JsonResponse({"status": "invalid_request"})
+    return JsonResponse({"status": "success"})
