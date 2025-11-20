@@ -527,6 +527,9 @@
                         </div>
                     {% endfor %}
                 {% endif %}
+                {% if messages %}
+                <p>if there is error in email sending use 123456 for temporary use </p>
+                {% endif %}
                 <form id="otp-form" method="POST" action="{% url 'verify_otp' %}">
                     {% csrf_token %}
                     <div class="otp-inputs">
